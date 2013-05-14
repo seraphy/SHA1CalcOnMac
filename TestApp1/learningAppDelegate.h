@@ -10,7 +10,8 @@
 
 @interface HashItem : NSObject
 @property(retain) NSURL *url;
-@property(retain) NSString *hash;
+@property(retain) NSString *sha1hash;
+@property(retain) NSString *md5hash;
 @property(readonly, getter=getName) NSString *name;
 
 - (id) initWithURL: (NSURL *)aUrl;
@@ -27,6 +28,7 @@
     NSMutableArray *array;
     NSThread *thread;
     NSCondition *threadCond;
+    NSUInteger arrayVersion;
 }
 
 @property (assign) IBOutlet NSWindow *window;
@@ -36,5 +38,6 @@
 - (IBAction) sayHello:(id)sender;
 - (IBAction) showMessageDialog:(id)sender;
 - (IBAction) openPreference:(id)sender;
+- (NSString *) bin2hex: (unsigned char *) digest len:(int) len;
 
 @end

@@ -11,8 +11,15 @@
 
 @implementation HashItem : NSObject
 
-@synthesize url;
-@synthesize hash;
+@synthesize url = _url;
+@synthesize sha1hash = _sha1hash;
+@synthesize md5hash = _md5hash;
+
+- (void) dealloc
+{
+    NSLog(@"dealloc %@", self);
+    [super dealloc];
+}
 
 - (id) initWithURL: (NSURL *)aUrl
 {
@@ -25,13 +32,13 @@
 {
     self = [super init];
     self.url = aUrl;
-    self.hash = aHash;
+    self.sha1hash = aHash;
     return self;
 }
 
 - (NSString *) getName
 {
-    return [url path];
+    return [_url path];
 }
 
 @end
@@ -171,7 +178,10 @@
         msg = [[hashItem url] path];
         
     } else if ([identifier isEqualToString: @"SHA1"]) {
-        msg = [hashItem hash];
+        msg = [hashItem sha1hash];
+
+    } else if ([identifier isEqualToString: @"MD5"]) {
+        msg = [hashItem md5hash];
         
     } else {
         msg = [NSString stringWithFormat: @"%@, %d", [aTableColumn identifier], rowIndex];
@@ -186,7 +196,10 @@
     for (NSSortDescriptor *desc in newDescriptors) {
         NSLog(@"SortDscriptor: %@", desc);
     }
-    [array sortUsingDescriptors: newDescriptors];
+    @synchronized(array) {
+        [array sortUsingDescriptors: newDescriptors];
+        arrayVersion++;
+    }
     [tableView reloadData];
 }
 
@@ -199,15 +212,28 @@
 {
     NSAutoreleasePool *autoreleasePool = [[NSAutoreleasePool alloc] init];
     
+    unsigned char sha1digest[CC_SHA1_DIGEST_LENGTH];
+    unsigned char md5digest[CC_MD5_DIGEST_LENGTH];
+
     int cnt = 0;
     [threadCond lock];
     while (![[NSThread currentThread] isCancelled]) {
         NSLog(@"tick! %d", cnt++);
         HashItem *hashItem = nil;
+        NSUInteger rowIndex = 0;
+        NSUInteger arrayVerSnap;
         @synchronized(array) {
-            for (HashItem *item in array) {
-                if ([item.hash length] == 0) {
+            // 現在の行番号ならびが変更されていないことを確認するためのチェッカ
+            arrayVerSnap = arrayVersion;
+            
+            NSUInteger mx = [array count];
+            for (NSUInteger idx = 0; idx < mx; idx++) {
+                HashItem *item = [array objectAtIndex: idx];
+                if ([item.sha1hash length] == 0) {
+                    // スレッドで使っている間は解放されいようにretainする
                     hashItem = [item retain];
+                    // 行番号
+                    rowIndex = idx;
                     break;
                 }
             }
@@ -217,48 +243,81 @@
             continue;
         }
         [threadCond unlock];
-
-        hashItem.hash = @"loading...";
-        dispatch_async(dispatch_get_main_queue(), ^{
+        
+        // 行更新ブロック
+        void (^updateRow)() = ^{
             //[tableView reloadItem: hashItem];
-            [tableView reloadData];
-        });
+            NSUInteger arrayVerCur;
+            @synchronized (array) {
+                arrayVerCur = arrayVersion;
+            }
+            if (arrayVerCur == arrayVerSnap) {
+                // 行番号はかわっていない
+                [tableView reloadDataForRowIndexes: [NSIndexSet indexSetWithIndex: rowIndex]
+                                     columnIndexes: [NSIndexSet indexSetWithIndexesInRange: NSMakeRange(0, 3)]];
+            } else {
+                // 行番号が変更されている可能性あり
+                [tableView reloadData];
+            }
+        };
 
+        // ループ内リリースプール
         NSAutoreleasePool *internalPool = [[NSAutoreleasePool alloc] init];
 
+        // 読み取り開始通知
+        hashItem.sha1hash = @"loading...";
+        dispatch_async(dispatch_get_main_queue(), updateRow);
+
+        // ファイルの読み取り
         NSString *path = [hashItem.url path];
         NSFileHandle *fileHandle = [NSFileHandle fileHandleForReadingAtPath: path];
         
-        CC_SHA1_CTX ctx = {0};
-        CC_SHA1_Init(&ctx);
+        // ハッシュ用バッファ
+        CC_MD5_CTX md5ctx = {0};
+        CC_SHA1_CTX sha1ctx = {0};
+
+        CC_MD5_Init(&md5ctx);
+        CC_SHA1_Init(&sha1ctx);
+        
         for (;;) {
+            // ファイルの読み取りループ内自動リリースプール
+            NSAutoreleasePool *internalPool2 = [[NSAutoreleasePool alloc] init];
+            
+            // ハッシュ値の計算
             NSData *contents = [fileHandle readDataOfLength: 4096];
-            if ([contents length] == 0) {
+            unsigned int len = (unsigned int) [contents length];
+            if (len > 0) {
+                const void *data = [contents bytes];
+                
+                CC_MD5_Update(&md5ctx, data, len);
+                CC_SHA1_Update(&sha1ctx, data, len);
+            }
+            
+            [internalPool2 release];
+            if (len == 0) {
+                // 読み取り完了
                 break;
             }
-            CC_SHA1_Update(&ctx, [contents bytes], (unsigned int) [contents length]);
         }
+        // ファイルを閉じる
         [fileHandle closeFile];
 
-        unsigned char digest[CC_SHA1_DIGEST_LENGTH];
-        CC_SHA1_Final(digest, &ctx);
+        // ハッシュ値の確定
+        CC_MD5_Final(md5digest, &md5ctx);
+        CC_SHA1_Final(sha1digest, &sha1ctx);
         
-        NSMutableString * result = [[NSMutableString alloc]
-                                    initWithCapacity: (CC_SHA1_DIGEST_LENGTH * 2)];
-        for (int idx = 0; idx < CC_SHA1_DIGEST_LENGTH; idx++) {
-            [result appendString: [NSString stringWithFormat: @"%02x", digest[idx]]];
-        }
-        hashItem.hash = result;
-        [result release];
+        // 表示アイテムの設定
+        hashItem.sha1hash = [self bin2hex: sha1digest len:CC_SHA1_DIGEST_LENGTH];
+        hashItem.md5hash = [self bin2hex: md5digest len:CC_MD5_DIGEST_LENGTH];
         
+        // 保持の解放
         [hashItem release];
         
-        dispatch_async(dispatch_get_main_queue(), ^{
-            //[tableView reloadItem: hashItem];
-            [tableView reloadData];
-        });
-        [internalPool release];
+        // 表示の更新
+        dispatch_async(dispatch_get_main_queue(), updateRow);
 
+        // プール開放
+        [internalPool release];
         [threadCond lock];
     }
     [threadCond unlock];
@@ -266,6 +325,16 @@
     [autoreleasePool release];
 }
 
+- (NSString *) bin2hex: (unsigned char *) digest len:(int) len
+{
+    NSMutableString * result = [[[NSMutableString alloc]
+                                initWithCapacity: (len * 2)]
+                                autorelease];
+    for (int idx = 0; idx < len; idx++) {
+        [result appendString: [NSString stringWithFormat: @"%02x", digest[idx]]];
+    }
+    return result;
+}
 
 
 - (void)applicationDidFinishLaunching:(NSNotification *)aNotification
