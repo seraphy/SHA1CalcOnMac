@@ -11,6 +11,7 @@
 
 @implementation HashItem : NSObject
 
+@synthesize checked = _checked;
 @synthesize url = _url;
 @synthesize sha1hash = _sha1hash;
 @synthesize md5hash = _md5hash;
@@ -166,7 +167,6 @@
 
 - (id)tableView:(NSTableView *)aTableView objectValueForTableColumn:(NSTableColumn *)aTableColumn row:(NSInteger)rowIndex
 {
-    NSString *msg = nil;
     NSString *identifier = [aTableColumn identifier];
 
     HashItem *hashItem;
@@ -174,7 +174,11 @@
         hashItem = [array objectAtIndex: rowIndex];
     }
     
-    if ([identifier isEqualToString: @"Name"]) {
+    id msg = nil;
+    if ([identifier isEqualToString: @"Checked"]) {
+        msg = [NSNumber numberWithBool: [hashItem checked]];
+        
+    } else if ([identifier isEqualToString: @"Name"]) {
         msg = [[hashItem url] path];
         
     } else if ([identifier isEqualToString: @"SHA1"]) {
@@ -187,6 +191,19 @@
         msg = [NSString stringWithFormat: @"%@, %d", [aTableColumn identifier], rowIndex];
     }
     return msg;
+}
+
+- (void)tableView:(NSTableView *)aTableView setObjectValue:(id)anObject forTableColumn:(NSTableColumn *)aTableColumn row:(NSInteger)rowIndex
+{
+    NSString *identifier = [aTableColumn identifier];
+
+    HashItem *hashItem;
+    @synchronized(array) {
+        hashItem = [array objectAtIndex: rowIndex];
+    }
+    if ([identifier isEqualToString: @"Checked"]) {
+        [hashItem setChecked: [anObject boolValue]];
+    }
 }
 
 - (void)tableView:(NSTableView *)aTableView sortDescriptorsDidChange:(NSArray *)oldDescriptors
@@ -307,6 +324,7 @@
         CC_SHA1_Final(sha1digest, &sha1ctx);
         
         // 表示アイテムの設定
+        hashItem.checked = YES;
         hashItem.sha1hash = [self bin2hex: sha1digest len:CC_SHA1_DIGEST_LENGTH];
         hashItem.md5hash = [self bin2hex: md5digest len:CC_MD5_DIGEST_LENGTH];
         

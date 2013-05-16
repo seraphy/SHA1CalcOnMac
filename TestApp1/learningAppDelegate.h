@@ -9,6 +9,7 @@
 #import <Cocoa/Cocoa.h>
 
 @interface HashItem : NSObject
+@property(assign, nonatomic) BOOL checked;
 @property(retain) NSURL *url;
 @property(retain) NSString *sha1hash;
 @property(retain) NSString *md5hash;
