@@ -17,6 +17,9 @@
 		2E7A69081732BB62002801C2 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2E7A68E81732BB61002801C2 /* Cocoa.framework */; };
 		2E7A69101732BB62002801C2 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 2E7A690E1732BB62002801C2 /* InfoPlist.strings */; };
 		2E7A69131732BB62002801C2 /* TestApp1Tests.m in Sources */ = {isa = PBXBuildFile; fileRef = 2E7A69121732BB62002801C2 /* TestApp1Tests.m */; };
+		2ECD6474174776B300D1C987 /* HashItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 2ECD6473174776B300D1C987 /* HashItem.m */; };
+		2ECD64771747826A00D1C987 /* HashCalcurateThread.m in Sources */ = {isa = PBXBuildFile; fileRef = 2ECD64761747826A00D1C987 /* HashCalcurateThread.m */; };
+		2ECD647A1747865100D1C987 /* HashItemList.m in Sources */ = {isa = PBXBuildFile; fileRef = 2ECD64791747865100D1C987 /* HashItemList.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -49,6 +52,12 @@
 		2E7A690F1732BB62002801C2 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		2E7A69111732BB62002801C2 /* TestApp1Tests.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TestApp1Tests.h; sourceTree = "<group>"; };
 		2E7A69121732BB62002801C2 /* TestApp1Tests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TestApp1Tests.m; sourceTree = "<group>"; };
+		2ECD6472174776B300D1C987 /* HashItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HashItem.h; sourceTree = "<group>"; };
+		2ECD6473174776B300D1C987 /* HashItem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HashItem.m; sourceTree = "<group>"; };
+		2ECD64751747826A00D1C987 /* HashCalcurateThread.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HashCalcurateThread.h; sourceTree = "<group>"; };
+		2ECD64761747826A00D1C987 /* HashCalcurateThread.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HashCalcurateThread.m; sourceTree = "<group>"; };
+		2ECD64781747865100D1C987 /* HashItemList.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HashItemList.h; sourceTree = "<group>"; };
+		2ECD64791747865100D1C987 /* HashItemList.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HashItemList.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -118,6 +127,12 @@
 				2E7A68FB1732BB61002801C2 /* learningAppDelegate.m */,
 				2E7A68FD1732BB61002801C2 /* MainMenu.xib */,
 				2E7A68EF1732BB61002801C2 /* Supporting Files */,
+				2ECD6472174776B300D1C987 /* HashItem.h */,
+				2ECD6473174776B300D1C987 /* HashItem.m */,
+				2ECD64751747826A00D1C987 /* HashCalcurateThread.h */,
+				2ECD64761747826A00D1C987 /* HashCalcurateThread.m */,
+				2ECD64781747865100D1C987 /* HashItemList.h */,
+				2ECD64791747865100D1C987 /* HashItemList.m */,
 			);
 			path = TestApp1;
 			sourceTree = "<group>";
@@ -262,6 +277,9 @@
 			files = (
 				2E7A68F51732BB61002801C2 /* main.m in Sources */,
 				2E7A68FC1732BB61002801C2 /* learningAppDelegate.m in Sources */,
+				2ECD6474174776B300D1C987 /* HashItem.m in Sources */,
+				2ECD64771747826A00D1C987 /* HashCalcurateThread.m in Sources */,
+				2ECD647A1747865100D1C987 /* HashItemList.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

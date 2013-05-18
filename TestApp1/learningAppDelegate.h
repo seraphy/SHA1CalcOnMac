@@ -7,38 +7,33 @@
 //
 
 #import <Cocoa/Cocoa.h>
+#import "HashItemList.h"
+#import "HashCalcurateThread.h"
 
-@interface HashItem : NSObject
-@property(assign, nonatomic) BOOL checked;
-@property(retain) NSURL *url;
-@property(retain) NSString *sha1hash;
-@property(retain) NSString *md5hash;
-@property(readonly, getter=getName) NSString *name;
+/**
+ * シングルウィンドウ用デリゲート.
+ */
+@interface learningAppDelegate : NSObject <NSApplicationDelegate, HashItemListNotification>
 
-- (id) initWithURL: (NSURL *)aUrl;
-- (id) initWithURL: (NSURL *)aUrl hash: (NSString *) aHash;
-- (NSString *) getName;
-@end
-
-
-@interface learningAppDelegate : NSObject <NSApplicationDelegate> {
-@private
-    IBOutlet id inputField;
-    IBOutlet id outputField;
-    IBOutlet id tableView;
-    NSMutableArray *array;
-    NSThread *thread;
-    NSCondition *threadCond;
-    NSUInteger arrayVersion;
-}
-
+/**
+ * ウィンドウとの接続
+ */
 @property (assign) IBOutlet NSWindow *window;
 
-- (void) threadProc: (id)args;
-- (BOOL) isEmpty;
-- (IBAction) sayHello:(id)sender;
-- (IBAction) showMessageDialog:(id)sender;
+
+/**
+ * 変更がある場合に破棄の有無を確認するダイアログを開く
+ */
+- (BOOL) showConfirmDiscadeDialog;
+
+/**
+ * ファイルを開く
+ */
+- (IBAction) openFileDialog:(id)sender;
+
+/**
+ * 設定
+ */
 - (IBAction) openPreference:(id)sender;
-- (NSString *) bin2hex: (unsigned char *) digest len:(int) len;
 
 @end
