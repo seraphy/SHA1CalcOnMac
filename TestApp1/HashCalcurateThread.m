@@ -63,8 +63,10 @@
         [threadCond unlock];
         
         // ハッシュアイテムの変更通知用ブロック
-        void (^updateRow)() = ^{
+        void (^notifyChangeHashItem)() = ^{
             [_hashItemList notifyChangeHashItem: hashItem];
+            // 非同期中は解放されないようにあらかじめretainしておいたカウントを解放する.
+            [hashItem release];
         };
         
         // ループ内リリースプール
@@ -72,7 +74,8 @@
         
         // 読み取り開始通知
         hashItem.sha1hash = @"loading...";
-        dispatch_async(dispatch_get_main_queue(), updateRow);
+        [hashItem retain]; // 非同期中は解放されないようにあらかじめretain
+        dispatch_async(dispatch_get_main_queue(), notifyChangeHashItem);
         
         // ハッシュ用バッファ
         CC_MD5_CTX md5ctx = {0};
@@ -89,10 +92,19 @@
         NSInputStream *istm = [NSInputStream inputStreamWithFileAtPath: path];
         
         [istm open];
+        NSString *msg = nil;
         while ([istm hasBytesAvailable]) {
             NSInteger len = [istm read: buf maxLength: bufsiz];
-            if (len <= 0) {
-                // 読み取り完了、またはエラー
+            if (len == 0) {
+                // 読み取り完了
+                break;
+            }
+            if (len < 0) {
+                msg = @"error";
+                break;
+            }
+            if ([hashItem rowIndex] < 0) {
+                msg = @"cancel";
                 break;
             }
             // ハッシュ値の計算
@@ -107,15 +119,23 @@
         CC_SHA1_Final(sha1digest, &sha1ctx);
         
         // 表示アイテムの設定
-        hashItem.checked = YES;
-        hashItem.sha1hash = [self bin2hex: sha1digest len:CC_SHA1_DIGEST_LENGTH];
-        hashItem.md5hash = [self bin2hex: md5digest len:CC_MD5_DIGEST_LENGTH];
+        if (msg) {
+            hashItem.checked = NO;
+            hashItem.sha1hash = msg;
+            hashItem.md5hash = msg;
+            
+        } else {
+            hashItem.checked = YES;
+            hashItem.sha1hash = [self bin2hex: sha1digest len:CC_SHA1_DIGEST_LENGTH];
+            hashItem.md5hash = [self bin2hex: md5digest len:CC_MD5_DIGEST_LENGTH];
+        }
+        
+        // 表示の更新
+        [hashItem retain]; // 非同期中は解放されないようにあらかじめretain
+        dispatch_async(dispatch_get_main_queue(), notifyChangeHashItem);
         
         // 保持の解放
         [hashItem release];
-        
-        // 表示の更新
-        dispatch_async(dispatch_get_main_queue(), updateRow);
         
         // プール開放
         [internalPool release];

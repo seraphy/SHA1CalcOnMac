@@ -9,6 +9,9 @@
 #import <Foundation/Foundation.h>
 #import "HashItem.h"
 
+// 前方宣言
+@class HashItemList;
+
 /**
  * ハッシュアイテムの変更通知を受け取るプロトコル
  */
@@ -29,14 +32,67 @@
  */
 @interface HashItemList : NSObject
 
+/**
+ * ハッシュ値が変更されたことを通知されるデリゲート
+ */
 @property (retain) id<HashItemListNotification> delegate;
+
+/**
+ * リストが変更されるとtrueとなる.
+ */
 @property (assign) BOOL modified;
 
+/**
+ * URLを登録する
+ */
+- (void) addWithURL: (NSURL *) url;
+
+/**
+ * URLのリストを登録する
+ */
 - (void) addWithURLArray: (NSArray *)urls;
+
+/**
+ * クリアする.
+ */
+- (void) clear;
+
+/**
+ * 指定したインデックスを削除する.
+ */
+- (void ) removeByIndexes: selrows;
+
+/**
+ * 指定したインデックスのハッシュアイテムを取得する.
+ * 範囲外であればnilを返す.
+ * @param rowIndex インデックス(0ベース)
+ * @return ハッシュインデックス、またはnil
+ */
 - (HashItem *) getItemByIndex: (NSInteger) rowIndex;
+
+/**
+ * まだ計算されていないハッシュアイテムを検索して取得する.
+ * すべて計算済みであればnilを返す.
+ * @return ハッシュインデックス、またはnil
+ */
 - (HashItem *) getFirstUncalcuratedItem;
+
+/**
+ * ハッシュアイテムの内容を変更したことを通知する.
+ * @param hashItem ハッシュアイテム
+ */
 - (void) notifyChangeHashItem: (HashItem *) hashItem;
+
+/**
+ * ハッシュアイテムの保持している個数
+ * @return 個数
+ */
 - (NSInteger) count;
+
+/**
+ * ソートする
+ * @param ソート対象のプロパティ情報
+ */
 - (void) sortUsingDescriptors: sortDescriptors;
 
 @end

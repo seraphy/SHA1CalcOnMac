@@ -10,9 +10,18 @@
 
 @interface HashItem : NSObject
 
-@property(assign) BOOL checked;
+/**
+ * 行位置、0ベース.
+ * 負の場合は削除済み
+ */
 @property(assign) NSInteger rowIndex;
+
+/**
+ *
+ */
+@property(assign) BOOL checked;
 @property(retain) NSURL *url;
+@property(assign) unsigned long long fileSize;
 @property(retain) NSString *sha1hash;
 @property(retain) NSString *md5hash;
 

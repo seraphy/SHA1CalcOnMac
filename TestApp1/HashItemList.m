@@ -34,19 +34,72 @@
     [super dealloc];
 }
 
-- (void) addWithURLArray: (NSArray *)urls
+- (void) addWithURL: (NSURL *) url
 {
-    @synchronized(array) {
-        for (NSURL *url in urls)
-        {
-            NSLog(@"%@", [url path]);
+    // ファイルの実在チェック
+    NSFileManager *fileMgr = [NSFileManager defaultManager];
+    NSString *path = [url path];
+    BOOL dir = NO;
+    if ([fileMgr fileExistsAtPath: path isDirectory: &dir]) {
+        if (dir) {
+            // ディレクトリであれば中身をリストして再帰的に呼び出す
+            NSDirectoryEnumerator *enm = [fileMgr enumeratorAtPath: path];
+            NSString *child = nil;
+            while ((child = [enm nextObject]) != nil) {
+                NSString *fullPath = [path stringByAppendingPathComponent: child];
+                [self addWithURL: [NSURL fileURLWithPath: fullPath]];
+            }
+            return;
+        }
+        
+        // ファイルであれば、
+        // ファイルサイズの取得
+        NSError *err = nil;
+        NSDictionary *attr = [fileMgr attributesOfItemAtPath: path error: &err];
+        NSNumber *fileSize = [attr objectForKey: NSFileSize];
+        
+        // アイテムの設定
+        @synchronized(array) {
             HashItem *hashItem = [[HashItem alloc] initWithURL: url];
+            [hashItem setFileSize: [fileSize unsignedLongLongValue]];
             [array addObject: hashItem];
             [hashItem setRowIndex: [array count] - 1];
             [hashItem release];
         }
 
+        // 変更フラグON
         _modified = true;
+    }
+}
+
+- (void) addWithURLArray: (NSArray *)urls
+{
+    @synchronized(array) {
+        for (NSURL *url in urls) {
+            [self addWithURL: url];
+        }
+    }
+}
+
+- (void) clear
+{
+    @synchronized (array) {
+        NSInteger count = [array count];
+        for (NSInteger rowIndex = 0; rowIndex < count; rowIndex++) {
+            [[array objectAtIndex: rowIndex] setRowIndex: -1];
+        }
+        [array removeAllObjects];
+    }
+}
+
+- (void ) removeByIndexes: selrows
+{
+    @synchronized(array) {
+        [selrows enumerateIndexesWithOptions: NSEnumerationReverse
+                                  usingBlock: ^(NSUInteger idx, BOOL *stop) {
+                                      [[array objectAtIndex: idx] setRowIndex: -1];
+                                      [array removeObjectAtIndex: idx];
+                                  }];
     }
 }
 

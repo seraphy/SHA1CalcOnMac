@@ -68,7 +68,10 @@
 
 - (void) newDocument:(id)sender
 {
-    NSLog(@"newDocument!");
+    if ([self showConfirmDiscadeDialog]) {
+        [hashItemList clear];
+        [tableView reloadData];
+    }
 }
 
 - (void) openDocument:(id)sender
@@ -132,14 +135,13 @@
 {
     NSOpenPanel *openPanel = [[NSOpenPanel openPanel] retain];
     [openPanel setAllowsMultipleSelection: YES];
+    [openPanel setCanChooseDirectories: YES];
     
     [openPanel beginWithCompletionHandler:^(NSInteger result) {
         if (result == NSFileHandlingPanelOKButton) {
             NSArray *urls = [openPanel URLs];
-            NSLog(@"%@", [urls description]);
             [hashItemList addWithURLArray: urls];
             [thread notify];
-            
             [tableView reloadData];
         }
         [openPanel release];
@@ -158,7 +160,7 @@
 
     if (rowIndex >= 0) {
         [tableView reloadDataForRowIndexes: [NSIndexSet indexSetWithIndex: rowIndex]
-                              columnIndexes: [NSIndexSet indexSetWithIndexesInRange: NSMakeRange(0, 3)]];
+                             columnIndexes: [NSIndexSet indexSetWithIndexesInRange: NSMakeRange(0, 5)]];
     }
 }
 
@@ -175,6 +177,9 @@
         } else if ([identifier isEqualToString: @"Name"]) {
             msg = [[hashItem url] path];
             
+        } else if ([identifier isEqualToString: @"FileSize"]) {
+            msg = [NSString stringWithFormat: @"%ld", [hashItem fileSize]];
+
         } else if ([identifier isEqualToString: @"SHA1"]) {
             msg = [hashItem sha1hash];
             
@@ -208,7 +213,10 @@
 
 - (IBAction) cut:(id)sender
 {
-    NSLog(@"Cut");
+    NSIndexSet *selrows = [tableView selectedRowIndexes];
+    [tableView deselectAll: nil];
+    [hashItemList removeByIndexes: selrows];
+    [tableView reloadData];
 }
 
 @end
