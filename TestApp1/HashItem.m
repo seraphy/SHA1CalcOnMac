@@ -50,10 +50,26 @@
     return [_url path];
 }
 
-- (NSString *)description {
-    return [NSString stringWithFormat: @"HashItem: [%d] checked=%d, url=%@, fileSize=%ld, sha1=%@, md5=%@",
-            _rowIndex, (_checked ? 1 : 0), _url, _fileSize, _sha1hash, _md5hash];
+- (NSString *)description
+{
+    return [self descriptionUsingSeparator: @","];
 }
+
+- (NSString *) descriptionUsingSeparator: (NSString *)sep
+{
+    NSMutableString *buf = [[[NSMutableString alloc] init] autorelease];
+    [buf appendFormat: @"HashItem: [%d] checked=%d", _rowIndex, (_checked ? 1 : 0)];
+    [buf appendString: sep];
+    [buf appendFormat: @"url=%@", _url];
+    [buf appendString: sep];
+    [buf appendFormat: @"fileSize=%ld", _fileSize];
+    [buf appendString: sep];
+    [buf appendFormat: @"sha1=%@", _sha1hash];
+    [buf appendString: sep];
+    [buf appendFormat: @"md5=%@", _md5hash];
+    return buf;
+}
+
 
 @end
 

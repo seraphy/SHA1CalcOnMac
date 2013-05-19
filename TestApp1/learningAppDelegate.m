@@ -66,7 +66,7 @@
     NSLog(@"preference!");
 }
 
-- (void) newDocument:(id)sender
+- (IBAction) newDocument:(id)sender
 {
     if ([self showConfirmDiscadeDialog]) {
         [hashItemList clear];
@@ -74,19 +74,77 @@
     }
 }
 
-- (void) openDocument:(id)sender
+- (IBAction) openDocument:(id)sender
 {
     NSLog(@"openDocument!");
 }
 
-- (void) saveDocument:(id) sender
+- (IBAction) saveDocumentAs:(id) sender
 {
-    NSLog(@"saveDocument!");
+    NSSavePanel *savePanel = [[NSSavePanel savePanel] retain];
+    [savePanel setCanCreateDirectories: YES];
+    [savePanel setExtensionHidden: NO];
+    
+    // デフォルトの拡張子と選択
+    [savePanel setAllowedFileTypes:[NSArray arrayWithObject:@"txt"]];
+    [savePanel setAllowsOtherFileTypes:YES];
+    
+    NSURL *prevURL = [hashItemList documentURL];
+    if (prevURL) {
+        // 前回ファイル名があれば、それを復元する.
+        NSString *prevPath = [prevURL path];
+        [savePanel setNameFieldStringValue: [prevPath lastPathComponent]];
+        [savePanel setDirectory: [prevPath stringByDeletingLastPathComponent]];
+
+    } else {
+        // なければデフォルトファイル名を用いる
+        [savePanel setNameFieldStringValue: @"filedigest.txt"];
+    }
+    
+    [savePanel beginWithCompletionHandler:^(NSInteger result) {
+        if (result == NSFileHandlingPanelOKButton) {
+            NSURL *url = [savePanel URL];
+            [hashItemList setDocumentURL: url];
+            [self saveDocument: sender];
+        }
+        [savePanel release];
+    }];
 }
 
-- (void) saveDocumentAs:(id) sender
+- (IBAction) saveDocument:(id) sender
 {
-    NSLog(@"saveDocument!");
+    NSURL *url = [hashItemList documentURL];
+    if (url == nil) {
+        [self saveDocumentAs: sender];
+        return;
+    }
+    
+    // 空のファイルの事前作成
+    [[NSFileManager defaultManager] createFileAtPath:[url path] contents:nil attributes:nil];
+    
+    // ファイルの書き込みオープン
+    NSError *err = nil;
+    NSFileHandle *fileHandle = [NSFileHandle fileHandleForWritingToURL: url error: &err]; 
+    if (err) {
+        [[NSAlert alertWithError: err] runModal];
+    }
+    if (fileHandle == nil) {
+        return;
+    }
+
+    // データの書き込み
+    NSData *crlf = [@"\r\n" dataUsingEncoding: NSUTF8StringEncoding];
+    NSInteger rowIndex = 0;
+    while (rowIndex < [hashItemList count]) {
+        HashItem *hashItem = [hashItemList getItemByIndex: rowIndex];
+        [fileHandle writeData: [[hashItem description] dataUsingEncoding: NSUTF8StringEncoding]];
+        [fileHandle writeData: crlf];
+        rowIndex++;
+    }
+    [fileHandle closeFile];
+    
+    // 保存済みフラグ
+    [hashItemList setModified: NO];
 }
 
 - (BOOL)windowShouldClose:(id)sender
@@ -211,11 +269,43 @@
     [tableView reloadData];
 }
 
+- (IBAction) copy:(id)sender
+{
+    // 現在選択の行番号の取得
+    NSIndexSet *selrows = [tableView selectedRowIndexes];
+    
+    // 対応するハッシュアイテムの取得
+    NSArray *selItems = [hashItemList getItemByIndexes: selrows];    
+
+    // データの作成
+    NSMutableString *buf = [[[NSMutableString alloc] init] autorelease];
+    NSString *crlf = @"\r\n";
+    for (HashItem *hashItem in selItems) {
+        [buf appendString: [hashItem descriptionUsingSeparator: @"\t"]];
+        [buf appendString: crlf];
+    }
+    
+    // クリップボードに格納
+    NSPasteboard *pb = [NSPasteboard generalPasteboard];
+    [pb clearContents];
+    [pb setString: buf forType: NSPasteboardTypeString];
+}
+
 - (IBAction) cut:(id)sender
 {
+    // コピー動作
+    [self copy: sender];
+    
+    // 現在選択の行番号の取得
     NSIndexSet *selrows = [tableView selectedRowIndexes];
+    
+    // 選択の解除
     [tableView deselectAll: nil];
+    
+    // アイテムの除去
     [hashItemList removeByIndexes: selrows];
+
+    // テーブルの再表示
     [tableView reloadData];
 }
 

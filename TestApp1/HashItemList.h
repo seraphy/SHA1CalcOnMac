@@ -12,9 +12,9 @@
 // 前方宣言
 @class HashItemList;
 
-/**
+/**********
  * ハッシュアイテムの変更通知を受け取るプロトコル
- */
+ **********/
 @protocol HashItemListNotification <NSObject>
 @optional
 
@@ -27,15 +27,20 @@
 @end
 
 
-/**
+/**********
  * パスとハッシュ値を保持するクラス.
- */
+ **********/
 @interface HashItemList : NSObject
 
 /**
  * ハッシュ値が変更されたことを通知されるデリゲート
  */
 @property (retain) id<HashItemListNotification> delegate;
+
+/**
+ * 保存済みドキュメントのパス
+ */
+@property (retain) NSURL *documentURL;
 
 /**
  * リストが変更されるとtrueとなる.
@@ -69,6 +74,13 @@
  * @return ハッシュインデックス、またはnil
  */
 - (HashItem *) getItemByIndex: (NSInteger) rowIndex;
+
+/**
+ * 指定されたインデックスセットのアイテムを返す.
+ * @param indexes インデックスセット
+ * @return ハッシュアイテムのリスト
+ */
+- (NSArray *) getItemByIndexes: (NSIndexSet *) indexes;
 
 /**
  * まだ計算されていないハッシュアイテムを検索して取得する.

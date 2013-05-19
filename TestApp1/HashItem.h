@@ -30,4 +30,6 @@
 - (id) initWithURL: (NSURL *)aUrl;
 - (id) initWithURL: (NSURL *)aUrl hash: (NSString *) aHash;
 - (NSString *) getName;
+- (NSString *) descriptionUsingSeparator: (NSString *)sep;
+
 @end

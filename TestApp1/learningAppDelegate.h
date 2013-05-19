@@ -36,4 +36,11 @@
  */
 - (IBAction) openPreference:(id)sender;
 
+- (IBAction) newDocument:(id)sender;
+- (IBAction) openDocument:(id)sender;
+- (IBAction) saveDocumentAs:(id) sender;
+- (IBAction) saveDocument:(id) sender;
+- (IBAction) copy:(id)sender;
+- (IBAction) cut:(id)sender;
+
 @end

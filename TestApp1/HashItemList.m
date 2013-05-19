@@ -18,6 +18,7 @@
     BOOL modified;
 }
 
+@synthesize documentURL = _documentURL;
 @synthesize delegate = _delegate;
 @synthesize modified = _modified;
 
@@ -123,9 +124,19 @@
     return hashItem;
 }
 
+- (NSArray *) getItemByIndexes: (NSIndexSet *) indexes
+{
+    NSMutableArray *result = [[[NSMutableArray alloc] init] autorelease];
+    @synchronized(array) {
+        [indexes enumerateIndexesUsingBlock: ^(NSUInteger idx, BOOL *stop) {
+            [result addObject: [array objectAtIndex: idx]];
+        }];
+    }
+    return result;
+}
+
 - (HashItem *) getFirstUncalcuratedItem
 {
-    NSLog(@"getFirstUncalcuratedItem");
     @synchronized(array) {
         NSUInteger mx = [array count];
         for (NSUInteger idx = 0; idx < mx; idx++) {
