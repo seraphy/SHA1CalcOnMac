@@ -27,6 +27,17 @@
 - (BOOL) showConfirmDiscadeDialog;
 
 /**
+ * ドキュメントをロードする.
+ */
+- (void) loadDocument: (NSURL *) url;
+
+/**
+ * ファイルダイアログを開き、そのドキュメントをロードする.
+ * @param merge マージする場合
+ */
+- (void) loadDocumentWithDialog: (BOOL) merge;
+
+/**
  * ファイルを開く
  */
 - (IBAction) openFileDialog:(id)sender;
@@ -38,6 +49,7 @@
 
 - (IBAction) newDocument:(id)sender;
 - (IBAction) openDocument:(id)sender;
+- (IBAction) mergeDocument:(id)sender;
 - (IBAction) saveDocumentAs:(id) sender;
 - (IBAction) saveDocument:(id) sender;
 - (IBAction) copy:(id)sender;

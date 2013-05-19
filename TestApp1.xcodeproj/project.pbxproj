@@ -432,6 +432,50 @@
 			};
 			name = Release;
 		};
+		2ECD64871748F1DC00D1C987 /* distribute */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ARCHS = "$(ARCHS_STANDARD_64_BIT)";
+				COPY_PHASE_STRIP = YES;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_ENABLE_OBJC_EXCEPTIONS = YES;
+				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_MISSING_PROTOTYPES = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				MACOSX_DEPLOYMENT_TARGET = 10.6;
+				SDKROOT = macosx;
+			};
+			name = distribute;
+		};
+		2ECD64881748F1DC00D1C987 /* distribute */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "TestApp1/TestApp1-Prefix.pch";
+				INFOPLIST_FILE = "TestApp1/TestApp1-Info.plist";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				WRAPPER_EXTENSION = app;
+			};
+			name = distribute;
+		};
+		2ECD64891748F1DC00D1C987 /* distribute */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(BUILT_PRODUCTS_DIR)/TestApp1.app/Contents/MacOS/TestApp1";
+				FRAMEWORK_SEARCH_PATHS = "$(DEVELOPER_LIBRARY_DIR)/Frameworks";
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "TestApp1/TestApp1-Prefix.pch";
+				INFOPLIST_FILE = "TestApp1Tests/TestApp1Tests-Info.plist";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_HOST = "$(BUNDLE_LOADER)";
+				WRAPPER_EXTENSION = octest;
+			};
+			name = distribute;
+		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -440,6 +484,7 @@
 			buildConfigurations = (
 				2E7A69141732BB62002801C2 /* Debug */,
 				2E7A69151732BB62002801C2 /* Release */,
+				2ECD64871748F1DC00D1C987 /* distribute */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
@@ -449,6 +494,7 @@
 			buildConfigurations = (
 				2E7A69171732BB62002801C2 /* Debug */,
 				2E7A69181732BB62002801C2 /* Release */,
+				2ECD64881748F1DC00D1C987 /* distribute */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
@@ -458,6 +504,7 @@
 			buildConfigurations = (
 				2E7A691A1732BB62002801C2 /* Debug */,
 				2E7A691B1732BB62002801C2 /* Release */,
+				2ECD64891748F1DC00D1C987 /* distribute */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;

@@ -48,6 +48,11 @@
 @property (assign) BOOL modified;
 
 /**
+ * ハッシュアイテムを登録する
+ */
+- (void) add: (HashItem *) hashItem;
+
+/**
  * URLを登録する
  */
 - (void) addWithURL: (NSURL *) url;

@@ -31,5 +31,5 @@
 - (id) initWithURL: (NSURL *)aUrl hash: (NSString *) aHash;
 - (NSString *) getName;
 - (NSString *) descriptionUsingSeparator: (NSString *)sep;
-
++ (HashItem *) hashItemFromString: (NSString *)str separator: (NSString *)sep;
 @end

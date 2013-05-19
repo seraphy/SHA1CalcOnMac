@@ -209,6 +209,14 @@
 									<reference key="NSOnImage" ref="35465992"/>
 									<reference key="NSMixedImage" ref="502551668"/>
 								</object>
+								<object class="NSMenuItem" id="585719916">
+									<reference key="NSMenu" ref="720053764"/>
+									<string key="NSTitle">Merge</string>
+									<string key="NSKeyEquiv"/>
+									<int key="NSMnemonicLoc">2147483647</int>
+									<reference key="NSOnImage" ref="35465992"/>
+									<reference key="NSMixedImage" ref="502551668"/>
+								</object>
 								<object class="NSMenuItem" id="425164168">
 									<reference key="NSMenu" ref="720053764"/>
 									<bool key="NSIsDisabled">YES</bool>
@@ -1250,7 +1258,6 @@
 							<int key="NSvFlags">268</int>
 							<string key="NSFrame">{{14, 202}, {254, 32}}</string>
 							<reference key="NSSuperview" ref="439893737"/>
-							<reference key="NSWindow"/>
 							<reference key="NSNextKeyView" ref="253340768"/>
 							<int key="NSViewLayerContentsRedrawPolicy">2</int>
 							<bool key="NSEnabled">YES</bool>
@@ -1285,8 +1292,7 @@
 											<int key="NSvFlags">256</int>
 											<string key="NSFrameSize">{1159, 145}</string>
 											<reference key="NSSuperview" ref="243087117"/>
-											<reference key="NSWindow"/>
-											<reference key="NSNextKeyView" ref="309151393"/>
+											<reference key="NSNextKeyView" ref="333775826"/>
 											<int key="NSViewLayerContentsRedrawPolicy">2</int>
 											<bool key="NSEnabled">YES</bool>
 											<object class="NSTableHeaderView" key="NSHeaderView" id="230757087">
@@ -1294,7 +1300,6 @@
 												<int key="NSvFlags">256</int>
 												<string key="NSFrameSize">{1159, 17}</string>
 												<reference key="NSSuperview" ref="333775826"/>
-												<reference key="NSWindow"/>
 												<reference key="NSNextKeyView" ref="775033424"/>
 												<int key="NSViewLayerContentsRedrawPolicy">2</int>
 												<reference key="NSTableView" ref="243495482"/>
@@ -1304,7 +1309,6 @@
 												<int key="NSvFlags">-2147483392</int>
 												<string key="NSFrame">{{383, 0}, {16, 17}}</string>
 												<reference key="NSSuperview" ref="253340768"/>
-												<reference key="NSWindow"/>
 												<reference key="NSNextKeyView" ref="243087117"/>
 												<int key="NSViewLayerContentsRedrawPolicy">2</int>
 											</object>
@@ -1376,7 +1380,7 @@
 													<string key="NSIdentifier">Name</string>
 													<double key="NSWidth">250</double>
 													<double key="NSMinWidth">40</double>
-													<double key="NSMaxWidth">1000</double>
+													<double key="NSMaxWidth">10000</double>
 													<object class="NSTableHeaderCell" key="NSHeaderCell">
 														<int key="NSCellFlags">75628096</int>
 														<int key="NSCellFlags2">2048</int>
@@ -1542,7 +1546,6 @@
 									</array>
 									<string key="NSFrame">{{1, 17}, {397, 145}}</string>
 									<reference key="NSSuperview" ref="253340768"/>
-									<reference key="NSWindow"/>
 									<reference key="NSNextKeyView" ref="243495482"/>
 									<int key="NSViewLayerContentsRedrawPolicy">2</int>
 									<reference key="NSDocView" ref="243495482"/>
@@ -1554,7 +1557,6 @@
 									<int key="NSvFlags">-2147483392</int>
 									<string key="NSFrame">{{383, 17}, {15, 145}}</string>
 									<reference key="NSSuperview" ref="253340768"/>
-									<reference key="NSWindow"/>
 									<reference key="NSNextKeyView" ref="1000574612"/>
 									<int key="NSViewLayerContentsRedrawPolicy">2</int>
 									<reference key="NSTarget" ref="253340768"/>
@@ -1566,8 +1568,6 @@
 									<int key="NSvFlags">256</int>
 									<string key="NSFrame">{{1, 162}, {397, 15}}</string>
 									<reference key="NSSuperview" ref="253340768"/>
-									<reference key="NSWindow"/>
-									<reference key="NSNextKeyView"/>
 									<int key="NSViewLayerContentsRedrawPolicy">2</int>
 									<bool key="NSEnabled">YES</bool>
 									<int key="NSsFlags">1</int>
@@ -1583,7 +1583,6 @@
 									</array>
 									<string key="NSFrame">{{1, 0}, {397, 17}}</string>
 									<reference key="NSSuperview" ref="253340768"/>
-									<reference key="NSWindow"/>
 									<reference key="NSNextKeyView" ref="230757087"/>
 									<int key="NSViewLayerContentsRedrawPolicy">2</int>
 									<reference key="NSDocView" ref="230757087"/>
@@ -1594,8 +1593,7 @@
 							</array>
 							<string key="NSFrame">{{15, 20}, {399, 178}}</string>
 							<reference key="NSSuperview" ref="439893737"/>
-							<reference key="NSWindow"/>
-							<reference key="NSNextKeyView" ref="333775826"/>
+							<reference key="NSNextKeyView" ref="243087117"/>
 							<int key="NSViewLayerContentsRedrawPolicy">2</int>
 							<int key="NSsFlags">690</int>
 							<reference key="NSVScroller" ref="309151393"/>
@@ -1608,7 +1606,6 @@
 					</array>
 					<string key="NSFrameSize">{434, 241}</string>
 					<reference key="NSSuperview"/>
-					<reference key="NSWindow"/>
 					<reference key="NSNextKeyView" ref="105693114"/>
 					<bool key="NSViewIsLayerTreeHost">YES</bool>
 					<int key="NSViewLayerContentsRedrawPolicy">2</int>
@@ -2306,6 +2303,14 @@
 					<int key="connectionID">605</int>
 				</object>
 				<object class="IBConnectionRecord">
+					<object class="IBActionConnection" key="connection">
+						<string key="label">mergeDocument:</string>
+						<reference key="source" ref="976324537"/>
+						<reference key="destination" ref="585719916"/>
+					</object>
+					<int key="connectionID">609</int>
+				</object>
+				<object class="IBConnectionRecord">
 					<object class="IBOutletConnection" key="connection">
 						<string key="label">dataSource</string>
 						<reference key="source" ref="243495482"/>
@@ -2396,6 +2401,7 @@
 							<reference ref="705341025"/>
 							<reference ref="776162233"/>
 							<reference ref="425164168"/>
+							<reference ref="585719916"/>
 						</array>
 						<reference key="parent" ref="379814623"/>
 					</object>
@@ -3386,6 +3392,11 @@
 						<reference key="object" ref="1030441707"/>
 						<reference key="parent" ref="852149412"/>
 					</object>
+					<object class="IBObjectRecord">
+						<int key="objectID">608</int>
+						<reference key="object" ref="585719916"/>
+						<reference key="parent" ref="720053764"/>
+					</object>
 				</array>
 			</object>
 			<dictionary class="NSMutableDictionary" key="flattenedProperties">
@@ -3544,6 +3555,7 @@
 				<string key="594.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
 				<string key="606.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
 				<string key="607.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
+				<string key="608.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
 				<string key="72.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
 				<string key="73.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
 				<string key="75.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
@@ -3558,7 +3570,7 @@
 			<nil key="activeLocalization"/>
 			<dictionary class="NSMutableDictionary" key="localizations"/>
 			<nil key="sourceID"/>
-			<int key="maxID">607</int>
+			<int key="maxID">609</int>
 		</object>
 		<object class="IBClassDescriber" key="IBDocument.Classes">
 			<array class="NSMutableArray" key="referencedPartialClassDescriptions">
@@ -3607,16 +3619,51 @@
 					<string key="className">learningAppDelegate</string>
 					<string key="superclassName">NSObject</string>
 					<dictionary class="NSMutableDictionary" key="actions">
+						<string key="copy:">id</string>
+						<string key="cut:">id</string>
+						<string key="mergeDocument:">id</string>
+						<string key="newDocument:">id</string>
+						<string key="openDocument:">id</string>
 						<string key="openFileDialog:">id</string>
 						<string key="openPreference:">id</string>
+						<string key="saveDocument:">id</string>
+						<string key="saveDocumentAs:">id</string>
 					</dictionary>
 					<dictionary class="NSMutableDictionary" key="actionInfosByName">
+						<object class="IBActionInfo" key="copy:">
+							<string key="name">copy:</string>
+							<string key="candidateClassName">id</string>
+						</object>
+						<object class="IBActionInfo" key="cut:">
+							<string key="name">cut:</string>
+							<string key="candidateClassName">id</string>
+						</object>
+						<object class="IBActionInfo" key="mergeDocument:">
+							<string key="name">mergeDocument:</string>
+							<string key="candidateClassName">id</string>
+						</object>
+						<object class="IBActionInfo" key="newDocument:">
+							<string key="name">newDocument:</string>
+							<string key="candidateClassName">id</string>
+						</object>
+						<object class="IBActionInfo" key="openDocument:">
+							<string key="name">openDocument:</string>
+							<string key="candidateClassName">id</string>
+						</object>
 						<object class="IBActionInfo" key="openFileDialog:">
 							<string key="name">openFileDialog:</string>
 							<string key="candidateClassName">id</string>
 						</object>
 						<object class="IBActionInfo" key="openPreference:">
 							<string key="name">openPreference:</string>
+							<string key="candidateClassName">id</string>
+						</object>
+						<object class="IBActionInfo" key="saveDocument:">
+							<string key="name">saveDocument:</string>
+							<string key="candidateClassName">id</string>
+						</object>
+						<object class="IBActionInfo" key="saveDocumentAs:">
+							<string key="name">saveDocumentAs:</string>
 							<string key="candidateClassName">id</string>
 						</object>
 					</dictionary>

@@ -35,6 +35,17 @@
     [super dealloc];
 }
 
+- (void) add: (HashItem *) hashItem
+{
+    @synchronized(array) {
+        [array addObject: hashItem];
+        [hashItem setRowIndex: [array count] - 1];
+
+        // 変更フラグON
+        _modified = true;
+    }
+}
+
 - (void) addWithURL: (NSURL *) url
 {
     // ファイルの実在チェック
@@ -66,10 +77,10 @@
             [array addObject: hashItem];
             [hashItem setRowIndex: [array count] - 1];
             [hashItem release];
-        }
 
-        // 変更フラグON
-        _modified = true;
+            // 変更フラグON
+            _modified = true;
+        }
     }
 }
 
@@ -90,6 +101,7 @@
             [[array objectAtIndex: rowIndex] setRowIndex: -1];
         }
         [array removeAllObjects];
+        [self setDocumentURL: nil];
     }
 }
 

@@ -70,6 +70,46 @@
     return buf;
 }
 
++ (HashItem *) hashItemFromString: (NSString *)str separator: (NSString *)sep
+{
+    NSArray *cols = [str componentsSeparatedByString: sep];
+    NSInteger len = [cols count];
+    if (len > 1) {
+        if ([[cols objectAtIndex: 0] hasPrefix: @"HashItem:"]) {
+            // シグネチャ確認OK
+            HashItem *result = [[[HashItem alloc] init] autorelease];
+            for (NSInteger idx = 1; idx < len; idx++) {
+                NSString *col = [cols objectAtIndex: idx];
+                NSArray *tokens = [col componentsSeparatedByString: @"="];
+                if ([tokens count] == 2) {
+                    NSString *key = [tokens objectAtIndex: 0];
+                    NSString *val = [[tokens objectAtIndex: 1] stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
+                    
+                    if ([key isEqualToString: @"url"]) {
+                        NSURL *url = [NSURL URLWithString: val];
+                        // [val stringByAddingPercentEscapesUsingEncoding: NSUTF8StringEncoding]
+                        [result setUrl: url];
+                        
+                    } else if ([key isEqualToString: @"fileSize"]) {
+                        [result setFileSize: [val longLongValue]];
+                        
+                    } else if ([key isEqualToString: @"sha1"]) {
+                        [result setSha1hash: val];
+                        
+                    } else if ([key isEqualToString: @"md5"]) {
+                        [result setMd5hash: val];
+                    }
+                }
+            }
+            if ([result url]) {
+                [result setChecked: YES];
+                return result;
+            }
+        }
+    }
+    NSLog(@"unknown :%@", str);
+    return nil;
+}
 
 @end
 

@@ -70,13 +70,115 @@
 {
     if ([self showConfirmDiscadeDialog]) {
         [hashItemList clear];
+        [hashItemList setModified: NO];
         [tableView reloadData];
     }
 }
 
+- (void) loadDocument: (NSURL *) url
+{
+    NSInputStream *istm = [NSInputStream inputStreamWithURL: url];
+    [istm open];
+
+    const size_t bufsiz = 4096;
+    uint8_t buf[bufsiz];
+    
+    NSMutableData *prevbuf = [[[NSMutableData alloc] init] autorelease];
+
+    NSString* msg = nil;
+    while ([istm hasBytesAvailable]) {
+        NSInteger len = [istm read: buf maxLength: bufsiz];
+        if (len < 0) {
+            msg = @"error";
+            break;
+        }
+        if (len == 0) {
+            // 読み取り完了
+            break;
+        }
+        
+        NSInteger idx = 0;
+        NSInteger st = 0;
+        while (idx < len) {
+            uint8_t ch = buf[idx];
+            if (ch == '\n') {
+                NSInteger span = idx - st + 1;
+                [prevbuf appendBytes: (buf + st) length: span];
+                NSString *line = [[NSString alloc] initWithData: prevbuf encoding: NSUTF8StringEncoding];
+                HashItem *hashItem = [HashItem hashItemFromString: line separator: @"\t"];
+                if (hashItem) {
+                    [hashItemList add: hashItem];
+                }
+                [line release];
+                
+                [prevbuf setLength: 0];
+                st = idx + 1;
+            }
+            idx++;
+        }
+        if (st < idx) {
+            NSInteger span = len - st;
+            [prevbuf appendBytes: (buf + st) length: span];
+        }
+    }
+    if ([prevbuf length] > 0) {
+        NSString *line = [[NSString alloc] initWithData: prevbuf encoding: NSUTF8StringEncoding];
+        HashItem *hashItem = [HashItem hashItemFromString: line separator: @"\t"];
+        if (hashItem) {
+            [hashItemList add: hashItem];
+        }
+        [line release];
+    }
+    
+    [istm close];
+    
+    [tableView reloadData];
+}
+
+- (void) loadDocumentWithDialog: (BOOL) merge
+{
+    // ファイルを開くダイアログ
+    NSOpenPanel *openPanel = [[NSOpenPanel openPanel] retain];
+    
+    // デフォルトの拡張子と選択
+    [openPanel setAllowedFileTypes:[NSArray arrayWithObjects: @"txt", nil]];
+    [openPanel setAllowsOtherFileTypes:YES];
+    
+    [openPanel beginWithCompletionHandler:^(NSInteger result) {
+        if (result == NSFileHandlingPanelOKButton) {
+            NSURL *url = [openPanel URL];
+            [self loadDocument: url];
+            
+            // 新規の場合はファイルのURLを設定する.
+            if (!merge) {
+                [hashItemList setDocumentURL: url];
+                [hashItemList setModified: NO];
+
+            } else {
+                [hashItemList setModified: YES];
+            }
+        }
+        [openPanel release];
+    }];
+}
+
+
+- (IBAction) mergeDocument:(id)sender
+{
+    [self loadDocumentWithDialog: YES];
+}
+
+
 - (IBAction) openDocument:(id)sender
 {
-    NSLog(@"openDocument!");
+    if (![self showConfirmDiscadeDialog]) {
+        return;
+    }
+    // 現在のデータをクリアする.
+    [hashItemList clear];
+    [tableView reloadData];
+
+    [self loadDocumentWithDialog: NO];
 }
 
 - (IBAction) saveDocumentAs:(id) sender
@@ -86,7 +188,7 @@
     [savePanel setExtensionHidden: NO];
     
     // デフォルトの拡張子と選択
-    [savePanel setAllowedFileTypes:[NSArray arrayWithObject:@"txt"]];
+    [savePanel setAllowedFileTypes:[NSArray arrayWithObjects: @"txt", nil]];
     [savePanel setAllowsOtherFileTypes:YES];
     
     NSURL *prevURL = [hashItemList documentURL];
@@ -137,7 +239,7 @@
     NSInteger rowIndex = 0;
     while (rowIndex < [hashItemList count]) {
         HashItem *hashItem = [hashItemList getItemByIndex: rowIndex];
-        [fileHandle writeData: [[hashItem description] dataUsingEncoding: NSUTF8StringEncoding]];
+        [fileHandle writeData: [[hashItem descriptionUsingSeparator: @"\t"] dataUsingEncoding: NSUTF8StringEncoding]];
         [fileHandle writeData: crlf];
         rowIndex++;
     }
@@ -191,9 +293,10 @@
 
 - (IBAction) openFileDialog:(id)sender
 {
+    // ファイルを開くダイアログ
     NSOpenPanel *openPanel = [[NSOpenPanel openPanel] retain];
-    [openPanel setAllowsMultipleSelection: YES];
-    [openPanel setCanChooseDirectories: YES];
+    [openPanel setAllowsMultipleSelection: YES]; // 複数選択可
+    [openPanel setCanChooseDirectories: YES]; // フォルダ選択可
     
     [openPanel beginWithCompletionHandler:^(NSInteger result) {
         if (result == NSFileHandlingPanelOKButton) {
@@ -203,7 +306,6 @@
             [tableView reloadData];
         }
         [openPanel release];
-        NSLog(@"Release");
     }];
 }
 
