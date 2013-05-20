@@ -20,6 +20,10 @@
  */
 @property (assign) IBOutlet NSWindow *window;
 
+/**
+ * チェック結果の選択モード
+ */
+@property (readonly, getter = getDeselectSingleMode) BOOL deselectSingleMode;
 
 /**
  * 変更がある場合に破棄の有無を確認するダイアログを開く
@@ -47,6 +51,8 @@
  */
 - (IBAction) openPreference:(id)sender;
 
+- (BOOL) getDeselectSingleMode;
+
 - (IBAction) newDocument:(id)sender;
 - (IBAction) openDocument:(id)sender;
 - (IBAction) mergeDocument:(id)sender;
@@ -54,5 +60,12 @@
 - (IBAction) saveDocument:(id) sender;
 - (IBAction) copy:(id)sender;
 - (IBAction) cut:(id)sender;
+
+- (IBAction) resetMark: (id)sender;
+- (IBAction) reverseMark: (id)sender;
+- (IBAction) delete: (id)sender;
+- (IBAction) deselectSingle: (id) sender;
+- (IBAction) check: (id) sender;
+- (IBAction) selectIfChecked:(id) sender;
 
 @end

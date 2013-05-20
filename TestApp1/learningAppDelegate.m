@@ -20,6 +20,9 @@
 
     /// テーブルビューとの接続
     IBOutlet NSTableView *tableView;
+    
+    /// メニューアイテムの接続
+    IBOutlet NSMenuItem *deselectSingle;
 }
 
 @synthesize window = _window;
@@ -397,7 +400,13 @@
 {
     // コピー動作
     [self copy: sender];
-    
+
+    // 削除動作
+    [self delete: sender];
+}
+
+- (IBAction) delete: (id)sender
+{
     // 現在選択の行番号の取得
     NSIndexSet *selrows = [tableView selectedRowIndexes];
     
@@ -406,9 +415,95 @@
     
     // アイテムの除去
     [hashItemList removeByIndexes: selrows];
-
+    
     // テーブルの再表示
     [tableView reloadData];
+}
+
+
+- (BOOL) getDeselectSingleMode
+{
+    return [deselectSingle state] == NSOnState;
+}
+
+- (IBAction) resetMark: (id)sender
+{
+    // 現在選択の行番号の取得
+    NSIndexSet *selrows = [tableView selectedRowIndexes];
+    [hashItemList setChecked: selrows state: NO];
+    [tableView reloadData];
+}
+
+- (IBAction) reverseMark: (id)sender
+{
+    // 現在選択の行番号の取得
+    NSIndexSet *selrows = [tableView selectedRowIndexes];
+    [hashItemList reverseChecked: selrows];
+    [tableView reloadData];
+}
+
+- (IBAction) deselectSingle: (id) sender
+{
+    NSInteger newState = [deselectSingle state] != NSOnState ? NSOnState : NSOffState;
+    [deselectSingle setState: newState];
+}
+
+- (IBAction) check: (id) sender
+{
+    NSMutableDictionary *dict = [[[NSMutableDictionary alloc] init] autorelease];
+    NSIndexSet *selrows = [tableView selectedRowIndexes];
+    if ([selrows count] == 0) {
+        [[NSAlert alertWithMessageText: @"need selection"
+                         defaultButton: @"OK"
+                       alternateButton: nil
+                           otherButton: nil
+             informativeTextWithFormat: @""] runModal];
+        return;
+    }
+    NSArray *hashItems = [hashItemList getItemByIndexes: selrows];
+    [hashItems enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
+        HashItem *hashItem = obj;
+        NSString *key = [NSString stringWithFormat: @"%ld:%@:%@",
+                         [hashItem fileSize], [hashItem sha1hash], [hashItem md5hash]];
+        NSMutableArray *arr = [dict objectForKey: key];
+        if (arr == nil) {
+            arr = [[NSMutableArray alloc] init];
+            [dict setObject: arr forKey: key];
+            [arr release];
+        }
+        [arr addObject: hashItem];    
+    }];
+
+    BOOL sw = self.deselectSingleMode;
+    
+    [[dict allValues] enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
+        NSArray *arr = obj;
+        if ([arr count] <= 1) {
+            // single object
+            if (sw) {
+                [arr enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
+                    HashItem *hashItem = obj;
+                    [hashItem setChecked: NO];
+                }];
+            }
+        } else {
+            // multi object
+            if (!sw) {
+                [arr enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
+                    HashItem *hashItem = obj;
+                    [hashItem setChecked: NO];
+                }];
+            }
+        }
+    }];
+    
+    [tableView reloadData];
+}
+
+- (IBAction) selectIfChecked:(id) sender
+{
+    NSIndexSet *checkedRow = [hashItemList getCheckedRowIndexes];
+    [tableView selectRowIndexes: checkedRow byExtendingSelection: NO];
 }
 
 @end

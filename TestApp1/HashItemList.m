@@ -147,6 +147,26 @@
     return result;
 }
 
+- (void) setChecked: (NSIndexSet *) selrow state: (BOOL) sw
+{
+    @synchronized(array) {
+        [selrow enumerateIndexesUsingBlock: ^(NSUInteger idx, BOOL *stop) {
+            [[array objectAtIndex: idx] setChecked: sw];
+        }];
+    }
+}
+
+- (void) reverseChecked: (NSIndexSet *) selrow
+{
+    @synchronized(array) {
+        [selrow enumerateIndexesUsingBlock: ^(NSUInteger idx, BOOL *stop) {
+            HashItem *hashItem = [array objectAtIndex: idx];
+            [hashItem setChecked: ![hashItem checked]];
+        }];
+    }
+}
+
+
 - (HashItem *) getFirstUncalcuratedItem
 {
     @synchronized(array) {
@@ -183,6 +203,23 @@
 - (BOOL) isModified
 {
     return modified;
+}
+
+- (NSIndexSet *) getCheckedRowIndexes
+{
+    NSMutableIndexSet *indexes = [[[NSMutableIndexSet alloc] init] autorelease];
+    @synchronized (array) {
+        [array enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
+            HashItem *hashItem = obj;
+            if ([hashItem checked]) {
+                NSInteger rowIndex = [hashItem rowIndex];
+                if (rowIndex >= 0) {
+                    [indexes addIndex: rowIndex];
+                }
+            }
+        }];
+    }
+    return indexes;
 }
 
 @end

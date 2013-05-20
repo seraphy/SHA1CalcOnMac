@@ -63,6 +63,16 @@
 - (void) addWithURLArray: (NSArray *)urls;
 
 /**
+ * 指定したインデックスのチェック状態を変更する.
+ */
+- (void) setChecked: (NSIndexSet *) selrow state: (BOOL) sw;
+
+/**
+ * 指定したインデックスのチェック状態を反転する.
+ */
+- (void) reverseChecked: (NSIndexSet *) selrow;
+
+/**
  * クリアする.
  */
 - (void) clear;
@@ -111,5 +121,10 @@
  * @param ソート対象のプロパティ情報
  */
 - (void) sortUsingDescriptors: sortDescriptors;
+
+/**
+ * チェックされている行を取得する
+ */
+- (NSIndexSet *) getCheckedRowIndexes;
 
 @end
