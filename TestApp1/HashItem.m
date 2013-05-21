@@ -58,7 +58,9 @@
 - (NSString *) descriptionUsingSeparator: (NSString *)sep
 {
     NSMutableString *buf = [[[NSMutableString alloc] init] autorelease];
-    [buf appendFormat: @"HashItem: [%d] checked=%d", _rowIndex, (_checked ? 1 : 0)];
+    [buf appendFormat: @"HashItem: [%d]", _rowIndex];
+    [buf appendString: sep];
+    [buf appendFormat: @"checked=%d", (_checked ? 1 : 0)];
     [buf appendString: sep];
     [buf appendFormat: @"url=%@", _url];
     [buf appendString: sep];
@@ -86,10 +88,11 @@
                     NSString *val = [[tokens objectAtIndex: 1] stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
                     
                     if ([key isEqualToString: @"url"]) {
-                        NSURL *url = [NSURL URLWithString: val];
-                        // [val stringByAddingPercentEscapesUsingEncoding: NSUTF8StringEncoding]
-                        [result setUrl: url];
+                        [result setUrl: [NSURL URLWithString: val]];
                         
+                    } else if ([key isEqualToString: @"checked"]) {
+                        [result setChecked: [val intValue] != 0];
+
                     } else if ([key isEqualToString: @"fileSize"]) {
                         [result setFileSize: [val longLongValue]];
                         
@@ -102,7 +105,6 @@
                 }
             }
             if ([result url]) {
-                [result setChecked: YES];
                 return result;
             }
         }
