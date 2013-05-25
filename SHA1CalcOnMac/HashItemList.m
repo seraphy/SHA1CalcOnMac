@@ -46,7 +46,7 @@
     }
 }
 
-- (void) addWithURL: (NSURL *) url
+- (void) addWithURL: (NSURL *) url depth:(NSInteger)depth
 {
     // ファイルの実在チェック
     NSFileManager *fileMgr = [NSFileManager defaultManager];
@@ -54,18 +54,11 @@
     BOOL dir = NO;
     if ([fileMgr fileExistsAtPath: path isDirectory: &dir]) {
         if (dir) {
-            // ディレクトリであれば中身をリストして再帰的に呼び出す
-            NSDirectoryEnumerator *enm = [fileMgr enumeratorAtPath: path];
-            NSString *child = nil;
-            while ((child = [enm nextObject]) != nil) {
-                NSString *fullPath = [path stringByAppendingPathComponent: child];
-                [self addWithURL: [NSURL fileURLWithPath: fullPath]];
-            }
+            // フォルダは無視する。
             return;
         }
         
-        // ファイルであれば、
-        // ファイルサイズの取得
+        // ファイルであれば、ファイルサイズの取得
         NSError *err = nil;
         NSDictionary *attr = [fileMgr attributesOfItemAtPath: path error: &err];
         NSNumber *fileSize = [attr objectForKey: NSFileSize];
@@ -88,7 +81,27 @@
 {
     @synchronized(array) {
         for (NSURL *url in urls) {
-            [self addWithURL: url];
+            NSFileManager *fileMgr = [NSFileManager defaultManager];
+            NSString *path = [url path];
+            BOOL dir = NO;
+            if ([fileMgr fileExistsAtPath: path isDirectory: &dir]) {
+                if (dir) {
+                    // ディレクトリであれば中身をリストする。(サブディレクトリ内も列挙される。)
+                    NSDirectoryEnumerator *enm = [fileMgr enumeratorAtPath: path];
+                    NSString *child = nil;
+                    while ((child = [enm nextObject]) != nil) {
+                        NSAutoreleasePool *loopPool = [[NSAutoreleasePool alloc] init];
+                        NSString *fullPath = [path stringByAppendingPathComponent: child];
+                        [self addWithURL: [NSURL fileURLWithPath: fullPath] depth: 0];
+                        [loopPool drain];
+                    }
+                    return;
+
+                } else {
+                    // ファイルであれば単体で設定する.
+                    [self addWithURL: url depth: 0];
+                }
+            }
         }
     }
 }
@@ -116,11 +129,11 @@
     }
 }
 
-- (void) notifyChangeHashItem: (HashItem *) hashItem
+- (void) updateHashItem: (HashItem *) hashItem
 {
     _modified = true;
-    if ([_delegate respondsToSelector: @selector(notifyChangeHashItem:)]) {
-        [_delegate notifyChangeHashItem: hashItem];
+    if ([_delegate respondsToSelector: @selector(updateHashItem:)]) {
+        [_delegate updateHashItem: hashItem];
     }
 }
 

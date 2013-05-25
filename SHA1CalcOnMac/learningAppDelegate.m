@@ -317,7 +317,7 @@
     return [hashItemList count];
 }
 
-- (void) notifyChangeHashItem: (HashItem *) hashItem
+- (void) updateHashItem: (HashItem *) hashItem
 {
     NSInteger rowIndex = [hashItem rowIndex];
 

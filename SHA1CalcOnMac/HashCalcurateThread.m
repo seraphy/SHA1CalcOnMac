@@ -47,24 +47,25 @@
 - (void) main
 {
     NSAutoreleasePool *autoreleasePool = [[NSAutoreleasePool alloc] init];
+    NSLog(@"Start HashCalcurateThread.");
     
     unsigned char sha1digest[CC_SHA1_DIGEST_LENGTH];
     unsigned char md5digest[CC_MD5_DIGEST_LENGTH];
     
-    int cnt = 0;
     [threadCond lock];
     while (![[NSThread currentThread] isCancelled]) {
-        NSLog(@"tick! %d", cnt++);
-        HashItem *hashItem = [_hashItemList getFirstUncalcuratedItem];
+        HashItem *hashItem = [_hashItemList getFirstUncalcuratedItem]; // retain済み
         if (hashItem == nil) {
+            NSLog(@"Sleep HashCalcurateThread.");
             [threadCond wait];
+            NSLog(@"Wakeup HashCalcurateThread.");
             continue;
         }
         [threadCond unlock];
         
         // ハッシュアイテムの変更通知用ブロック
-        void (^notifyChangeHashItem)() = ^{
-            [_hashItemList notifyChangeHashItem: hashItem];
+        void (^updateHashItem)() = ^{
+            [_hashItemList updateHashItem: hashItem];
             // 非同期中は解放されないようにあらかじめretainしておいたカウントを解放する.
             [hashItem release];
         };
@@ -75,7 +76,7 @@
         // 読み取り開始通知
         hashItem.sha1hash = @"loading...";
         [hashItem retain]; // 非同期中は解放されないようにあらかじめretain
-        dispatch_async(dispatch_get_main_queue(), notifyChangeHashItem);
+        dispatch_sync(dispatch_get_main_queue(), updateHashItem);
         
         // ハッシュ用バッファ
         CC_MD5_CTX md5ctx = {0};
@@ -132,13 +133,13 @@
         
         // 表示の更新
         [hashItem retain]; // 非同期中は解放されないようにあらかじめretain
-        dispatch_async(dispatch_get_main_queue(), notifyChangeHashItem);
+        dispatch_sync(dispatch_get_main_queue(), updateHashItem);
         
         // 保持の解放
         [hashItem release];
         
         // プール開放
-        [internalPool release];
+        [internalPool drain];
         [threadCond lock];
     }
     [threadCond unlock];

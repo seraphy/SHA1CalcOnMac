@@ -22,7 +22,7 @@
  * ハッシュ値が変更されたことを通知する.
  * @param hashItem ハッシュアイテム
  */
-- (void) notifyChangeHashItem: (HashItem *) hashItem;
+- (void) updateHashItem: (HashItem *) hashItem;
 
 @end
 
@@ -55,7 +55,7 @@
 /**
  * URLを登録する
  */
-- (void) addWithURL: (NSURL *) url;
+- (void) addWithURL: (NSURL *) url depth: (NSInteger) depth;
 
 /**
  * URLのリストを登録する
@@ -108,7 +108,7 @@
  * ハッシュアイテムの内容を変更したことを通知する.
  * @param hashItem ハッシュアイテム
  */
-- (void) notifyChangeHashItem: (HashItem *) hashItem;
+- (void) updateHashItem: (HashItem *) hashItem;
 
 /**
  * ハッシュアイテムの保持している個数
