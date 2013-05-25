@@ -1,6 +1,6 @@
 //
 //  HashItem.h
-//  TestApp1
+//  SHA1CalcOnMac
 //
 //  Created by  on 13/05/18.
 //  Copyright (c) 2013 seraphyware.jp. All rights reserved.

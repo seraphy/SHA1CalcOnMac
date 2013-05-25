@@ -1,9 +1,9 @@
 //
 //  learningAppDelegate.h
-//  TestApp1
+//  SHA1CalcOnMac
 //
 //  Created by  on 13/05/03.
-//  Copyright (c) 2013 __MyCompanyName__. All rights reserved.
+//  Copyright (c) 2013 seraphyware.jp. All rights reserved.
 //
 
 #import <Cocoa/Cocoa.h>
