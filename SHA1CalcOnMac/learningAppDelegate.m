@@ -527,4 +527,37 @@
     [tableView selectRowIndexes: checkedRow byExtendingSelection: NO];
 }
 
+- (IBAction) deleteMarkedFile:(id) sender
+{
+    // 現在選択の行番号の取得
+    NSIndexSet *selrows = [hashItemList getCheckedRowIndexes];
+    
+    // 対応するハッシュアイテムの取得
+    NSArray *selItems = [hashItemList getItemByIndexes: selrows];    
+    
+    // ファイルの削除
+    NSMutableArray *files = [[[NSMutableArray alloc] init] autorelease];
+    for (HashItem *hashItem in selItems) {
+        NSString *path = [[hashItem url] path];
+        [files addObject: path];
+    }
+
+    // ファイルをゴミ箱に入れる
+    NSWorkspace *workspace = [NSWorkspace sharedWorkspace];
+    [workspace performFileOperation: NSWorkspaceRecycleOperation
+                             source: @""
+                        destination: @""
+                              files: files
+                                tag: nil];
+    
+    // 選択の解除
+    [tableView deselectAll: nil];
+    
+    // アイテムの除去
+    [hashItemList removeByIndexes: selrows];
+    
+    // テーブルの再表示
+    [tableView reloadData];
+}
+
 @end

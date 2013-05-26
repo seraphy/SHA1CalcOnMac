@@ -67,5 +67,6 @@
 - (IBAction) deselectSingle: (id) sender;
 - (IBAction) check: (id) sender;
 - (IBAction) selectIfChecked:(id) sender;
+- (IBAction) deleteMarkedFile:(id) sender;
 
 @end
