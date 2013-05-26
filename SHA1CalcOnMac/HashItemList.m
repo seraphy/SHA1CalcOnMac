@@ -187,7 +187,7 @@
         for (NSUInteger idx = 0; idx < mx; idx++) {
             HashItem *item = [array objectAtIndex: idx];
             if ([item.sha1hash length] == 0) {
-                // スレッドで使っている間は解放されいようにretainする
+                // スレッドで使っている間は解放されいようにretainしてから返す.
                 return [item retain];
             }
         }

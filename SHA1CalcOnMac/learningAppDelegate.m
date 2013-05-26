@@ -319,11 +319,15 @@
 
 - (void) updateHashItem: (HashItem *) hashItem
 {
-    NSInteger rowIndex = [hashItem rowIndex];
-
-    if (rowIndex >= 0) {
-        [tableView reloadDataForRowIndexes: [NSIndexSet indexSetWithIndex: rowIndex]
-                             columnIndexes: [NSIndexSet indexSetWithIndexesInRange: NSMakeRange(0, 5)]];
+    if (hashItem) {
+        NSInteger rowIndex = [hashItem rowIndex];
+        
+        if (rowIndex >= 0) {
+            [tableView reloadDataForRowIndexes: [NSIndexSet indexSetWithIndex: rowIndex]
+                                 columnIndexes: [NSIndexSet indexSetWithIndexesInRange: NSMakeRange(0, 5)]];
+        }
+    } else {
+        [tableView reloadData];
     }
 }
 
@@ -452,8 +456,8 @@
 {
     NSMutableDictionary *dict = [[[NSMutableDictionary alloc] init] autorelease];
     NSIndexSet *selrows = [tableView selectedRowIndexes];
-    if ([selrows count] == 0) {
-        [[NSAlert alertWithMessageText: @"need selection"
+    if ([selrows count] <= 1) {
+        [[NSAlert alertWithMessageText: @"no selection"
                          defaultButton: @"OK"
                        alternateButton: nil
                            otherButton: nil

@@ -56,8 +56,11 @@
     while (![[NSThread currentThread] isCancelled]) {
         HashItem *hashItem = [_hashItemList getFirstUncalcuratedItem]; // retain済み
         if (hashItem == nil) {
+            dispatch_async(dispatch_get_main_queue(), ^{
+                [_hashItemList updateHashItem: nil]; // reload all
+            });
             NSLog(@"Sleep HashCalcurateThread.");
-            [threadCond wait];
+            [threadCond waitUntilDate:[NSDate dateWithTimeIntervalSinceNow: 5]]; // wait 5sec
             NSLog(@"Wakeup HashCalcurateThread.");
             continue;
         }
@@ -76,7 +79,7 @@
         // 読み取り開始通知
         hashItem.sha1hash = @"loading...";
         [hashItem retain]; // 非同期中は解放されないようにあらかじめretain
-        dispatch_sync(dispatch_get_main_queue(), updateHashItem);
+        dispatch_async(dispatch_get_main_queue(), updateHashItem);
         
         // ハッシュ用バッファ
         CC_MD5_CTX md5ctx = {0};
@@ -92,28 +95,35 @@
         NSString *path = [hashItem.url path];
         NSInputStream *istm = [NSInputStream inputStreamWithFileAtPath: path];
         
-        [istm open];
         NSString *msg = nil;
-        while ([istm hasBytesAvailable]) {
-            NSInteger len = [istm read: buf maxLength: bufsiz];
-            if (len == 0) {
-                // 読み取り完了
-                break;
+        [istm open];
+        @try {
+            while ([istm hasBytesAvailable]) {
+                NSInteger len = [istm read: buf maxLength: bufsiz];
+                if (len == 0) {
+                    // 読み取り完了
+                    break;
+                }
+                if (len < 0) {
+                    msg = @"error";
+                    break;
+                }
+                if ([hashItem rowIndex] < 0) {
+                    msg = @"cancel";
+                    break;
+                }
+                // ハッシュ値の計算
+                CC_MD5_Update(&md5ctx, buf, (unsigned int) len);
+                CC_SHA1_Update(&sha1ctx, buf, (unsigned int) len);
             }
-            if (len < 0) {
-                msg = @"error";
-                break;
-            }
-            if ([hashItem rowIndex] < 0) {
-                msg = @"cancel";
-                break;
-            }
-            // ハッシュ値の計算
-            CC_MD5_Update(&md5ctx, buf, (unsigned int) len);
-            CC_SHA1_Update(&sha1ctx, buf, (unsigned int) len);
         }
-        // ファイルを閉じる
-        [istm close];
+        @catch (NSException *exception) {
+            msg = [exception description];
+        }
+        @finally {
+            // ファイルを閉じる
+            [istm close];
+        }
         
         // ハッシュ値の確定
         CC_MD5_Final(md5digest, &md5ctx);
@@ -133,7 +143,7 @@
         
         // 表示の更新
         [hashItem retain]; // 非同期中は解放されないようにあらかじめretain
-        dispatch_sync(dispatch_get_main_queue(), updateHashItem);
+        dispatch_async(dispatch_get_main_queue(), updateHashItem);
         
         // 保持の解放
         [hashItem release];
