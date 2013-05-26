@@ -186,6 +186,23 @@
 
 - (IBAction) saveDocumentAs:(id) sender
 {
+    HashItem *hashItem = [hashItemList getFirstUncalcuratedItem];
+    if (hashItem) {
+        // まだ未検査のものがある場合
+        [hashItem release];
+        
+        NSAlert *alert = [NSAlert alertWithMessageText: @"Warning"
+                                         defaultButton: @"OK"
+                                       alternateButton: @"Cancel"
+                                           otherButton: nil
+                             informativeTextWithFormat: @"Calculation is not completed. "];
+        NSInteger ret = [alert runModal];
+        if (ret != NSAlertDefaultReturn) {
+            // Cancelされた場合
+            return;
+        }
+    }
+    
     NSSavePanel *savePanel = [[NSSavePanel savePanel] retain];
     [savePanel setCanCreateDirectories: YES];
     [savePanel setExtensionHidden: NO];
