@@ -68,6 +68,6 @@
 - (IBAction) check: (id) sender;
 - (IBAction) selectIfChecked:(id) sender;
 - (IBAction) deleteMarkedFile:(id) sender;
-- (IBAction) openFile:(id) sender;
+- (IBAction) openFileAtWorkspace:(id) sender;
 
 @end

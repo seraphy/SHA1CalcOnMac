@@ -559,13 +559,13 @@
     [tableView reloadData];
 }
 
-- (IBAction) openFile:(id) sender
+- (IBAction) openFileAtWorkspace:(id) sender
 {
     // 現在選択の行番号の取得
     NSIndexSet *selrows = [tableView selectedRowIndexes];
     
-    if ([selrows count] > 10) {
-        // 10より多くのファイルが選択されている場合は警告を表示する.
+    if ([selrows count] > 5) {
+        // 5より多くのファイルが選択されている場合は警告を表示する.
         NSAlert *alert = [NSAlert alertWithMessageText: @"Warnings"
                                          defaultButton: @"Cancel"
                                        alternateButton: @"Continue"
