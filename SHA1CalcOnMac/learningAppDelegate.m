@@ -588,4 +588,33 @@
     }
 }
 
+- (IBAction) performFindPanelAction:(id)sender
+{
+    NSLog(@"performFindPanelAction: sender=%@", sender);
+    NSInteger tag = [sender tag];
+    switch (tag)
+    {
+        case 1: // find...
+            break;
+        case 2: // next
+            break;
+        case 3: // prev
+            break;
+        case 7: // select to find
+            break;
+    }
+    NSLog(@"tag %ld", tag);
+}
+
+- (IBAction) centerSelectionInVisibleArea:(id)sender
+{
+    NSLog(@"centerSelectionInVisibleArea: sender=%@", sender);
+}
+
+- (BOOL)validateUserInterfaceItem:(id < NSValidatedUserInterfaceItem >)anItem
+{
+    NSLog(@"validateUserIFItem: item=%@", anItem);
+    return YES;
+}
+
 @end

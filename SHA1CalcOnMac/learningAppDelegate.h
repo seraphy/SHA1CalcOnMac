@@ -60,6 +60,10 @@
 - (IBAction) saveDocument:(id) sender;
 - (IBAction) copy:(id)sender;
 - (IBAction) cut:(id)sender;
+- (IBAction) performFindPanelAction:(id)sender;
+- (IBAction) centerSelectionInVisibleArea:(id)sender;
+
+- (BOOL)validateUserInterfaceItem:(id < NSValidatedUserInterfaceItem >)anItem;
 
 - (IBAction) resetMark: (id)sender;
 - (IBAction) reverseMark: (id)sender;
