@@ -340,8 +340,7 @@
         NSInteger rowIndex = [hashItem rowIndex];
         
         if (rowIndex >= 0) {
-            [tableView reloadDataForRowIndexes: [NSIndexSet indexSetWithIndex: rowIndex]
-                                 columnIndexes: [NSIndexSet indexSetWithIndexesInRange: NSMakeRange(0, 5)]];
+            [tableView setNeedsDisplayInRect:[tableView rectOfRow:rowIndex]];
         }
     } else {
         [tableView reloadData];
