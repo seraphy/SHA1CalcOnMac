@@ -560,4 +560,33 @@
     [tableView reloadData];
 }
 
+- (IBAction) openFile:(id) sender
+{
+    // 現在選択の行番号の取得
+    NSIndexSet *selrows = [tableView selectedRowIndexes];
+    
+    if ([selrows count] > 10) {
+        // 10より多くのファイルが選択されている場合は警告を表示する.
+        NSAlert *alert = [NSAlert alertWithMessageText: @"Warnings"
+                                         defaultButton: @"Cancel"
+                                       alternateButton: @"Continue"
+                                           otherButton: nil
+                             informativeTextWithFormat: @"too many files. (%ld)", [selrows count]];
+        NSInteger ret = [alert runModal];
+        if (ret == NSAlertDefaultReturn) {
+            // 中止する.
+            return;
+        }
+    }
+    
+    // 対応するハッシュアイテムの取得
+    NSArray *selItems = [hashItemList getItemByIndexes: selrows];    
+    
+    // ファイルを開く.
+    NSWorkspace *workspace = [NSWorkspace sharedWorkspace];
+    for (HashItem *hashItem in selItems) {
+        [workspace openFile: [[hashItem url] path]];
+    }
+}
+
 @end
