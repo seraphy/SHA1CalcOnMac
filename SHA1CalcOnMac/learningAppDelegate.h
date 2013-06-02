@@ -62,6 +62,9 @@
 - (IBAction) cut:(id)sender;
 - (IBAction) performFindPanelAction:(id)sender;
 - (IBAction) centerSelectionInVisibleArea:(id)sender;
+- (IBAction) findNext: (id) sender;
+- (IBAction) findPrev: (id) sender;
+- (IBAction) findSelect: (id) sender;
 
 - (BOOL)validateUserInterfaceItem:(id < NSValidatedUserInterfaceItem >)anItem;
 

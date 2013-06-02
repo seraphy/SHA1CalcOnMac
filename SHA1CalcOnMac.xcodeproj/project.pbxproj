@@ -17,6 +17,8 @@
 		2E7A69081732BB62002801C2 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2E7A68E81732BB61002801C2 /* Cocoa.framework */; };
 		2E7A69101732BB62002801C2 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 2E7A690E1732BB62002801C2 /* InfoPlist.strings */; };
 		2E7A69131732BB62002801C2 /* SHA1CalcOnMacTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 2E7A69121732BB62002801C2 /* SHA1CalcOnMacTests.m */; };
+		2EA24811175B2754001CC364 /* FindWindowController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2EA24810175B2754001CC364 /* FindWindowController.m */; };
+		2EA24813175B2804001CC364 /* FindWindow.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2EA24812175B2804001CC364 /* FindWindow.xib */; };
 		2ECD6474174776B300D1C987 /* HashItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 2ECD6473174776B300D1C987 /* HashItem.m */; };
 		2ECD64771747826A00D1C987 /* HashCalcurateThread.m in Sources */ = {isa = PBXBuildFile; fileRef = 2ECD64761747826A00D1C987 /* HashCalcurateThread.m */; };
 		2ECD647A1747865100D1C987 /* HashItemList.m in Sources */ = {isa = PBXBuildFile; fileRef = 2ECD64791747865100D1C987 /* HashItemList.m */; };
@@ -52,6 +54,9 @@
 		2E7A690F1732BB62002801C2 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		2E7A69111732BB62002801C2 /* SHA1CalcOnMacTests.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SHA1CalcOnMacTests.h; sourceTree = "<group>"; };
 		2E7A69121732BB62002801C2 /* SHA1CalcOnMacTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SHA1CalcOnMacTests.m; sourceTree = "<group>"; };
+		2EA2480F175B2754001CC364 /* FindWindowController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FindWindowController.h; sourceTree = "<group>"; };
+		2EA24810175B2754001CC364 /* FindWindowController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FindWindowController.m; sourceTree = "<group>"; };
+		2EA24812175B2804001CC364 /* FindWindow.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = FindWindow.xib; sourceTree = "<group>"; };
 		2ECD6472174776B300D1C987 /* HashItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HashItem.h; sourceTree = "<group>"; };
 		2ECD6473174776B300D1C987 /* HashItem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HashItem.m; sourceTree = "<group>"; };
 		2ECD64751747826A00D1C987 /* HashCalcurateThread.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HashCalcurateThread.h; sourceTree = "<group>"; };
@@ -133,6 +138,9 @@
 				2ECD64761747826A00D1C987 /* HashCalcurateThread.m */,
 				2ECD64781747865100D1C987 /* HashItemList.h */,
 				2ECD64791747865100D1C987 /* HashItemList.m */,
+				2EA2480F175B2754001CC364 /* FindWindowController.h */,
+				2EA24810175B2754001CC364 /* FindWindowController.m */,
+				2EA24812175B2804001CC364 /* FindWindow.xib */,
 			);
 			path = SHA1CalcOnMac;
 			sourceTree = "<group>";
@@ -241,6 +249,7 @@
 				2E7A68F31732BB61002801C2 /* InfoPlist.strings in Resources */,
 				2E7A68F91732BB61002801C2 /* Credits.rtf in Resources */,
 				2E7A68FF1732BB61002801C2 /* MainMenu.xib in Resources */,
+				2EA24813175B2804001CC364 /* FindWindow.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -280,6 +289,7 @@
 				2ECD6474174776B300D1C987 /* HashItem.m in Sources */,
 				2ECD64771747826A00D1C987 /* HashCalcurateThread.m in Sources */,
 				2ECD647A1747865100D1C987 /* HashItemList.m in Sources */,
+				2EA24811175B2754001CC364 /* FindWindowController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

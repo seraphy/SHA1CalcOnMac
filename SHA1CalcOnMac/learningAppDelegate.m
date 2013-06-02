@@ -8,7 +8,7 @@
 
 #import "learningAppDelegate.h"
 #import "HashItem.h"
-
+#import "FindWindowController.h"
 
 @implementation learningAppDelegate {
 @private
@@ -23,6 +23,9 @@
     
     /// メニューアイテムの接続
     IBOutlet NSMenuItem *deselectSingle;
+    
+    /// 検索ウィンドウ
+    FindWindowController *findWindowController;
 }
 
 @synthesize window = _window;
@@ -38,6 +41,9 @@
 - (void) dealloc
 {
     [hashItemList release];
+    if (findWindowController) {
+        [findWindowController release];
+    }
     [super dealloc];
 }
 
@@ -590,20 +596,54 @@
 
 - (IBAction) performFindPanelAction:(id)sender
 {
-    NSLog(@"performFindPanelAction: sender=%@", sender);
+    if (!findWindowController) {
+        findWindowController = [[FindWindowController alloc] init];
+
+        if (!findWindowController) {
+            return;
+        }
+        
+        [findWindowController setDelegate: self];
+    }
+
     NSInteger tag = [sender tag];
+    NSLog(@"find menu: tag=%ld", tag);
     switch (tag)
     {
         case 1: // find...
+            [findWindowController showWindow: self];
             break;
+            
         case 2: // next
+            [self findNext: sender];
             break;
+
         case 3: // prev
+            [self findPrev: sender];
             break;
+
         case 7: // select to find
+            [self findSelect: sender];
             break;
     }
-    NSLog(@"tag %ld", tag);
+}
+
+- (IBAction) findNext: (id) sender
+{
+    NSString *searchText = [findWindowController searchString];
+    NSLog(@"FindNext %@", searchText);
+}
+
+- (IBAction) findPrev: (id) sender
+{
+    NSString *searchText = [findWindowController searchString];
+    NSLog(@"FindPrev %@", searchText);
+}
+
+- (IBAction) findSelect: (id) sender
+{
+    NSString *searchText = [findWindowController searchString];
+    NSLog(@"FindSelect %@", searchText);
 }
 
 - (IBAction) centerSelectionInVisibleArea:(id)sender

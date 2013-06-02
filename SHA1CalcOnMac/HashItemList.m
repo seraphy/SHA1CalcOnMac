@@ -13,9 +13,6 @@
 @private
     /// テーブルビューに格納するHashItemのリスト
     NSMutableArray *array;
-    
-    /// 最後に保存してからハッシュ値が新たに計算されたか配列が増えた場合
-    BOOL modified;
 }
 
 @synthesize documentURL = _documentURL;
@@ -26,6 +23,7 @@
 {
     self = [super init];
     array = [[NSMutableArray alloc] init];
+    _modified = NO;
     return self;
 }
 
@@ -131,7 +129,6 @@
 
 - (void) updateHashItem: (HashItem *) hashItem
 {
-    _modified = true;
     if ([_delegate respondsToSelector: @selector(updateHashItem:)]) {
         [_delegate updateHashItem: hashItem];
     }
@@ -211,11 +208,6 @@
     @synchronized(array) {
         return [array count];
     }
-}
-
-- (BOOL) isModified
-{
-    return modified;
 }
 
 - (NSIndexSet *) getCheckedRowIndexes

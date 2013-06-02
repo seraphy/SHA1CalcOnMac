@@ -77,6 +77,7 @@
         NSAutoreleasePool *internalPool = [[NSAutoreleasePool alloc] init];
         
         // 読み取り開始通知
+        [_hashItemList setModified: YES];
         hashItem.sha1hash = @"loading...";
         [hashItem retain]; // 非同期中は解放されないようにあらかじめretain
         dispatch_async(dispatch_get_main_queue(), updateHashItem);
