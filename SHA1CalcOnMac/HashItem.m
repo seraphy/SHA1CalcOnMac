@@ -58,13 +58,13 @@
 - (NSString *) descriptionUsingSeparator: (NSString *)sep
 {
     NSMutableString *buf = [[[NSMutableString alloc] init] autorelease];
-    [buf appendFormat: @"HashItem: [%d]", _rowIndex];
+    [buf appendFormat: @"HashItem: [%ld]", _rowIndex];
     [buf appendString: sep];
     [buf appendFormat: @"checked=%d", (_checked ? 1 : 0)];
     [buf appendString: sep];
     [buf appendFormat: @"url=%@", _url];
     [buf appendString: sep];
-    [buf appendFormat: @"fileSize=%ld", _fileSize];
+    [buf appendFormat: @"fileSize=%lld", _fileSize];
     [buf appendString: sep];
     [buf appendFormat: @"sha1=%@", _sha1hash];
     [buf appendString: sep];

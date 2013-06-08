@@ -222,7 +222,7 @@
         // 前回ファイル名があれば、それを復元する.
         NSString *prevPath = [prevURL path];
         [savePanel setNameFieldStringValue: [prevPath lastPathComponent]];
-        [savePanel setDirectory: [prevPath stringByDeletingLastPathComponent]];
+        [savePanel setDirectoryURL: [NSURL fileURLWithPath: [prevPath stringByDeletingLastPathComponent]]];
 
     } else {
         // なければデフォルトファイル名を用いる
@@ -367,7 +367,7 @@
             msg = [[hashItem url] path];
             
         } else if ([identifier isEqualToString: @"FileSize"]) {
-            msg = [NSString stringWithFormat: @"%ld", [hashItem fileSize]];
+            msg = [NSString stringWithFormat: @"%lld", [hashItem fileSize]];
 
         } else if ([identifier isEqualToString: @"SHA1"]) {
             msg = [hashItem sha1hash];
@@ -376,7 +376,7 @@
             msg = [hashItem md5hash];
             
         } else {
-            msg = [NSString stringWithFormat: @"%@, %d", [aTableColumn identifier], rowIndex];
+            msg = [NSString stringWithFormat: @"%@, %ld", [aTableColumn identifier], rowIndex];
         }
     }
     return msg;
@@ -489,7 +489,7 @@
     NSArray *hashItems = [hashItemList getItemByIndexes: selrows];
     [hashItems enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
         HashItem *hashItem = obj;
-        NSString *key = [NSString stringWithFormat: @"%ld:%@:%@",
+        NSString *key = [NSString stringWithFormat: @"%lld:%@:%@",
                          [hashItem fileSize], [hashItem sha1hash], [hashItem md5hash]];
         NSMutableArray *arr = [dict objectForKey: key];
         if (arr == nil) {
