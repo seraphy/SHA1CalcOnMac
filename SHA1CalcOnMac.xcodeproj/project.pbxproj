@@ -11,7 +11,7 @@
 		2E7A68F31732BB61002801C2 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 2E7A68F11732BB61002801C2 /* InfoPlist.strings */; };
 		2E7A68F51732BB61002801C2 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 2E7A68F41732BB61002801C2 /* main.m */; };
 		2E7A68F91732BB61002801C2 /* Credits.rtf in Resources */ = {isa = PBXBuildFile; fileRef = 2E7A68F71732BB61002801C2 /* Credits.rtf */; };
-		2E7A68FC1732BB61002801C2 /* learningAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 2E7A68FB1732BB61002801C2 /* learningAppDelegate.m */; };
+		2E7A68FC1732BB61002801C2 /* SHA1CalcOnMacAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 2E7A68FB1732BB61002801C2 /* SHA1CalcOnMacAppDelegate.m */; };
 		2E7A68FF1732BB61002801C2 /* MainMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2E7A68FD1732BB61002801C2 /* MainMenu.xib */; };
 		2E7A69071732BB62002801C2 /* SenTestingKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2E7A69061732BB62002801C2 /* SenTestingKit.framework */; };
 		2E7A69081732BB62002801C2 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2E7A68E81732BB61002801C2 /* Cocoa.framework */; };
@@ -45,8 +45,8 @@
 		2E7A68F41732BB61002801C2 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		2E7A68F61732BB61002801C2 /* SHA1CalcOnMac-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "SHA1CalcOnMac-Prefix.pch"; sourceTree = "<group>"; };
 		2E7A68F81732BB61002801C2 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.rtf; name = en; path = en.lproj/Credits.rtf; sourceTree = "<group>"; };
-		2E7A68FA1732BB61002801C2 /* learningAppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = learningAppDelegate.h; sourceTree = "<group>"; };
-		2E7A68FB1732BB61002801C2 /* learningAppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = learningAppDelegate.m; sourceTree = "<group>"; };
+		2E7A68FA1732BB61002801C2 /* SHA1CalcOnMacAppDelegate.h */ = {isa = PBXFileReference; path = SHA1CalcOnMacAppDelegate.h; sourceTree = "<group>"; };
+		2E7A68FB1732BB61002801C2 /* SHA1CalcOnMacAppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SHA1CalcOnMacAppDelegate.m; sourceTree = "<group>"; };
 		2E7A68FE1732BB61002801C2 /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = en.lproj/MainMenu.xib; sourceTree = "<group>"; };
 		2E7A69051732BB62002801C2 /* SHA1CalcOnMacTests.octest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = SHA1CalcOnMacTests.octest; sourceTree = BUILT_PRODUCTS_DIR; };
 		2E7A69061732BB62002801C2 /* SenTestingKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SenTestingKit.framework; path = Library/Frameworks/SenTestingKit.framework; sourceTree = DEVELOPER_DIR; };
@@ -128,8 +128,8 @@
 		2E7A68EE1732BB61002801C2 /* SHA1CalcOnMac */ = {
 			isa = PBXGroup;
 			children = (
-				2E7A68FA1732BB61002801C2 /* learningAppDelegate.h */,
-				2E7A68FB1732BB61002801C2 /* learningAppDelegate.m */,
+				2E7A68FA1732BB61002801C2 /* SHA1CalcOnMacAppDelegate.h */,
+				2E7A68FB1732BB61002801C2 /* SHA1CalcOnMacAppDelegate.m */,
 				2E7A68FD1732BB61002801C2 /* MainMenu.xib */,
 				2E7A68EF1732BB61002801C2 /* Supporting Files */,
 				2ECD6472174776B300D1C987 /* HashItem.h */,
@@ -285,7 +285,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				2E7A68F51732BB61002801C2 /* main.m in Sources */,
-				2E7A68FC1732BB61002801C2 /* learningAppDelegate.m in Sources */,
+				2E7A68FC1732BB61002801C2 /* SHA1CalcOnMacAppDelegate.m in Sources */,
 				2ECD6474174776B300D1C987 /* HashItem.m in Sources */,
 				2ECD64771747826A00D1C987 /* HashCalcurateThread.m in Sources */,
 				2ECD647A1747865100D1C987 /* HashItemList.m in Sources */,

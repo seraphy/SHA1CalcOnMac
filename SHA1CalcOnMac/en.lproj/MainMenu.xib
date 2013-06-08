@@ -1721,7 +1721,7 @@
 				<string key="NSMaxSize">{1e+13, 1e+13}</string>
 			</object>
 			<object class="NSCustomObject" id="976324537">
-				<string key="NSClassName">learningAppDelegate</string>
+				<string key="NSClassName">SHA1CalcOnMacAppDelegate</string>
 			</object>
 			<object class="NSCustomObject" id="755631768">
 				<string key="NSClassName">NSFontManager</string>

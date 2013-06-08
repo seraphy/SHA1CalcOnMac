@@ -1,5 +1,5 @@
 //
-//  learningAppDelegate.h
+//  SHA1CalcOnMacAppDelegate.h
 //  SHA1CalcOnMac
 //
 //  Created by  on 13/05/03.
@@ -13,7 +13,7 @@
 /**
  * シングルウィンドウ用デリゲート.
  */
-@interface learningAppDelegate : NSObject <NSApplicationDelegate, HashItemListNotification>
+@interface SHA1CalcOnMacAppDelegate : NSObject <NSApplicationDelegate, HashItemListNotification>
 
 /**
  * ウィンドウとの接続

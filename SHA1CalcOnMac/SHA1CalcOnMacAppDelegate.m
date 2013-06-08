@@ -1,16 +1,16 @@
 //
-//  learningAppDelegate.m
+//  SHA1CalcOnMacAppDelegate.m
 //  SHA1CalcOnMac
 //
 //  Created by  on 13/05/03.
 //  Copyright (c) 2013 seraphyware.jp. All rights reserved.
 //
 
-#import "learningAppDelegate.h"
+#import "SHA1CalcOnMacAppDelegate.h"
 #import "HashItem.h"
 #import "FindWindowController.h"
 
-@implementation learningAppDelegate {
+@implementation SHA1CalcOnMacAppDelegate {
 @private
     /// ハッシュ値を計算するスレッド
     HashCalcurateThread *thread;
