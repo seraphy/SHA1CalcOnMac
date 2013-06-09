@@ -9,6 +9,7 @@
 #import "SHA1CalcOnMacAppDelegate.h"
 #import "HashItem.h"
 #import "FindWindowController.h"
+#import "PreferenceWindowController.h"
 
 @implementation SHA1CalcOnMacAppDelegate {
 @private
@@ -26,6 +27,9 @@
     
     /// 検索ウィンドウ
     FindWindowController *findWindowController;
+
+    /// 設定ウィンドウ
+    PreferenceWindowController *preferenceWindowController;
 }
 
 @synthesize window = _window;
@@ -49,6 +53,12 @@
 
 - (void)applicationDidFinishLaunching:(NSNotification *)aNotification
 {
+    NSUserDefaults *userDefault = [NSUserDefaults standardUserDefaults];
+    NSDictionary *userDefaultDict = [NSDictionary dictionaryWithObjectsAndKeys:
+                                    [NSNumber numberWithBool: YES], @"skipHidden",
+                                     nil];
+    [userDefault registerDefaults: userDefaultDict];
+    
     thread = [[HashCalcurateThread alloc] init];
     [thread setHashItemList: hashItemList];
     [thread start];
@@ -72,7 +82,14 @@
 
 - (IBAction) openPreference: (id) sender
 {
-    NSLog(@"preference!");
+    if (!preferenceWindowController) {
+        preferenceWindowController = [[PreferenceWindowController alloc] init];
+        
+        if (!preferenceWindowController) {
+            return;
+        }
+    }
+    [preferenceWindowController showWindow: self];
 }
 
 - (IBAction) newDocument:(id)sender
@@ -277,6 +294,11 @@
 
 - (BOOL)windowShouldClose:(id)sender
 {
+    if (preferenceWindowController) {
+        [preferenceWindowController close];
+        [preferenceWindowController release];
+        preferenceWindowController = nil;
+    }
     return [self showConfirmDiscadeDialog];
 }
 
