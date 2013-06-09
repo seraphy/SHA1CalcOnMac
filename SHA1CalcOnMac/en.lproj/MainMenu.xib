@@ -1398,7 +1398,7 @@
 											<int key="NSvFlags">256</int>
 											<string key="NSFrameSize">{1159, 145}</string>
 											<reference key="NSSuperview" ref="243087117"/>
-											<reference key="NSNextKeyView" ref="309151393"/>
+											<reference key="NSNextKeyView" ref="333775826"/>
 											<int key="NSViewLayerContentsRedrawPolicy">2</int>
 											<bool key="NSEnabled">YES</bool>
 											<object class="NSTableHeaderView" key="NSHeaderView" id="230757087">
@@ -1674,7 +1674,6 @@
 									<int key="NSvFlags">256</int>
 									<string key="NSFrame">{{1, 162}, {397, 15}}</string>
 									<reference key="NSSuperview" ref="253340768"/>
-									<reference key="NSNextKeyView"/>
 									<int key="NSViewLayerContentsRedrawPolicy">2</int>
 									<bool key="NSEnabled">YES</bool>
 									<int key="NSsFlags">1</int>
@@ -1700,7 +1699,7 @@
 							</array>
 							<string key="NSFrame">{{15, 20}, {399, 178}}</string>
 							<reference key="NSSuperview" ref="439893737"/>
-							<reference key="NSNextKeyView" ref="333775826"/>
+							<reference key="NSNextKeyView" ref="243087117"/>
 							<int key="NSViewLayerContentsRedrawPolicy">2</int>
 							<int key="NSsFlags">690</int>
 							<reference key="NSVScroller" ref="309151393"/>

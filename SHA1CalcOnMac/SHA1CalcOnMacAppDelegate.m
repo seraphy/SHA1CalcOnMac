@@ -348,6 +348,13 @@
     
     [openPanel beginWithCompletionHandler:^(NSInteger result) {
         if (result == NSFileHandlingPanelOKButton) {
+            
+            // 現在の隠しファイルのスキップ有無の設定を反映する.
+            NSUserDefaults *userDefault = [NSUserDefaults standardUserDefaults];
+            BOOL skipHidden = [userDefault boolForKey: @"skipHidden"];
+            [hashItemList setSkipHidden: skipHidden];
+            
+            // ファイルもしくはフォルダをリストに追加する.
             NSArray *urls = [openPanel URLs];
             [hashItemList addWithURLArray: urls];
             [thread notify];

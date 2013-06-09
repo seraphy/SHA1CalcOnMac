@@ -15,6 +15,7 @@
     NSMutableArray *array;
 }
 
+@synthesize skipHidden = _skipHidden;
 @synthesize documentURL = _documentURL;
 @synthesize delegate = _delegate;
 @synthesize modified = _modified;
@@ -44,6 +45,18 @@
     }
 }
 
+/**
+ * ファイルが隠しファイルであるか？
+ */
+BOOL isInvisible(NSString *str, BOOL isFile){
+    CFURLRef inURL = CFURLCreateWithFileSystemPath(kCFAllocatorDefault, (CFStringRef)str, kCFURLPOSIXPathStyle, isFile);
+    LSItemInfoRecord itemInfo;
+    LSCopyItemInfoForURL(inURL, kLSRequestAllFlags, &itemInfo);
+    
+    BOOL isInvisible = itemInfo.flags & kLSItemInfoIsInvisible;
+    return (isInvisible != 0);
+}
+
 - (void) addWithURL: (NSURL *) url depth:(NSInteger)depth
 {
     // ファイルの実在チェック
@@ -53,6 +66,12 @@
     if ([fileMgr fileExistsAtPath: path isDirectory: &dir]) {
         if (dir) {
             // フォルダは無視する。
+            return;
+        }
+        
+        // 隠しファイルであるか？
+        if ([self skipHidden] && isInvisible(path, YES)) {
+            NSLog(@"skip %@", path);
             return;
         }
         

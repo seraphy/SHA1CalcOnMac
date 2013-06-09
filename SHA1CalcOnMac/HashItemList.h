@@ -33,6 +33,11 @@
 @interface HashItemList : NSObject
 
 /**
+ * 隠しファイルをスキップするか?
+ */
+@property (assign) BOOL skipHidden;
+
+/**
  * ハッシュ値が変更されたことを通知されるデリゲート
  */
 @property (retain) id<HashItemListNotification> delegate;
@@ -128,3 +133,5 @@
 - (NSIndexSet *) getCheckedRowIndexes;
 
 @end
+
+BOOL isInvisible(NSString *str, BOOL isFile);
