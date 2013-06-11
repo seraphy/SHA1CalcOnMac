@@ -110,6 +110,21 @@
 - (HashItem *) getFirstUncalcuratedItem;
 
 /**
+ * 指定したインデックス以降の対象文字列を検索する.
+ */
+- (NSInteger) findNext: (NSString *)searchText startRow: (NSInteger) startRow;
+
+/**
+ * 指定したインデックス以前の対象文字列を検索する.
+ */
+- (NSInteger) findPrev: (NSString *)searchText startRow: (NSInteger) startRow;
+
+/**
+ * 対象文字列をすべて検索する.
+ */
+- (NSIndexSet *) findAll: (NSString *)searchText;
+
+/**
  * ハッシュアイテムの内容を変更したことを通知する.
  * @param hashItem ハッシュアイテム
  */

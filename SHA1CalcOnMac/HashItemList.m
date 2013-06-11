@@ -246,4 +246,78 @@ BOOL isInvisible(NSString *str, BOOL isFile){
     return indexes;
 }
 
+- (NSInteger) findNext: (NSString *)searchText startRow: (NSInteger) startRow
+{
+    @synchronized (array) {
+        NSInteger mx = [array count];
+        if (startRow < -1) {
+            startRow = -1;
+        }
+
+        NSInteger idx = startRow + 1;
+        while (idx < mx) {
+            HashItem *hashItem = [array objectAtIndex: idx];
+            
+            NSString *path = [[hashItem url] path];
+            NSRange isSpacedRange = [path rangeOfString: searchText
+                                                options: NSCaseInsensitiveSearch];
+            if (isSpacedRange.location != NSNotFound) {
+                // 発見された場合
+                return idx;
+            }
+                
+            idx++;
+        }
+        return -1;
+    }
+}
+
+- (NSInteger) findPrev: (NSString *)searchText startRow: (NSInteger) startRow
+{
+    @synchronized (array) {
+        NSInteger mx = [array count];
+        if (startRow < -1) {
+            startRow = mx;
+        }
+        @synchronized (array) {
+            NSInteger idx = startRow - 1;
+            while (idx >= 0) {
+                HashItem *hashItem = [array objectAtIndex: idx];
+                
+                NSString *path = [[hashItem url] path];
+                NSRange isSpacedRange = [path rangeOfString: searchText
+                                                    options: NSCaseInsensitiveSearch];
+                if (isSpacedRange.location != NSNotFound) {
+                    // 発見された場合
+                    return idx;
+                }
+                
+                idx--;
+            }
+            return -1;
+        }
+    }
+}
+
+- (NSIndexSet *) findAll: (NSString *)searchText
+{
+    NSMutableIndexSet *idxes = [[[NSMutableIndexSet alloc] init] autorelease];
+    @synchronized (array) {
+        NSInteger idx = 0;
+        NSInteger mx = [array count];
+        while (idx < mx) {
+            HashItem *hashItem = [array objectAtIndex: idx];
+            
+            NSString *path = [[hashItem url] path];
+            NSRange isSpacedRange = [path rangeOfString: searchText
+                                                options: NSCaseInsensitiveSearch];
+            if (isSpacedRange.location != NSNotFound) {
+                [idxes addIndex: idx];
+            }
+            idx++;
+        }
+    }
+    return idxes;
+}
+
 @end

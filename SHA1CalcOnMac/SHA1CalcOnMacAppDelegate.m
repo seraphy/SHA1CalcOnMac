@@ -660,19 +660,35 @@
 - (IBAction) findNext: (id) sender
 {
     NSString *searchText = [findWindowController searchString];
-    NSLog(@"FindNext %@", searchText);
+    NSInteger selrow = [tableView selectedRow];
+    NSInteger nextrow = [hashItemList findNext: searchText startRow: selrow];
+    if (nextrow >= 0 && nextrow != selrow) {
+        [tableView selectRowIndexes: [NSIndexSet indexSetWithIndex: nextrow]
+               byExtendingSelection: NO];
+        [tableView scrollRowToVisible: nextrow];
+    }
 }
 
 - (IBAction) findPrev: (id) sender
 {
     NSString *searchText = [findWindowController searchString];
-    NSLog(@"FindPrev %@", searchText);
+    NSInteger selrow = [tableView selectedRow];
+    NSInteger nextrow = [hashItemList findPrev: searchText startRow: selrow];
+    if (nextrow >= 0 && nextrow != selrow) {
+        [tableView selectRowIndexes: [NSIndexSet indexSetWithIndex: nextrow]
+               byExtendingSelection: NO];
+        [tableView scrollRowToVisible: nextrow];
+    }
 }
 
 - (IBAction) findSelect: (id) sender
 {
     NSString *searchText = [findWindowController searchString];
-    NSLog(@"FindSelect %@", searchText);
+    NSIndexSet *selrows = [hashItemList findAll: searchText];
+    if ([selrows count] > 0) {
+        [tableView selectRowIndexes: selrows byExtendingSelection: NO];
+        [tableView scrollRowToVisible: [selrows firstIndex]];
+    }
 }
 
 - (IBAction) centerSelectionInVisibleArea:(id)sender
