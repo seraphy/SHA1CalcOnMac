@@ -677,7 +677,11 @@
 
 - (IBAction) centerSelectionInVisibleArea:(id)sender
 {
-    NSLog(@"centerSelectionInVisibleArea: sender=%@", sender);
+    NSIndexSet *sels = [tableView selectedRowIndexes];
+    NSInteger firstIdx = [sels firstIndex];
+    if (firstIdx != NSNotFound) {
+        [tableView scrollRowToVisible: firstIdx];
+    }
 }
 
 - (BOOL)validateUserInterfaceItem:(id < NSValidatedUserInterfaceItem >)anItem
