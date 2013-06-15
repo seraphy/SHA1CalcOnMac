@@ -51,6 +51,11 @@
  */
 - (IBAction) openPreference:(id)sender;
 
+/**
+ * ウィンドウを閉じる確認のシートダイアログのイベントを受け取るメソッド
+ */
+- (void) alertDidEnd:(NSAlert *) alert returnCode:(int) returnCode contextInfo:(void *) contextInfo;
+
 - (BOOL) getDeselectSingleMode;
 
 - (IBAction) newDocument:(id)sender;

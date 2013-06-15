@@ -304,19 +304,31 @@
 
 - (BOOL) showConfirmDiscadeDialog
 {
-    BOOL ret = YES;
-    
     if ([hashItemList modified]) {
         NSAlert *alert = [NSAlert alertWithMessageText: @"Are you sure discade changes?"
                                          defaultButton: @"YES"
                                        alternateButton: @"NO"
                                            otherButton: nil
                              informativeTextWithFormat: @""];
-        if ([alert runModal] != NSAlertDefaultReturn) {
-            ret = NO;
-        }
+
+        [alert beginSheetModalForWindow: _window
+                          modalDelegate: self
+                         didEndSelector: @selector(alertDidEnd: returnCode: contextInfo:) 
+                            contextInfo: nil];
+//        if ([alert runModal] != NSAlertDefaultReturn) {
+//            ret = NO;
+//        }
+        return NO;
     }
-    return ret;
+    return YES;
+}
+
+- (void) alertDidEnd:(NSAlert *) alert returnCode:(int) returnCode contextInfo:(void *) contextInfo
+{
+    if (returnCode == NSAlertDefaultReturn) {
+        // ウィンドウをクローズする。
+        [_window close];
+    }
 }
 
 - (void)windowWillClose: (id) sender
