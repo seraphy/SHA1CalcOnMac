@@ -310,20 +310,19 @@
                                        alternateButton: @"NO"
                                            otherButton: nil
                              informativeTextWithFormat: @""];
-
         [alert beginSheetModalForWindow: _window
                           modalDelegate: self
-                         didEndSelector: @selector(alertDidEnd: returnCode: contextInfo:) 
+                         didEndSelector: @selector(closeConfirmAlertDidEnd: returnCode: contextInfo:) 
                             contextInfo: nil];
 //        if ([alert runModal] != NSAlertDefaultReturn) {
-//            ret = NO;
-//        }
         return NO;
     }
     return YES;
 }
 
-- (void) alertDidEnd:(NSAlert *) alert returnCode:(int) returnCode contextInfo:(void *) contextInfo
+- (void) closeConfirmAlertDidEnd:(NSAlert *) alert
+                      returnCode:(int) returnCode
+                     contextInfo:(void *) contextInfo
 {
     if (returnCode == NSAlertDefaultReturn) {
         // ウィンドウをクローズする。
@@ -606,6 +605,28 @@
     [tableView reloadData];
 }
 
+- (void) openFileAtWorkspaceCore: (NSIndexSet *) selrows
+{
+    // 対応するハッシュアイテムの取得
+    NSArray *selItems = [hashItemList getItemByIndexes: selrows];    
+    
+    // ファイルを開く.
+    NSWorkspace *workspace = [NSWorkspace sharedWorkspace];
+    for (HashItem *hashItem in selItems) {
+        [workspace openFile: [[hashItem url] path]];
+    }
+}
+
+- (void) manyOpenAlertDidEnd:(NSAlert *) alert
+                      returnCode:(int) returnCode
+                     contextInfo:(NSIndexSet *) selrows
+{
+    if (returnCode != NSAlertDefaultReturn) {
+        [self openFileAtWorkspaceCore: selrows];
+    }
+    [selrows release];
+}
+
 - (IBAction) openFileAtWorkspace:(id) sender
 {
     // 現在選択の行番号の取得
@@ -618,20 +639,12 @@
                                        alternateButton: @"Continue"
                                            otherButton: nil
                              informativeTextWithFormat: @"too many files. (%ld)", [selrows count]];
-        NSInteger ret = [alert runModal];
-        if (ret == NSAlertDefaultReturn) {
-            // 中止する.
-            return;
-        }
-    }
-    
-    // 対応するハッシュアイテムの取得
-    NSArray *selItems = [hashItemList getItemByIndexes: selrows];    
-    
-    // ファイルを開く.
-    NSWorkspace *workspace = [NSWorkspace sharedWorkspace];
-    for (HashItem *hashItem in selItems) {
-        [workspace openFile: [[hashItem url] path]];
+        [alert beginSheetModalForWindow: _window
+                          modalDelegate: self
+                         didEndSelector: @selector(manyOpenAlertDidEnd: returnCode: contextInfo:)
+                            contextInfo: [selrows retain]];
+    } else {
+        [self openFileAtWorkspaceCore: selrows];
     }
 }
 

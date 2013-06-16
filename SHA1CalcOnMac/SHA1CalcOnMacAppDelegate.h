@@ -54,7 +54,18 @@
 /**
  * ウィンドウを閉じる確認のシートダイアログのイベントを受け取るメソッド
  */
-- (void) alertDidEnd:(NSAlert *) alert returnCode:(int) returnCode contextInfo:(void *) contextInfo;
+- (void) closeConfirmAlertDidEnd:(NSAlert *) alert
+                      returnCode:(int) returnCode
+                     contextInfo:(void *) contextInfo;
+
+/**
+ * 開くファイル数が多い場合の警告シートダイアログのイベントを受け取るメソッド
+ */
+- (void) manyOpenAlertDidEnd:(NSAlert *) alert
+                  returnCode:(int) returnCode
+                 contextInfo:(NSIndexSet *) selrows;
+
+- (void) openFileAtWorkspaceCore: (NSIndexSet *) selrows;
 
 - (BOOL) getDeselectSingleMode;
 
