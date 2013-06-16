@@ -520,6 +520,14 @@
     [tableView reloadData];
 }
 
+- (IBAction) markIfSelected:(id)sender
+{
+    // 現在選択の行番号の取得
+    NSIndexSet *selrows = [tableView selectedRowIndexes];
+    [hashItemList setChecked: selrows state: YES];
+    [tableView reloadData];
+}
+
 - (IBAction) deselectSingle: (id) sender
 {
     NSInteger newState = [deselectSingle state] != NSOnState ? NSOnState : NSOffState;
