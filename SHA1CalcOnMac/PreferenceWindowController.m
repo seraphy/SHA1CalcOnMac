@@ -12,6 +12,8 @@
     
     IBOutlet NSButton *chkSkipHidden;
     
+    IBOutlet NSTextField *txtMaxOpenFiles;
+    
 }
 
 -(id) init
@@ -37,8 +39,12 @@
     [super windowDidLoad];
 
     NSUserDefaults *userDefault = [NSUserDefaults standardUserDefaults];
+    
     BOOL skipHidden = [userDefault boolForKey: @"skipHidden"];
     [chkSkipHidden setState: (skipHidden ? NSOnState : NSOffState)];
+    
+    NSInteger maxOpenFiles = [userDefault integerForKey: @"maxOpenFiles"];
+    [txtMaxOpenFiles setIntegerValue: maxOpenFiles];
 }
 
 -(IBAction) changeSkipHidden: (id)sender
@@ -50,5 +56,26 @@
     [userDefault setBool: state ? YES : NO forKey: @"skipHidden"];
 }
 
+-(void) changeMaxOpenFiles
+{
+    NSInteger maxOpenFiles = [txtMaxOpenFiles integerValue];
+    NSLog(@"changeMaxOpenFiles %ld", maxOpenFiles);
+    
+    if (maxOpenFiles <= 0) {
+        maxOpenFiles = 1;
+        [txtMaxOpenFiles setIntegerValue: maxOpenFiles];
+    }
+
+    NSUserDefaults *userDefault = [NSUserDefaults standardUserDefaults];
+    [userDefault setInteger: maxOpenFiles forKey: @"maxOpenFiles"];
+}
+
+- (void)controlTextDidChange:(NSNotification *)notification
+{
+    NSTextField *textField = [notification object];
+    if ([textField isEqual: txtMaxOpenFiles]) {
+        [self changeMaxOpenFiles];
+    }
+}
 
 @end

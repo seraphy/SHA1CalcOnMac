@@ -11,6 +11,8 @@
 @interface PreferenceWindowController : NSWindowController
 
 -(id) init;
+-(void)controlTextDidChange:(NSNotification *)notification;
+-(void) changeMaxOpenFiles;
 
 -(IBAction) changeSkipHidden: (id)sender;
 

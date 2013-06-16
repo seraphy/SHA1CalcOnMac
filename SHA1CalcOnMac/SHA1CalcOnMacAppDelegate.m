@@ -56,6 +56,7 @@
     NSUserDefaults *userDefault = [NSUserDefaults standardUserDefaults];
     NSDictionary *userDefaultDict = [NSDictionary dictionaryWithObjectsAndKeys:
                                     [NSNumber numberWithBool: YES], @"skipHidden",
+                                    [NSNumber numberWithInt: 5], @"maxOpenFiles",
                                      nil];
     [userDefault registerDefaults: userDefaultDict];
     
@@ -631,9 +632,13 @@
 {
     // 現在選択の行番号の取得
     NSIndexSet *selrows = [tableView selectedRowIndexes];
+
+    // 同時に開くファイルの最大数制限
+    NSUserDefaults *userDefault = [NSUserDefaults standardUserDefaults];
+    NSInteger maxOpenFile = [userDefault integerForKey: @"maxOpenFiles"];
     
-    if ([selrows count] > 5) {
-        // 5より多くのファイルが選択されている場合は警告を表示する.
+    if ([selrows count] > maxOpenFile) {
+        // 設定で指定されたより多くのファイルが選択されている場合は警告を表示する.
         NSAlert *alert = [NSAlert alertWithMessageText: @"Warnings"
                                          defaultButton: @"Cancel"
                                        alternateButton: @"Continue"
