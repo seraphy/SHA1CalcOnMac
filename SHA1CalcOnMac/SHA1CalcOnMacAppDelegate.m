@@ -487,6 +487,17 @@
     [tableView reloadData];
 }
 
+- (IBAction) deleteIfUnmarked:(id)sender
+{
+    [hashItemList deleteIf: ^(HashItem *hashItem) {
+        if ([hashItem checked]) {
+            return NO;
+        }
+        return YES;
+    }];
+    [tableView reloadData];
+}
+
 
 - (BOOL) getDeselectSingleMode
 {

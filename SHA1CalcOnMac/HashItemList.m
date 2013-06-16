@@ -325,15 +325,34 @@ BOOL isInvisible(NSString *str, BOOL isFile){
     NSMutableSet *checker = [[[NSMutableSet alloc] init] autorelease];
     
     // 対応するハッシュアイテムの取得
-    NSArray *selItems = [self getItemByIndexes: selrows];
-    for (HashItem *hashItem in selItems) {
-        NSString *sha1hash = [hashItem sha1hash];
-        if (![checker containsObject: sha1hash]) {
-            // ハッシュ値が初回登場の場合はチェックを外す.
-            [hashItem setChecked: NO];
-            [checker addObject: sha1hash];
+    @synchronized (array) {
+        NSArray *selItems = [self getItemByIndexes: selrows];
+        for (HashItem *hashItem in selItems) {
+            NSString *sha1hash = [hashItem sha1hash];
+            if (![checker containsObject: sha1hash]) {
+                // ハッシュ値が初回登場の場合はチェックを外す.
+                [hashItem setChecked: NO];
+                [self updateHashItem: hashItem];
+                [checker addObject: sha1hash];
+            }
         }
     }
+    
 }
+
+- (void) deleteIf: (BOOL (^)(HashItem *)) block
+{
+    __block NSMutableIndexSet *selrows = [[[NSMutableIndexSet alloc] init] autorelease];
+    
+    @synchronized (array) {
+        [array enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
+            if (block((HashItem *)obj)) {
+                [selrows addIndex: idx];
+            }
+        }];
+        [self removeByIndexes: selrows];
+    }
+}
+
 
 @end

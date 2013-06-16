@@ -87,6 +87,7 @@
 - (IBAction) resetMark: (id)sender;
 - (IBAction) reverseMark: (id)sender;
 - (IBAction) delete: (id)sender;
+- (IBAction) deleteIfUnmarked: (id)sender;
 - (IBAction) deselectSingle: (id) sender;
 - (IBAction) check: (id) sender;
 - (IBAction) selectIfChecked:(id) sender;

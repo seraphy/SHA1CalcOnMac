@@ -297,6 +297,15 @@
 									<reference key="NSOnImage" ref="35465992"/>
 									<reference key="NSMixedImage" ref="502551668"/>
 								</object>
+								<object class="NSMenuItem" id="1021117290">
+									<reference key="NSMenu" ref="789758025"/>
+									<string key="NSTitle">Reverse Mark</string>
+									<string key="NSKeyEquiv">r</string>
+									<int key="NSKeyEquivModMask">1048576</int>
+									<int key="NSMnemonicLoc">2147483647</int>
+									<reference key="NSOnImage" ref="35465992"/>
+									<reference key="NSMixedImage" ref="502551668"/>
+								</object>
 								<object class="NSMenuItem" id="888547720">
 									<reference key="NSMenu" ref="789758025"/>
 									<bool key="NSIsDisabled">YES</bool>
@@ -381,11 +390,10 @@
 									<reference key="NSOnImage" ref="35465992"/>
 									<reference key="NSMixedImage" ref="502551668"/>
 								</object>
-								<object class="NSMenuItem" id="1021117290">
+								<object class="NSMenuItem" id="451400209">
 									<reference key="NSMenu" ref="789758025"/>
-									<string key="NSTitle">Reverse Mark</string>
-									<string key="NSKeyEquiv">r</string>
-									<int key="NSKeyEquivModMask">1048576</int>
+									<string key="NSTitle">Delete If Unmarked</string>
+									<string key="NSKeyEquiv"/>
 									<int key="NSMnemonicLoc">2147483647</int>
 									<reference key="NSOnImage" ref="35465992"/>
 									<reference key="NSMixedImage" ref="502551668"/>
@@ -715,9 +723,19 @@
 									<reference key="NSOnImage" ref="35465992"/>
 									<reference key="NSMixedImage" ref="502551668"/>
 								</object>
-								<object class="NSMenuItem" id="249173693">
+								<object class="NSMenuItem" id="218885923">
 									<reference key="NSMenu" ref="955489922"/>
-									<string key="NSTitle">Uncheck First Item</string>
+									<bool key="NSIsDisabled">YES</bool>
+									<bool key="NSIsSeparator">YES</bool>
+									<string key="NSTitle"/>
+									<string key="NSKeyEquiv"/>
+									<int key="NSMnemonicLoc">2147483647</int>
+									<reference key="NSOnImage" ref="35465992"/>
+									<reference key="NSMixedImage" ref="502551668"/>
+								</object>
+								<object class="NSMenuItem" id="157627062">
+									<reference key="NSMenu" ref="955489922"/>
+									<string key="NSTitle">Unmark First Item</string>
 									<string key="NSKeyEquiv"/>
 									<int key="NSMnemonicLoc">2147483647</int>
 									<reference key="NSOnImage" ref="35465992"/>
@@ -1406,7 +1424,7 @@
 											<int key="NSvFlags">256</int>
 											<string key="NSFrameSize">{1159, 145}</string>
 											<reference key="NSSuperview" ref="243087117"/>
-											<reference key="NSNextKeyView" ref="333775826"/>
+											<reference key="NSNextKeyView" ref="309151393"/>
 											<int key="NSViewLayerContentsRedrawPolicy">2</int>
 											<bool key="NSEnabled">YES</bool>
 											<object class="NSTableHeaderView" key="NSHeaderView" id="230757087">
@@ -1682,6 +1700,7 @@
 									<int key="NSvFlags">256</int>
 									<string key="NSFrame">{{1, 162}, {397, 15}}</string>
 									<reference key="NSSuperview" ref="253340768"/>
+									<reference key="NSNextKeyView"/>
 									<int key="NSViewLayerContentsRedrawPolicy">2</int>
 									<bool key="NSEnabled">YES</bool>
 									<int key="NSsFlags">1</int>
@@ -1707,7 +1726,7 @@
 							</array>
 							<string key="NSFrame">{{15, 20}, {399, 178}}</string>
 							<reference key="NSSuperview" ref="439893737"/>
-							<reference key="NSNextKeyView" ref="243087117"/>
+							<reference key="NSNextKeyView" ref="333775826"/>
 							<int key="NSViewLayerContentsRedrawPolicy">2</int>
 							<int key="NSsFlags">690</int>
 							<reference key="NSVScroller" ref="309151393"/>
@@ -2492,9 +2511,17 @@
 					<object class="IBActionConnection" key="connection">
 						<string key="label">uncheckFirstItem:</string>
 						<reference key="source" ref="976324537"/>
-						<reference key="destination" ref="249173693"/>
+						<reference key="destination" ref="157627062"/>
 					</object>
 					<int key="connectionID">639</int>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBActionConnection" key="connection">
+						<string key="label">deleteIfUnmarked:</string>
+						<reference key="source" ref="976324537"/>
+						<reference key="destination" ref="451400209"/>
+					</object>
+					<int key="connectionID">642</int>
 				</object>
 				<object class="IBConnectionRecord">
 					<object class="IBOutletConnection" key="connection">
@@ -2640,11 +2667,12 @@
 							<reference ref="288088188"/>
 							<reference ref="82994268"/>
 							<reference ref="124748415"/>
-							<reference ref="1021117290"/>
 							<reference ref="583158037"/>
 							<reference ref="199970018"/>
 							<reference ref="444637993"/>
+							<reference ref="1021117290"/>
 							<reference ref="888547720"/>
+							<reference ref="451400209"/>
 						</array>
 						<reference key="parent" ref="952259628"/>
 					</object>
@@ -3621,7 +3649,8 @@
 							<reference ref="522550557"/>
 							<reference ref="144621825"/>
 							<reference ref="77124154"/>
-							<reference ref="249173693"/>
+							<reference ref="157627062"/>
+							<reference ref="218885923"/>
 						</array>
 						<reference key="parent" ref="568783349"/>
 					</object>
@@ -3662,8 +3691,18 @@
 					</object>
 					<object class="IBObjectRecord">
 						<int key="objectID">638</int>
-						<reference key="object" ref="249173693"/>
+						<reference key="object" ref="157627062"/>
 						<reference key="parent" ref="955489922"/>
+					</object>
+					<object class="IBObjectRecord">
+						<int key="objectID">640</int>
+						<reference key="object" ref="218885923"/>
+						<reference key="parent" ref="955489922"/>
+					</object>
+					<object class="IBObjectRecord">
+						<int key="objectID">641</int>
+						<reference key="object" ref="451400209"/>
+						<reference key="parent" ref="789758025"/>
 					</object>
 				</array>
 			</object>
@@ -3837,6 +3876,8 @@
 				<string key="634.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
 				<string key="635.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
 				<string key="638.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
+				<string key="640.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
+				<string key="641.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
 				<string key="72.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
 				<string key="73.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
 				<string key="75.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
@@ -3851,7 +3892,7 @@
 			<nil key="activeLocalization"/>
 			<dictionary class="NSMutableDictionary" key="localizations"/>
 			<nil key="sourceID"/>
-			<int key="maxID">639</int>
+			<int key="maxID">642</int>
 		</object>
 		<object class="IBClassDescriber" key="IBDocument.Classes"/>
 		<int key="IBDocument.localizationMode">0</int>

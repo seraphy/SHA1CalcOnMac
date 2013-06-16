@@ -152,6 +152,11 @@
  */
 - (NSIndexSet *) getCheckedRowIndexes;
 
+/**
+ * 評価ブロックがYESを返すアイテムを除去する.
+ */
+- (void) deleteIf: (BOOL (^)(HashItem *)) block;
+
 @end
 
 BOOL isInvisible(NSString *str, BOOL isFile);
