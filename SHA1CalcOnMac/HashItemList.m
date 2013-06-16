@@ -337,7 +337,6 @@ BOOL isInvisible(NSString *str, BOOL isFile){
             }
         }
     }
-    
 }
 
 - (void) deleteIf: (BOOL (^)(HashItem *)) block
@@ -354,5 +353,15 @@ BOOL isInvisible(NSString *str, BOOL isFile){
     }
 }
 
+- (void) setStateByIndexes: (NSIndexSet *) selrows state: (HashItemState) state
+{
+    // 対応するハッシュアイテムの取得
+    @synchronized (array) {
+        NSArray *selItems = [self getItemByIndexes: selrows];
+        for (HashItem *hashItem in selItems) {
+            [hashItem setState: state];
+        }
+    }
+}
 
 @end

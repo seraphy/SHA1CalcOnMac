@@ -814,4 +814,21 @@
     [hashItemList uncheckFirstItem: selrows];
 }
 
+- (IBAction) recalcHash:(id)sender
+{
+    NSIndexSet *selrows = [tableView selectedRowIndexes];
+    if ([selrows count] <= 1) {
+        [[NSAlert alertWithMessageText: @"no selection"
+                         defaultButton: @"OK"
+                       alternateButton: nil
+                           otherButton: nil
+             informativeTextWithFormat: @""] runModal];
+        return;
+    }
+    
+    [hashItemList setStateByIndexes: selrows state: hashItem_needCalc];
+    [thread notify];
+    [tableView reloadData];
+}
+
 @end

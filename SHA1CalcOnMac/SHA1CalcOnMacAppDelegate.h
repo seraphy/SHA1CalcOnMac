@@ -97,5 +97,6 @@
 - (IBAction) deleteMarkedFile:(id) sender;
 - (IBAction) openFileAtWorkspace:(id) sender;
 - (IBAction) uncheckFirstItem: (id) sender;
+- (IBAction) recalcHash:(id)sender;
 
 @end

@@ -157,6 +157,11 @@
  */
 - (void) deleteIf: (BOOL (^)(HashItem *)) block;
 
+/**
+ * ハッシュアイテムのステートを一括変更する.
+ */
+- (void) setStateByIndexes: (NSIndexSet *) selrows state: (HashItemState) state;
+
 @end
 
 BOOL isInvisible(NSString *str, BOOL isFile);
