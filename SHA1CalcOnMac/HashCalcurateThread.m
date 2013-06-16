@@ -14,6 +14,9 @@
 @private
     /// スレッドの同期・待機を行うためのもの
     NSCondition *threadCond;
+    
+    /// モードの状態
+    BOOL scanningMode;
 }
 
 @synthesize hashItemList = _hashItemList;
@@ -22,6 +25,7 @@
 {
     self = [super init];
     threadCond = [[NSCondition alloc] init];
+    scanningMode = NO;
     return self;
 }
 
@@ -44,6 +48,22 @@
     [self notify];
 }
 
+- (BOOL) isScanning
+{
+    return scanningMode;
+}
+
+- (void) setScanning:(BOOL)scanning
+{
+    if (scanningMode != scanning) {
+        scanningMode = scanning;
+        
+        NSNotificationCenter *center = [NSNotificationCenter defaultCenter];
+        [center postNotificationName: @"HashCalcurateRunningState"
+                              object: self];
+    }
+}
+
 - (void) main
 {
     NSAutoreleasePool *autoreleasePool = [[NSAutoreleasePool alloc] init];
@@ -60,10 +80,12 @@
                 [_hashItemList updateHashItem: nil]; // reload all
             });
             NSLog(@"Sleep HashCalcurateThread.");
+            [self setScanning: NO];
             [threadCond waitUntilDate:[NSDate dateWithTimeIntervalSinceNow: 5]]; // wait 5sec
             NSLog(@"Wakeup HashCalcurateThread.");
             continue;
         }
+        [self setScanning: YES];
         [threadCond unlock];
         
         // ハッシュアイテムの変更通知用ブロック

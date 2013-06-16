@@ -25,6 +25,9 @@
     /// メニューアイテムの接続
     IBOutlet NSMenuItem *deselectSingle;
     
+    /// ステータス表示
+    IBOutlet NSTextField *statusField;
+    
     /// 検索ウィンドウ
     FindWindowController *findWindowController;
 
@@ -39,7 +42,32 @@
     self = [super init];
     hashItemList = [[HashItemList alloc] init];
     [hashItemList setDelegate: self];
+    
+    NSNotificationCenter *center = [NSNotificationCenter defaultCenter];
+    [center addObserver: self
+               selector: @selector(hashCalcurateRunningState:)
+                   name: @"HashCalcurateRunningState"
+                 object: nil];
+    
     return self;
+}
+
+- (void) hashCalcurateRunningState: (NSNotification *)notification
+{
+    HashCalcurateThread *calcThread = (HashCalcurateThread *)[notification object];
+    BOOL scanning = [calcThread isScanning];
+    NSLog(@"Scanning : %d", scanning);
+
+    NSString *msg;
+    if (scanning) {
+        msg = @"Scanning";
+    } else {
+        msg = @"Idle";
+    }
+    
+    dispatch_async(dispatch_get_main_queue(), ^{
+        [statusField setStringValue: msg];
+    });    
 }
 
 - (void) dealloc

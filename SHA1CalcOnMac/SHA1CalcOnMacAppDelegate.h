@@ -69,6 +69,8 @@
 
 - (BOOL) getDeselectSingleMode;
 
+- (void) hashCalcurateRunningState: (NSNotification *)notification;
+
 - (IBAction) newDocument:(id)sender;
 - (IBAction) openDocument:(id)sender;
 - (IBAction) mergeDocument:(id)sender;
