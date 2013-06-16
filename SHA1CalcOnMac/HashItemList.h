@@ -143,6 +143,11 @@
 - (void) sortUsingDescriptors: sortDescriptors;
 
 /**
+ * 指定した行セットでSHA1SUMの最初のアイテムのチェックを外す.
+ */
+- (void) uncheckFirstItem: (NSIndexSet *) selrows;
+
+/**
  * チェックされている行を取得する
  */
 - (NSIndexSet *) getCheckedRowIndexes;

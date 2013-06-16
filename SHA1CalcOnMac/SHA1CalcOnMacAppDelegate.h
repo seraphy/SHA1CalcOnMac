@@ -92,5 +92,6 @@
 - (IBAction) selectIfChecked:(id) sender;
 - (IBAction) deleteMarkedFile:(id) sender;
 - (IBAction) openFileAtWorkspace:(id) sender;
+- (IBAction) uncheckFirstItem: (id) sender;
 
 @end

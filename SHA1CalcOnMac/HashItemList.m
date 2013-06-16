@@ -320,4 +320,20 @@ BOOL isInvisible(NSString *str, BOOL isFile){
     return idxes;
 }
 
+- (void) uncheckFirstItem:(NSIndexSet *)selrows
+{
+    NSMutableSet *checker = [[[NSMutableSet alloc] init] autorelease];
+    
+    // 対応するハッシュアイテムの取得
+    NSArray *selItems = [self getItemByIndexes: selrows];
+    for (HashItem *hashItem in selItems) {
+        NSString *sha1hash = [hashItem sha1hash];
+        if (![checker containsObject: sha1hash]) {
+            // ハッシュ値が初回登場の場合はチェックを外す.
+            [hashItem setChecked: NO];
+            [checker addObject: sha1hash];
+        }
+    }
+}
+
 @end
