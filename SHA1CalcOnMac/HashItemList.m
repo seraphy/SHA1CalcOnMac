@@ -202,7 +202,7 @@ BOOL isInvisible(NSString *str, BOOL isFile){
         NSUInteger mx = [array count];
         for (NSUInteger idx = 0; idx < mx; idx++) {
             HashItem *item = [array objectAtIndex: idx];
-            if ([item.sha1hash length] == 0) {
+            if ([item state] == hashItem_needCalc) {
                 // スレッドで使っている間は解放されいようにretainしてから返す.
                 return [item retain];
             }

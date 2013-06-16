@@ -8,6 +8,16 @@
 
 #import <Foundation/Foundation.h>
 
+enum HashItemState
+{
+    hashItem_needCalc,
+    hashItem_loading,
+    hashItem_calced,
+    hashItem_failed
+};
+
+typedef NSUInteger HashItemState;
+
 @interface HashItem : NSObject
 
 /**
@@ -19,16 +29,16 @@
 /**
  *
  */
-@property(assign) BOOL checked;
-@property(retain) NSURL *url;
-@property(assign) unsigned long long fileSize;
-@property(retain) NSString *sha1hash;
-@property(retain) NSString *md5hash;
+@property(assign, nonatomic) BOOL checked;
+@property(assign, nonatomic) HashItemState state;
+@property(retain, nonatomic) NSURL *url;
+@property(assign, nonatomic) unsigned long long fileSize;
+@property(retain, nonatomic) NSString *sha1hash;
+@property(retain, nonatomic) NSString *md5hash;
 
 @property(readonly, getter=getName) NSString *name;
 
 - (id) initWithURL: (NSURL *)aUrl;
-- (id) initWithURL: (NSURL *)aUrl hash: (NSString *) aHash;
 - (NSString *) getName;
 - (NSString *) descriptionUsingSeparator: (NSString *)sep;
 + (HashItem *) hashItemFromString: (NSString *)str separator: (NSString *)sep;

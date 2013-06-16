@@ -100,7 +100,7 @@
         
         // 読み取り開始通知
         [_hashItemList setModified: YES];
-        hashItem.sha1hash = @"loading...";
+        hashItem.state = hashItem_loading;
         [hashItem retain]; // 非同期中は解放されないようにあらかじめretain
         dispatch_async(dispatch_get_main_queue(), updateHashItem);
         
@@ -154,14 +154,29 @@
         
         // 表示アイテムの設定
         if (msg) {
+            hashItem.state = hashItem_failed;
             hashItem.checked = NO;
             hashItem.sha1hash = msg;
             hashItem.md5hash = msg;
             
         } else {
-            hashItem.checked = YES;
-            hashItem.sha1hash = [self bin2hex: sha1digest len:CC_SHA1_DIGEST_LENGTH];
-            hashItem.md5hash = [self bin2hex: md5digest len:CC_MD5_DIGEST_LENGTH];
+            BOOL checked = NO;
+
+            // ハッシュ値を16進数文字列化
+            NSString *sha1hash = [self bin2hex: sha1digest len:CC_SHA1_DIGEST_LENGTH];
+            NSString *md5hash = [self bin2hex: md5digest len:CC_MD5_DIGEST_LENGTH];; 
+            
+            // 以前のものと変更があるか？
+            if (hashItem.sha1hash == nil || ![hashItem.sha1hash isEqualToString: sha1hash]) {
+                checked = YES;
+            } else if (hashItem.md5hash == nil || ![hashItem.md5hash isEqualToString: md5hash]) {
+                checked = YES;
+            }
+            
+            hashItem.state = hashItem_calced;
+            hashItem.checked = checked;
+            hashItem.sha1hash = sha1hash;
+            hashItem.md5hash = md5hash;
         }
         
         // 表示の更新

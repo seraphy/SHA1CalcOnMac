@@ -439,10 +439,26 @@
             msg = [NSString stringWithFormat: @"%lld", [hashItem fileSize]];
 
         } else if ([identifier isEqualToString: @"SHA1"]) {
-            msg = [hashItem sha1hash];
+            if ([hashItem state] == hashItem_loading) {
+                msg = @"loading...";
+                
+            } else if ([hashItem state] == hashItem_failed) {
+                msg = @"failed";
+            
+            } else {
+                msg = [hashItem sha1hash];
+            }
             
         } else if ([identifier isEqualToString: @"MD5"]) {
-            msg = [hashItem md5hash];
+            if ([hashItem state] == hashItem_loading) {
+                msg = @"loading...";
+
+            } else if ([hashItem state] == hashItem_failed) {
+                msg = @"failed";
+                
+            } else {
+                msg = [hashItem md5hash];
+            }
             
         } else {
             msg = [NSString stringWithFormat: @"%@, %ld", [aTableColumn identifier], rowIndex];

@@ -11,6 +11,7 @@
 @implementation HashItem : NSObject
 
 @synthesize checked = _checked;
+@synthesize state = _state;
 @synthesize rowIndex = _rowIndex;
 @synthesize url = _url;
 @synthesize fileSize = _fileSize;
@@ -27,6 +28,7 @@
 {
     self = [super init];
     self.rowIndex = -1;
+    self.state = hashItem_needCalc;
     return self;
 }
 
@@ -34,14 +36,6 @@
 {
     self = [self init];
     self.url = aUrl;
-    return self;
-}
-
-- (id) initWithURL: (NSURL *)aUrl hash: (NSString *) aHash
-{
-    self = [self init];
-    self.url = aUrl;
-    self.sha1hash = aHash;
     return self;
 }
 
@@ -104,6 +98,14 @@
                     }
                 }
             }
+            
+            // ハッシュ値が計算済みであれば成功とみなす.(そうでなければ失敗とみなす)
+            if ([[result sha1hash] length] != 0) {
+                [result setState: hashItem_calced];
+            } else {
+                [result setState: hashItem_failed];
+            }
+
             if ([result url]) {
                 return result;
             }
