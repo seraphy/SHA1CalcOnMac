@@ -10,8 +10,7 @@
 
 @implementation FindWindowController {
     
-    IBOutlet NSTextField *txtSearch;
-    
+    IBOutlet NSComboBox *txtSearch;
 }
 
 @synthesize delegate = _delegate;
@@ -21,21 +20,44 @@
     if (![super initWithWindowNibName: @"FindWindow" owner: self]) {
         return nil;
     }
+    
     return self;
+}
+
+- (void)awakeFromNib
+{
+}
+
+- (void) saveSearchText
+{
+    bool skip = NO;
+    NSString *searchText = [txtSearch stringValue];
+    for (NSString *text in [txtSearch objectValues]) {
+        if ([searchText isEqualToString: text]) {
+            skip = YES;
+            break;
+        }
+    }
+    if (!skip) {
+        [txtSearch insertItemWithObjectValue: searchText atIndex: 0];
+    }
 }
 
 -(IBAction) findNext:(id)sender
 {
+    [self saveSearchText];
     [_delegate findNext: sender];
 }
 
 -(IBAction) findPrev:(id)sender
 {
+    [self saveSearchText];
     [_delegate findPrev: sender];
 }
 
 -(IBAction) findSelect:(id)sender
 {
+    [self saveSearchText];
     [_delegate findSelect: sender];
 }
 
