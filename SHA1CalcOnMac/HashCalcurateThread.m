@@ -31,6 +31,7 @@
 
 - (void) dealloc
 {
+    self.hashItemList = nil;
     [threadCond release];
     [super dealloc];
 }

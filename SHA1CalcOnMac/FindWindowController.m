@@ -11,6 +11,8 @@
 @implementation FindWindowController {
     
     IBOutlet NSComboBox *txtSearch;
+    
+    IBOutlet NSPopUpButton *popupSearchMode;
 }
 
 @synthesize delegate = _delegate;
@@ -24,8 +26,15 @@
     return self;
 }
 
+- (void) dealloc
+{
+    self.delegate = nil;
+    [super dealloc];
+}
+
 - (void)awakeFromNib
 {
+    // Panelの初期化
 }
 
 - (void) saveSearchText
@@ -70,5 +79,22 @@
 {
     [txtSearch setStringValue: stringValue];
 }
+
+- (SEARCH_MODE) searchMode
+{
+    return (SEARCH_MODE)[popupSearchMode selectedTag];
+}
+
+- (void) setSearchMode: (SEARCH_MODE) aSearchMode
+{
+    for (NSMenuItem *menuItem in [popupSearchMode itemArray]) {
+        NSInteger tag = [menuItem tag];
+        if (tag == aSearchMode) {
+            [popupSearchMode selectItem: menuItem];
+            break;
+        }
+    }
+}
+
 
 @end

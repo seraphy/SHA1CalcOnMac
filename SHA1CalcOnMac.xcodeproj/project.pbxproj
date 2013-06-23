@@ -21,6 +21,7 @@
 		2E7A69131732BB62002801C2 /* SHA1CalcOnMacTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 2E7A69121732BB62002801C2 /* SHA1CalcOnMacTests.m */; };
 		2EA24811175B2754001CC364 /* FindWindowController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2EA24810175B2754001CC364 /* FindWindowController.m */; };
 		2EA24813175B2804001CC364 /* FindWindow.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2EA24812175B2804001CC364 /* FindWindow.xib */; };
+		2EA7C03A17767F0400EB1AD2 /* FindInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = 2EA7C03917767F0300EB1AD2 /* FindInfo.m */; };
 		2ECD6474174776B300D1C987 /* HashItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 2ECD6473174776B300D1C987 /* HashItem.m */; };
 		2ECD64771747826A00D1C987 /* HashCalcurateThread.m in Sources */ = {isa = PBXBuildFile; fileRef = 2ECD64761747826A00D1C987 /* HashCalcurateThread.m */; };
 		2ECD647A1747865100D1C987 /* HashItemList.m in Sources */ = {isa = PBXBuildFile; fileRef = 2ECD64791747865100D1C987 /* HashItemList.m */; };
@@ -62,6 +63,8 @@
 		2EA2480F175B2754001CC364 /* FindWindowController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FindWindowController.h; sourceTree = "<group>"; };
 		2EA24810175B2754001CC364 /* FindWindowController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FindWindowController.m; sourceTree = "<group>"; };
 		2EA24812175B2804001CC364 /* FindWindow.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = FindWindow.xib; sourceTree = "<group>"; };
+		2EA7C03817767F0300EB1AD2 /* FindInfo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FindInfo.h; sourceTree = "<group>"; };
+		2EA7C03917767F0300EB1AD2 /* FindInfo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FindInfo.m; sourceTree = "<group>"; };
 		2ECD6472174776B300D1C987 /* HashItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HashItem.h; sourceTree = "<group>"; };
 		2ECD6473174776B300D1C987 /* HashItem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HashItem.m; sourceTree = "<group>"; };
 		2ECD64751747826A00D1C987 /* HashCalcurateThread.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HashCalcurateThread.h; sourceTree = "<group>"; };
@@ -133,9 +136,9 @@
 		2E7A68EE1732BB61002801C2 /* SHA1CalcOnMac */ = {
 			isa = PBXGroup;
 			children = (
+				2E7A68FD1732BB61002801C2 /* MainMenu.xib */,
 				2E7A68FA1732BB61002801C2 /* SHA1CalcOnMacAppDelegate.h */,
 				2E7A68FB1732BB61002801C2 /* SHA1CalcOnMacAppDelegate.m */,
-				2E7A68FD1732BB61002801C2 /* MainMenu.xib */,
 				2E7A68EF1732BB61002801C2 /* Supporting Files */,
 				2ECD6472174776B300D1C987 /* HashItem.h */,
 				2ECD6473174776B300D1C987 /* HashItem.m */,
@@ -143,12 +146,14 @@
 				2ECD64761747826A00D1C987 /* HashCalcurateThread.m */,
 				2ECD64781747865100D1C987 /* HashItemList.h */,
 				2ECD64791747865100D1C987 /* HashItemList.m */,
+				2EA24812175B2804001CC364 /* FindWindow.xib */,
 				2EA2480F175B2754001CC364 /* FindWindowController.h */,
 				2EA24810175B2754001CC364 /* FindWindowController.m */,
-				2EA24812175B2804001CC364 /* FindWindow.xib */,
+				2EA7C03817767F0300EB1AD2 /* FindInfo.h */,
+				2EA7C03917767F0300EB1AD2 /* FindInfo.m */,
+				2E4DC0801764424200BDCDCF /* PreferenceWindow.xib */,
 				2E4DC07C1764404A00BDCDCF /* PreferenceWindowController.h */,
 				2E4DC07D1764404A00BDCDCF /* PreferenceWindowController.m */,
-				2E4DC0801764424200BDCDCF /* PreferenceWindow.xib */,
 			);
 			path = SHA1CalcOnMac;
 			sourceTree = "<group>";
@@ -300,6 +305,7 @@
 				2ECD647A1747865100D1C987 /* HashItemList.m in Sources */,
 				2EA24811175B2754001CC364 /* FindWindowController.m in Sources */,
 				2E4DC07E1764404A00BDCDCF /* PreferenceWindowController.m in Sources */,
+				2EA7C03A17767F0400EB1AD2 /* FindInfo.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

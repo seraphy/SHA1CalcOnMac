@@ -8,6 +8,8 @@
 
 #import <AppKit/AppKit.h>
 
+#import "FindInfo.h"
+
 @interface FindWindowController : NSWindowController
 
 @property(retain) id delegate;
@@ -16,5 +18,8 @@
 
 -(NSString *) searchString;
 -(void) setSearchString: stringValue;
+
+- (SEARCH_MODE) searchMode;
+- (void) setSearchMode: (SEARCH_MODE) aSearchMode;
 
 @end

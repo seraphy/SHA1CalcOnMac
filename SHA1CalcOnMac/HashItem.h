@@ -8,15 +8,13 @@
 
 #import <Foundation/Foundation.h>
 
-enum HashItemState
+typedef enum 
 {
     hashItem_needCalc,
     hashItem_loading,
     hashItem_calced,
     hashItem_failed
-};
-
-typedef NSUInteger HashItemState;
+} HashItemState;
 
 @interface HashItem : NSObject
 

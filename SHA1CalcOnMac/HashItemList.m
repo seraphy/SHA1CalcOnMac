@@ -30,6 +30,11 @@
 
 - (void) dealloc
 {
+    self.skipHidden = NO;
+    self.documentURL = nil;
+    self.delegate = nil;
+    self.modified = NO;
+    
     [array release];
     [super dealloc];
 }

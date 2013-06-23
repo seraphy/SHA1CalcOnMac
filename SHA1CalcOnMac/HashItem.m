@@ -20,7 +20,14 @@
 
 - (void) dealloc
 {
-    //NSLog(@"dealloc %@", self);
+    self.checked = NO;
+    self.state = hashItem_needCalc;
+    self.rowIndex = 0;
+    self.fileSize = 0;
+    self.sha1hash = nil;
+    self.md5hash = nil;
+    self.url = nil;
+
     [super dealloc];
 }
 
