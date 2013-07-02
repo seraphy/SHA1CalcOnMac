@@ -251,7 +251,7 @@ BOOL isInvisible(NSString *str, BOOL isFile){
     return indexes;
 }
 
-- (NSInteger) findNext: (NSString *)searchText startRow: (NSInteger) startRow
+- (NSInteger) findNext: (FindInfoMatcher *)findInfoMatcher startRow: (NSInteger) startRow
 {
     @synchronized (array) {
         NSInteger mx = [array count];
@@ -263,21 +263,17 @@ BOOL isInvisible(NSString *str, BOOL isFile){
         while (idx < mx) {
             HashItem *hashItem = [array objectAtIndex: idx];
             
-            NSString *path = [[hashItem url] path];
-            NSRange isSpacedRange = [path rangeOfString: searchText
-                                                options: NSCaseInsensitiveSearch];
-            if (isSpacedRange.location != NSNotFound) {
-                // 発見された場合
+            if ([findInfoMatcher isMatch: hashItem]) {
                 return idx;
             }
-                
+            
             idx++;
         }
         return -1;
     }
 }
 
-- (NSInteger) findPrev: (NSString *)searchText startRow: (NSInteger) startRow
+- (NSInteger) findPrev: (FindInfoMatcher *)findInfoMatcher startRow: (NSInteger) startRow
 {
     @synchronized (array) {
         NSInteger mx = [array count];
@@ -289,11 +285,7 @@ BOOL isInvisible(NSString *str, BOOL isFile){
             while (idx >= 0) {
                 HashItem *hashItem = [array objectAtIndex: idx];
                 
-                NSString *path = [[hashItem url] path];
-                NSRange isSpacedRange = [path rangeOfString: searchText
-                                                    options: NSCaseInsensitiveSearch];
-                if (isSpacedRange.location != NSNotFound) {
-                    // 発見された場合
+                if ([findInfoMatcher isMatch: hashItem]) {
                     return idx;
                 }
                 
@@ -304,7 +296,7 @@ BOOL isInvisible(NSString *str, BOOL isFile){
     }
 }
 
-- (NSIndexSet *) findAll: (NSString *)searchText
+- (NSIndexSet *) findAll: (FindInfoMatcher *)findInfoMatcher
 {
     NSMutableIndexSet *idxes = [[[NSMutableIndexSet alloc] init] autorelease];
     @synchronized (array) {
@@ -313,10 +305,7 @@ BOOL isInvisible(NSString *str, BOOL isFile){
         while (idx < mx) {
             HashItem *hashItem = [array objectAtIndex: idx];
             
-            NSString *path = [[hashItem url] path];
-            NSRange isSpacedRange = [path rangeOfString: searchText
-                                                options: NSCaseInsensitiveSearch];
-            if (isSpacedRange.location != NSNotFound) {
+            if ([findInfoMatcher isMatch: hashItem]) {
                 [idxes addIndex: idx];
             }
             idx++;

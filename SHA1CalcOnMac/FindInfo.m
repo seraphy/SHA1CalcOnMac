@@ -10,7 +10,7 @@
 
 @implementation FindInfo
 
-@synthesize searchText = _searchText;
+@synthesize searchString = _searchString;
 @synthesize searchMode = _searchMode;
 
 - (id) init
@@ -22,10 +22,8 @@
 - (void) dealloc
 {
     self.searchMode = PATH_CONTAINS;
-    self.searchText = nil;
+    self.searchString = nil;
     [super dealloc];
 }
-
-
 
 @end

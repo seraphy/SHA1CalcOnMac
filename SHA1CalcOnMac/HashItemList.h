@@ -8,6 +8,7 @@
 
 #import <Foundation/Foundation.h>
 #import "HashItem.h"
+#import "FindInfoMatcher.h"
 
 // 前方宣言
 @class HashItemList;
@@ -112,17 +113,17 @@
 /**
  * 指定したインデックス以降の対象文字列を検索する.
  */
-- (NSInteger) findNext: (NSString *)searchText startRow: (NSInteger) startRow;
+- (NSInteger) findNext: (FindInfoMatcher *)findInfoMatcher startRow: (NSInteger) startRow;
 
 /**
  * 指定したインデックス以前の対象文字列を検索する.
  */
-- (NSInteger) findPrev: (NSString *)searchText startRow: (NSInteger) startRow;
+- (NSInteger) findPrev: (FindInfoMatcher *)findInfoMatcher startRow: (NSInteger) startRow;
 
 /**
  * 対象文字列をすべて検索する.
  */
-- (NSIndexSet *) findAll: (NSString *)searchText;
+- (NSIndexSet *) findAll: (FindInfoMatcher *)findInfoMatcher;
 
 /**
  * ハッシュアイテムの内容を変更したことを通知する.

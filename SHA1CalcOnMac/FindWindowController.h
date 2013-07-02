@@ -22,4 +22,6 @@
 - (SEARCH_MODE) searchMode;
 - (void) setSearchMode: (SEARCH_MODE) aSearchMode;
 
+- (FindInfo *) findInfo;
+
 @end

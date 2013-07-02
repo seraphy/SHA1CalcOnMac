@@ -752,9 +752,11 @@
 
 - (IBAction) findNext: (id) sender
 {
-    NSString *searchText = [findWindowController searchString];
+    FindInfo *findInfo = [findWindowController findInfo];
+    FindInfoMatcher *findInfoMatcher = [FindInfoMatcher findInfoMatcher: findInfo];
+
     NSInteger selrow = [tableView selectedRow];
-    NSInteger nextrow = [hashItemList findNext: searchText startRow: selrow];
+    NSInteger nextrow = [hashItemList findNext: findInfoMatcher startRow: selrow];
     if (nextrow >= 0 && nextrow != selrow) {
         [tableView selectRowIndexes: [NSIndexSet indexSetWithIndex: nextrow]
                byExtendingSelection: NO];
@@ -764,9 +766,11 @@
 
 - (IBAction) findPrev: (id) sender
 {
-    NSString *searchText = [findWindowController searchString];
+    FindInfo *findInfo = [findWindowController findInfo];
+    FindInfoMatcher *findInfoMatcher = [FindInfoMatcher findInfoMatcher: findInfo];
+
     NSInteger selrow = [tableView selectedRow];
-    NSInteger nextrow = [hashItemList findPrev: searchText startRow: selrow];
+    NSInteger nextrow = [hashItemList findPrev: findInfoMatcher startRow: selrow];
     if (nextrow >= 0 && nextrow != selrow) {
         [tableView selectRowIndexes: [NSIndexSet indexSetWithIndex: nextrow]
                byExtendingSelection: NO];
@@ -776,8 +780,10 @@
 
 - (IBAction) findSelect: (id) sender
 {
-    NSString *searchText = [findWindowController searchString];
-    NSIndexSet *selrows = [hashItemList findAll: searchText];
+    FindInfo *findInfo = [findWindowController findInfo];
+    FindInfoMatcher *findInfoMatcher = [FindInfoMatcher findInfoMatcher: findInfo];
+
+    NSIndexSet *selrows = [hashItemList findAll: findInfoMatcher];
     if ([selrows count] > 0) {
         [tableView selectRowIndexes: selrows byExtendingSelection: NO];
         [tableView scrollRowToVisible: [selrows firstIndex]];

@@ -20,6 +20,6 @@ typedef enum {
 @interface FindInfo : NSObject
 
 @property(assign, nonatomic) SEARCH_MODE searchMode;
-@property(retain, nonatomic) NSString *searchText;
+@property(retain, nonatomic) NSString *searchString;
 
 @end

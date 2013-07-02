@@ -96,5 +96,12 @@
     }
 }
 
+- (FindInfo *) findInfo
+{
+    FindInfo *findInfo = [[[FindInfo alloc] init] autorelease];
+    [findInfo setSearchMode: [self searchMode]];
+    [findInfo setSearchString: [self searchString]];
+    return findInfo;
+}
 
 @end
