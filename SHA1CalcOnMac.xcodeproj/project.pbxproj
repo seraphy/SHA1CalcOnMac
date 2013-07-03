@@ -19,6 +19,7 @@
 		2E7A69081732BB62002801C2 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2E7A68E81732BB61002801C2 /* Cocoa.framework */; };
 		2E7A69101732BB62002801C2 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 2E7A690E1732BB62002801C2 /* InfoPlist.strings */; };
 		2E7A69131732BB62002801C2 /* SHA1CalcOnMacTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 2E7A69121732BB62002801C2 /* SHA1CalcOnMacTests.m */; };
+		2E85059717845694001E33D2 /* MainMenu.icns in Resources */ = {isa = PBXBuildFile; fileRef = 2E85059617845694001E33D2 /* MainMenu.icns */; };
 		2EA24811175B2754001CC364 /* FindWindowController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2EA24810175B2754001CC364 /* FindWindowController.m */; };
 		2EA24813175B2804001CC364 /* FindWindow.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2EA24812175B2804001CC364 /* FindWindow.xib */; };
 		2EA7C03A17767F0400EB1AD2 /* FindInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = 2EA7C03917767F0300EB1AD2 /* FindInfo.m */; };
@@ -61,6 +62,7 @@
 		2E7A690F1732BB62002801C2 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		2E7A69111732BB62002801C2 /* SHA1CalcOnMacTests.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SHA1CalcOnMacTests.h; sourceTree = "<group>"; };
 		2E7A69121732BB62002801C2 /* SHA1CalcOnMacTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SHA1CalcOnMacTests.m; sourceTree = "<group>"; };
+		2E85059617845694001E33D2 /* MainMenu.icns */ = {isa = PBXFileReference; lastKnownFileType = image.icns; path = MainMenu.icns; sourceTree = "<group>"; };
 		2EA2480F175B2754001CC364 /* FindWindowController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FindWindowController.h; sourceTree = "<group>"; };
 		2EA24810175B2754001CC364 /* FindWindowController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FindWindowController.m; sourceTree = "<group>"; };
 		2EA24812175B2804001CC364 /* FindWindow.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = FindWindow.xib; sourceTree = "<group>"; };
@@ -139,6 +141,7 @@
 		2E7A68EE1732BB61002801C2 /* SHA1CalcOnMac */ = {
 			isa = PBXGroup;
 			children = (
+				2E85059617845694001E33D2 /* MainMenu.icns */,
 				2E7A68FD1732BB61002801C2 /* MainMenu.xib */,
 				2E7A68FA1732BB61002801C2 /* SHA1CalcOnMacAppDelegate.h */,
 				2E7A68FB1732BB61002801C2 /* SHA1CalcOnMacAppDelegate.m */,
@@ -269,6 +272,7 @@
 				2E7A68FF1732BB61002801C2 /* MainMenu.xib in Resources */,
 				2EA24813175B2804001CC364 /* FindWindow.xib in Resources */,
 				2E4DC0811764424200BDCDCF /* PreferenceWindow.xib in Resources */,
+				2E85059717845694001E33D2 /* MainMenu.icns in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
