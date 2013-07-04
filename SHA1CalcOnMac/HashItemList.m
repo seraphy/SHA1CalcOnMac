@@ -13,6 +13,9 @@
 @private
     /// テーブルビューに格納するHashItemのリスト
     NSMutableArray *array;
+    
+    /// HashItemのURL別のマップ
+    NSMutableDictionary *dict;
 }
 
 @synthesize skipHidden = _skipHidden;
@@ -24,6 +27,7 @@
 {
     self = [super init];
     array = [[NSMutableArray alloc] init];
+    dict = [[NSMutableDictionary alloc] init];
     _modified = NO;
     return self;
 }
@@ -36,14 +40,27 @@
     self.modified = NO;
     
     [array release];
+    [dict release];
     [super dealloc];
 }
 
 - (void) add: (HashItem *) hashItem
 {
     @synchronized(array) {
-        [array addObject: hashItem];
-        [hashItem setRowIndex: [array count] - 1];
+        NSURL *url = [hashItem url];
+        HashItem *prev = [dict objectForKey: url];
+        if (prev == nil) {
+            // 新しいURLの場合
+            [array addObject: hashItem];
+            [hashItem setRowIndex: [array count] - 1];
+            [dict setObject: hashItem forKey: url];
+
+        } else {
+            // 既存のURLの場合
+            // チェック状態とファイルサイズのみ更新する.
+            [prev setChecked: YES];
+            [prev setFileSize: [hashItem fileSize]];
+        }
 
         // 変更フラグON
         _modified = true;
@@ -62,7 +79,7 @@ BOOL isInvisible(NSString *str, BOOL isFile){
     return (isInvisible != 0);
 }
 
-- (void) addWithURL: (NSURL *) url depth:(NSInteger)depth
+- (void) addFileWithURL: (NSURL *) url
 {
     // ファイルの実在チェック
     NSFileManager *fileMgr = [NSFileManager defaultManager];
@@ -86,16 +103,10 @@ BOOL isInvisible(NSString *str, BOOL isFile){
         NSNumber *fileSize = [attr objectForKey: NSFileSize];
         
         // アイテムの設定
-        @synchronized(array) {
-            HashItem *hashItem = [[HashItem alloc] initWithURL: url];
-            [hashItem setFileSize: [fileSize unsignedLongLongValue]];
-            [array addObject: hashItem];
-            [hashItem setRowIndex: [array count] - 1];
-            [hashItem release];
-
-            // 変更フラグON
-            _modified = true;
-        }
+        HashItem *hashItem = [[HashItem alloc] initWithURL: url];
+        [hashItem setFileSize: [fileSize unsignedLongLongValue]];
+        [self add: hashItem];
+        [hashItem release];
     }
 }
 
@@ -114,14 +125,13 @@ BOOL isInvisible(NSString *str, BOOL isFile){
                     while ((child = [enm nextObject]) != nil) {
                         NSAutoreleasePool *loopPool = [[NSAutoreleasePool alloc] init];
                         NSString *fullPath = [path stringByAppendingPathComponent: child];
-                        [self addWithURL: [NSURL fileURLWithPath: fullPath] depth: 0];
+                        [self addFileWithURL: [NSURL fileURLWithPath: fullPath]];
                         [loopPool drain];
                     }
-                    return;
 
                 } else {
                     // ファイルであれば単体で設定する.
-                    [self addWithURL: url depth: 0];
+                    [self addFileWithURL: url];
                 }
             }
         }
@@ -131,23 +141,28 @@ BOOL isInvisible(NSString *str, BOOL isFile){
 - (void) clear
 {
     @synchronized (array) {
-        NSInteger count = [array count];
-        for (NSInteger rowIndex = 0; rowIndex < count; rowIndex++) {
-            [[array objectAtIndex: rowIndex] setRowIndex: -1];
-        }
+        [array enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
+            [obj setRowIndex: -1];
+        }];
         [array removeAllObjects];
+        [dict removeAllObjects];
         [self setDocumentURL: nil];
     }
 }
 
-- (void ) removeByIndexes: selrows
+- (void ) removeByIndexes: (NSIndexSet *) selrows
 {
     @synchronized(array) {
         [selrows enumerateIndexesWithOptions: NSEnumerationReverse
                                   usingBlock: ^(NSUInteger idx, BOOL *stop) {
-                                      [[array objectAtIndex: idx] setRowIndex: -1];
+                                      HashItem *hashItem = [array objectAtIndex: idx];
+                                      [hashItem setRowIndex: -1];
                                       [array removeObjectAtIndex: idx];
+                                      [dict removeObjectForKey: [hashItem url]];
                                   }];
+        [array enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
+            [obj setRowIndex: idx];
+        }];
     }
 }
 
@@ -174,26 +189,29 @@ BOOL isInvisible(NSString *str, BOOL isFile){
 {
     NSMutableArray *result = [[[NSMutableArray alloc] init] autorelease];
     @synchronized(array) {
+        NSInteger cnt = [array count];
         [indexes enumerateIndexesUsingBlock: ^(NSUInteger idx, BOOL *stop) {
-            [result addObject: [array objectAtIndex: idx]];
+            if (cnt > idx) {
+                [result addObject: [array objectAtIndex: idx]];
+            }
         }];
     }
     return result;
 }
 
-- (void) setChecked: (NSIndexSet *) selrow state: (BOOL) sw
+- (void) setChecked: (NSIndexSet *) selrows state: (BOOL) sw
 {
     @synchronized(array) {
-        [selrow enumerateIndexesUsingBlock: ^(NSUInteger idx, BOOL *stop) {
+        [selrows enumerateIndexesUsingBlock: ^(NSUInteger idx, BOOL *stop) {
             [[array objectAtIndex: idx] setChecked: sw];
         }];
     }
 }
 
-- (void) reverseChecked: (NSIndexSet *) selrow
+- (void) reverseChecked: (NSIndexSet *) selrows
 {
     @synchronized(array) {
-        [selrow enumerateIndexesUsingBlock: ^(NSUInteger idx, BOOL *stop) {
+        [selrows enumerateIndexesUsingBlock: ^(NSUInteger idx, BOOL *stop) {
             HashItem *hashItem = [array objectAtIndex: idx];
             [hashItem setChecked: ![hashItem checked]];
         }];
@@ -220,10 +238,9 @@ BOOL isInvisible(NSString *str, BOOL isFile){
 {
     @synchronized(array) {
         [array sortUsingDescriptors: sortDescriptors];
-        NSInteger count = [array count];
-        for (NSInteger rowIndex = 0; rowIndex < count; rowIndex++) {
-            [[array objectAtIndex: rowIndex] setRowIndex: rowIndex];
-        }
+        [array enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
+            [obj setRowIndex: idx];
+        }];
     }
 }
 

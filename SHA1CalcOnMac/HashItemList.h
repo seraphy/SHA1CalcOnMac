@@ -59,12 +59,14 @@
 - (void) add: (HashItem *) hashItem;
 
 /**
- * URLを登録する
+ * URLを登録する.
+ * ディレクトリのURLは無視される.
  */
-- (void) addWithURL: (NSURL *) url depth: (NSInteger) depth;
+- (void) addFileWithURL: (NSURL *) url;
 
 /**
- * URLのリストを登録する
+ * URLのリストを登録する.
+ * サブディレクトリ内も列挙される.
  */
 - (void) addWithURLArray: (NSArray *)urls;
 
@@ -76,7 +78,7 @@
 /**
  * 指定したインデックスのチェック状態を反転する.
  */
-- (void) reverseChecked: (NSIndexSet *) selrow;
+- (void) reverseChecked: (NSIndexSet *) selrows;
 
 /**
  * クリアする.
@@ -86,7 +88,7 @@
 /**
  * 指定したインデックスを削除する.
  */
-- (void ) removeByIndexes: selrows;
+- (void ) removeByIndexes: (NSIndexSet *) selrows;
 
 /**
  * 指定したインデックスのハッシュアイテムを取得する.
