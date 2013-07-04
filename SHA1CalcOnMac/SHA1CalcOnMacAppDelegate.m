@@ -279,7 +279,7 @@
         if (result == NSFileHandlingPanelOKButton) {
             NSURL *url = [savePanel URL];
             [hashItemList setDocumentURL: url];
-            [self saveDocument: sender];
+            [self saveDocumentCore];
         }
         [savePanel release];
     }];
@@ -292,7 +292,36 @@
         [self saveDocumentAs: sender];
         return;
     }
-    
+
+    NSAlert *alert = [NSAlert alertWithMessageText: @"Are you sure overwrite?"
+                                     defaultButton: @"YES"
+                                   alternateButton: @"NO"
+                                       otherButton: nil
+                         informativeTextWithFormat: @""];
+    [alert beginSheetModalForWindow: _window
+                      modalDelegate: self
+                     didEndSelector: @selector(saveDocumentAlertDidEnd:
+                                               returnCode: contextInfo:) 
+                        contextInfo: nil];
+}
+
+- (void) saveDocumentAlertDidEnd:(NSAlert *) alert
+                      returnCode:(int) returnCode
+                     contextInfo:(void *) contextInfo
+{
+    if (returnCode != NSAlertDefaultReturn) {
+        return;
+    }
+    [self saveDocumentCore];
+}
+
+- (void) saveDocumentCore
+{
+    NSURL *url = [hashItemList documentURL];
+    if (url == nil) {
+        return;
+    }
+
     // 空のファイルの事前作成
     [[NSFileManager defaultManager] createFileAtPath:[url path] contents:nil attributes:nil];
     
@@ -305,7 +334,7 @@
     if (fileHandle == nil) {
         return;
     }
-
+    
     // データの書き込み
     NSData *crlf = [@"\r\n" dataUsingEncoding: NSUTF8StringEncoding];
     NSInteger rowIndex = 0;
@@ -341,7 +370,8 @@
                              informativeTextWithFormat: @""];
         [alert beginSheetModalForWindow: _window
                           modalDelegate: self
-                         didEndSelector: @selector(closeConfirmAlertDidEnd: returnCode: contextInfo:) 
+                         didEndSelector: @selector(closeConfirmAlertDidEnd:
+                                                   returnCode: contextInfo:) 
                             contextInfo: nil];
 //        if ([alert runModal] != NSAlertDefaultReturn) {
         return NO;

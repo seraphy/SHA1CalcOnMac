@@ -52,6 +52,18 @@
 - (IBAction) openPreference:(id)sender;
 
 /**
+ * ファイルの書き込みルーチン
+ */
+- (void) saveDocumentCore;
+
+/**
+ * 上書き保存時の確認
+ */
+- (void) saveDocumentAlertDidEnd:(NSAlert *) alert
+                      returnCode:(int) returnCode
+                     contextInfo:(void *) contextInfo;
+
+/**
  * ウィンドウを閉じる確認のシートダイアログのイベントを受け取るメソッド
  */
 - (void) closeConfirmAlertDidEnd:(NSAlert *) alert

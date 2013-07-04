@@ -147,6 +147,7 @@ BOOL isInvisible(NSString *str, BOOL isFile){
         [array removeAllObjects];
         [dict removeAllObjects];
         [self setDocumentURL: nil];
+        [self setModified: NO];
     }
 }
 
@@ -163,6 +164,8 @@ BOOL isInvisible(NSString *str, BOOL isFile){
         [array enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
             [obj setRowIndex: idx];
         }];
+        // 変更フラグON
+        _modified = true;
     }
 }
 
@@ -171,6 +174,8 @@ BOOL isInvisible(NSString *str, BOOL isFile){
     if ([_delegate respondsToSelector: @selector(updateHashItem:)]) {
         [_delegate updateHashItem: hashItem];
     }
+    // 変更フラグON
+    _modified = true;
 }
 
 - (HashItem *) getItemByIndex: (NSInteger) rowIndex;
@@ -205,6 +210,8 @@ BOOL isInvisible(NSString *str, BOOL isFile){
         [selrows enumerateIndexesUsingBlock: ^(NSUInteger idx, BOOL *stop) {
             [[array objectAtIndex: idx] setChecked: sw];
         }];
+        // 変更フラグON
+        _modified = true;
     }
 }
 
@@ -215,6 +222,8 @@ BOOL isInvisible(NSString *str, BOOL isFile){
             HashItem *hashItem = [array objectAtIndex: idx];
             [hashItem setChecked: ![hashItem checked]];
         }];
+        // 変更フラグON
+        _modified = true;
     }
 }
 
@@ -241,6 +250,8 @@ BOOL isInvisible(NSString *str, BOOL isFile){
         [array enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
             [obj setRowIndex: idx];
         }];
+        // 変更フラグON
+        _modified = true;
     }
 }
 
@@ -345,6 +356,8 @@ BOOL isInvisible(NSString *str, BOOL isFile){
                 [hashItem setChecked: NO];
                 [self updateHashItem: hashItem];
                 [checker addObject: sha1hash];
+                // 変更フラグON
+                _modified = true;
             }
         }
     }
@@ -372,6 +385,8 @@ BOOL isInvisible(NSString *str, BOOL isFile){
         for (HashItem *hashItem in selItems) {
             [hashItem setState: state];
         }
+        // 変更フラグON
+        _modified = true;
     }
 }
 
@@ -386,6 +401,8 @@ BOOL isInvisible(NSString *str, BOOL isFile){
             if ([url checkResourceIsReachableAndReturnError: &err] == NO) {
                 [hashItem setChecked: NO];
                 [self updateHashItem: hashItem];
+                // 変更フラグON
+                _modified = true;
             }
         }
     }
