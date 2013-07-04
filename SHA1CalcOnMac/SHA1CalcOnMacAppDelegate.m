@@ -837,4 +837,19 @@
     [tableView reloadData];
 }
 
+- (IBAction) unmarkMissingFiles:(id)sender
+{
+    NSIndexSet *selrows = [tableView selectedRowIndexes];
+    if ([selrows count] <= 1) {
+        [[NSAlert alertWithMessageText: @"no selection"
+                         defaultButton: @"OK"
+                       alternateButton: nil
+                           otherButton: nil
+             informativeTextWithFormat: @""] runModal];
+        return;
+    }
+    
+    [hashItemList unmarkMissingFiles: selrows];
+}
+
 @end

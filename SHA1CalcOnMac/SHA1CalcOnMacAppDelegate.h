@@ -98,5 +98,6 @@
 - (IBAction) openFileAtWorkspace:(id) sender;
 - (IBAction) uncheckFirstItem: (id) sender;
 - (IBAction) recalcHash:(id)sender;
+- (IBAction) unmarkMissingFiles:(id)sender;
 
 @end

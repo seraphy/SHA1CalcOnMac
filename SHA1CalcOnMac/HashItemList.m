@@ -358,4 +358,21 @@ BOOL isInvisible(NSString *str, BOOL isFile){
     }
 }
 
+- (void) unmarkMissingFiles:(NSIndexSet *)selrows
+{
+    // 対応するハッシュアイテムの取得
+    @synchronized (array) {
+        NSArray *selItems = [self getItemByIndexes: selrows];
+        for (HashItem *hashItem in selItems) {
+            NSURL *url = [hashItem url];
+            NSError *err = nil;
+            if ([url checkResourceIsReachableAndReturnError: &err] == NO) {
+                [hashItem setChecked: NO];
+                [self updateHashItem: hashItem];
+            }
+        }
+    }
+}
+
+
 @end

@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		2E4DC07E1764404A00BDCDCF /* PreferenceWindowController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2E4DC07D1764404A00BDCDCF /* PreferenceWindowController.m */; };
 		2E4DC0811764424200BDCDCF /* PreferenceWindow.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2E4DC0801764424200BDCDCF /* PreferenceWindow.xib */; };
+		2E7A279C1784CA1800E9CB5D /* FolderIcon.pxm in Resources */ = {isa = PBXBuildFile; fileRef = 2E7A279B1784CA1800E9CB5D /* FolderIcon.pxm */; };
 		2E7A68E91732BB61002801C2 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2E7A68E81732BB61002801C2 /* Cocoa.framework */; };
 		2E7A68F31732BB61002801C2 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 2E7A68F11732BB61002801C2 /* InfoPlist.strings */; };
 		2E7A68F51732BB61002801C2 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 2E7A68F41732BB61002801C2 /* main.m */; };
@@ -43,6 +44,7 @@
 		2E4DC07C1764404A00BDCDCF /* PreferenceWindowController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PreferenceWindowController.h; sourceTree = "<group>"; };
 		2E4DC07D1764404A00BDCDCF /* PreferenceWindowController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PreferenceWindowController.m; sourceTree = "<group>"; };
 		2E4DC0801764424200BDCDCF /* PreferenceWindow.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PreferenceWindow.xib; sourceTree = "<group>"; };
+		2E7A279B1784CA1800E9CB5D /* FolderIcon.pxm */ = {isa = PBXFileReference; lastKnownFileType = file; path = FolderIcon.pxm; sourceTree = "<group>"; };
 		2E7A68E41732BB61002801C2 /* SHA1CalcOnMac.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SHA1CalcOnMac.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		2E7A68E81732BB61002801C2 /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = System/Library/Frameworks/Cocoa.framework; sourceTree = SDKROOT; };
 		2E7A68EB1732BB61002801C2 /* AppKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AppKit.framework; path = System/Library/Frameworks/AppKit.framework; sourceTree = SDKROOT; };
@@ -102,6 +104,7 @@
 		2E7A68D91732BB61002801C2 = {
 			isa = PBXGroup;
 			children = (
+				2E7A279B1784CA1800E9CB5D /* FolderIcon.pxm */,
 				2E7A68EE1732BB61002801C2 /* SHA1CalcOnMac */,
 				2E7A690B1732BB62002801C2 /* SHA1CalcOnMacTests */,
 				2E7A68E71732BB61002801C2 /* Frameworks */,
@@ -273,6 +276,7 @@
 				2EA24813175B2804001CC364 /* FindWindow.xib in Resources */,
 				2E4DC0811764424200BDCDCF /* PreferenceWindow.xib in Resources */,
 				2E85059717845694001E33D2 /* MainMenu.icns in Resources */,
+				2E7A279C1784CA1800E9CB5D /* FolderIcon.pxm in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

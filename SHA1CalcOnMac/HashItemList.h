@@ -163,6 +163,11 @@
  */
 - (void) setStateByIndexes: (NSIndexSet *) selrows state: (HashItemState) state;
 
+/**
+ * 存在しないファイルはチェックを外す.
+ */
+- (void) unmarkMissingFiles:(NSIndexSet *)selrows;
+
 @end
 
 BOOL isInvisible(NSString *str, BOOL isFile);
