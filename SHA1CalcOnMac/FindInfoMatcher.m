@@ -175,10 +175,12 @@
     const char *strutf8 = [itemString UTF8String];
     
     regmatch_t pmatch[1] = {0};
-    int isFail = regexec(&regex, strutf8, 1, pmatch, 0);
-    if (!isFail) {
-        // マッチしている場合
-        return YES;
+    if (!regex_err) {
+        int isFail = regexec(&regex, strutf8, 1, pmatch, 0);
+        if (!isFail) {
+            // マッチしている場合
+            return YES;
+        }
     }
     return NO;
 }
