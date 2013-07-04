@@ -174,8 +174,6 @@ BOOL isInvisible(NSString *str, BOOL isFile){
     if ([_delegate respondsToSelector: @selector(updateHashItem:)]) {
         [_delegate updateHashItem: hashItem];
     }
-    // 変更フラグON
-    _modified = true;
 }
 
 - (HashItem *) getItemByIndex: (NSInteger) rowIndex;

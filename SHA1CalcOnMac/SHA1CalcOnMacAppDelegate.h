@@ -25,10 +25,6 @@
  */
 @property (readonly, getter = getDeselectSingleMode) BOOL deselectSingleMode;
 
-/**
- * 変更がある場合に破棄の有無を確認するダイアログを開く
- */
-- (BOOL) showConfirmDiscadeDialog;
 
 /**
  * ドキュメントをロードする.
@@ -64,11 +60,16 @@
                      contextInfo:(void *) contextInfo;
 
 /**
+ * 変更がある場合に破棄の有無を確認するダイアログを開く
+ */
+- (void) showConfirmDiscadeDialog: (void(^)(NSInteger)) block;
+
+/**
  * ウィンドウを閉じる確認のシートダイアログのイベントを受け取るメソッド
  */
-- (void) closeConfirmAlertDidEnd:(NSAlert *) alert
-                      returnCode:(int) returnCode
-                     contextInfo:(void *) contextInfo;
+- (void) showConfirmDiscadeDialogDidEnd:(NSAlert *) alert
+                             returnCode:(int) returnCode
+                            contextInfo:(void *) contextInfo;
 
 /**
  * 開くファイル数が多い場合の警告シートダイアログのイベントを受け取るメソッド

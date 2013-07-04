@@ -123,11 +123,13 @@
 
 - (IBAction) newDocument:(id)sender
 {
-    if ([self showConfirmDiscadeDialog]) {
-        [hashItemList clear];
-        [hashItemList setModified: NO];
-        [tableView reloadData];
-    }
+    [self showConfirmDiscadeDialog: ^(NSInteger returnCode) {
+        if (returnCode == NSAlertDefaultReturn) {
+            [hashItemList clear];
+            [hashItemList setModified: NO];
+            [tableView reloadData];
+        }
+    }];
 }
 
 - (void) loadDocument: (NSURL *) url
@@ -226,14 +228,15 @@
 
 - (IBAction) openDocument:(id)sender
 {
-    if (![self showConfirmDiscadeDialog]) {
-        return;
-    }
-    // 現在のデータをクリアする.
-    [hashItemList clear];
-    [tableView reloadData];
-
-    [self loadDocumentWithDialog: NO];
+    [self showConfirmDiscadeDialog: ^(NSInteger returnCode) {
+        if (returnCode == NSAlertDefaultReturn) {
+            // 現在のデータをクリアする.
+            [hashItemList clear];
+            [tableView reloadData];
+            
+            [self loadDocumentWithDialog: NO];
+        }
+    }];
 }
 
 - (IBAction) saveDocumentAs:(id) sender
@@ -357,12 +360,19 @@
         [preferenceWindowController release];
         preferenceWindowController = nil;
     }
-    return [self showConfirmDiscadeDialog];
+    [self showConfirmDiscadeDialog: ^(NSInteger returnCode){
+        if (returnCode == NSAlertDefaultReturn) {
+            // ウィンドウをクローズする。
+            [_window close];
+        }
+    }];
+    return NO;
 }
 
-- (BOOL) showConfirmDiscadeDialog
+- (void) showConfirmDiscadeDialog: (void(^)(NSInteger)) block;
 {
     if ([hashItemList modified]) {
+        // 変更ある場合は実行有無を問い合わせ
         NSAlert *alert = [NSAlert alertWithMessageText: @"Are you sure discade changes?"
                                          defaultButton: @"YES"
                                        alternateButton: @"NO"
@@ -370,23 +380,22 @@
                              informativeTextWithFormat: @""];
         [alert beginSheetModalForWindow: _window
                           modalDelegate: self
-                         didEndSelector: @selector(closeConfirmAlertDidEnd:
+                         didEndSelector: @selector(showConfirmDiscadeDialogDidEnd:
                                                    returnCode: contextInfo:) 
-                            contextInfo: nil];
-//        if ([alert runModal] != NSAlertDefaultReturn) {
-        return NO;
+                            contextInfo: Block_copy((__bridge void *) block)];
+        return;
     }
-    return YES;
+    
+    // 変更ない場合はYESと見なして実行
+    block(NSAlertDefaultReturn);
 }
 
-- (void) closeConfirmAlertDidEnd:(NSAlert *) alert
-                      returnCode:(int) returnCode
-                     contextInfo:(void *) contextInfo
+- (void) showConfirmDiscadeDialogDidEnd:(NSAlert *) alert
+                             returnCode:(int) returnCode
+                            contextInfo:(void *) contextInfo
 {
-    if (returnCode == NSAlertDefaultReturn) {
-        // ウィンドウをクローズする。
-        [_window close];
-    }
+    void (^block)(NSInteger) = (__bridge_transfer id)contextInfo;
+    block(returnCode);
 }
 
 - (void)windowWillClose: (id) sender
