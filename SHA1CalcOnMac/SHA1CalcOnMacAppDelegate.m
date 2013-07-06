@@ -382,7 +382,7 @@
                           modalDelegate: self
                          didEndSelector: @selector(showConfirmDiscadeDialogDidEnd:
                                                    returnCode: contextInfo:) 
-                            contextInfo: Block_copy((__bridge void *) block)];
+                            contextInfo: [block copy]];
         return;
     }
     
@@ -394,8 +394,9 @@
                              returnCode:(int) returnCode
                             contextInfo:(void *) contextInfo
 {
-    void (^block)(NSInteger) = (__bridge_transfer id)contextInfo;
+    void (^block)(NSInteger) = contextInfo;
     block(returnCode);
+    [block release];
 }
 
 - (void)windowWillClose: (id) sender
