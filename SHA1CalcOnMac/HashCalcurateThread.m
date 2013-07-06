@@ -82,7 +82,16 @@
             });
             NSLog(@"Sleep HashCalcurateThread.");
             [self setScanning: NO];
-            [threadCond waitUntilDate:[NSDate dateWithTimeIntervalSinceNow: 5]]; // wait 5sec
+            
+            // スレッドを一定時間休止する.(タイムアウトするかsignalで復帰する.)
+            NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
+            long threadSleepSecs = [userDefaults integerForKey: @"threadSleepSecs"];
+            if (threadSleepSecs > 0) {
+                [threadCond waitUntilDate:[NSDate dateWithTimeIntervalSinceNow: threadSleepSecs]];
+            } else {
+                // デフォルト=0の場合は無期限待機
+                [threadCond wait];
+            }
             NSLog(@"Wakeup HashCalcurateThread.");
             continue;
         }
