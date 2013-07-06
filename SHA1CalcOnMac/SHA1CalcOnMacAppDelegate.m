@@ -382,7 +382,7 @@
                           modalDelegate: self
                          didEndSelector: @selector(showConfirmDiscadeDialogDidEnd:
                                                    returnCode: contextInfo:) 
-                            contextInfo: [block copy]];
+                            contextInfo: [block copy]]; // __bridge_retained
         return;
     }
     
@@ -394,7 +394,7 @@
                              returnCode:(int) returnCode
                             contextInfo:(void *) contextInfo
 {
-    void (^block)(NSInteger) = contextInfo;
+    void (^block)(NSInteger) = contextInfo; // __bridge_transfer
     block(returnCode);
     [block release];
 }
