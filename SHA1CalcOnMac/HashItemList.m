@@ -388,19 +388,26 @@ BOOL isInvisible(NSString *str, BOOL isFile){
     }
 }
 
-- (void) unmarkMissingFiles:(NSIndexSet *)selrows
+- (void) unmarkMissingFiles:(NSIndexSet *)selrows ProgressCallback: (ProgressCallback) callback;
 {
     // 対応するハッシュアイテムの取得
-    @synchronized (array) {
-        NSArray *selItems = [self getItemByIndexes: selrows];
-        for (HashItem *hashItem in selItems) {
-            NSURL *url = [hashItem url];
-            NSError *err = nil;
-            if ([url checkResourceIsReachableAndReturnError: &err] == NO) {
-                [hashItem setChecked: NO];
-                [self updateHashItem: hashItem];
-                // 変更フラグON
-                _modified = true;
+    NSArray *selItems = [self getItemByIndexes: selrows];
+    NSUInteger max = [selItems count];
+    NSUInteger current = 0;
+    for (HashItem *hashItem in selItems) {
+        current += 1;
+        NSURL *url = [hashItem url];
+        NSError *err = nil;
+        if ([url checkResourceIsReachableAndReturnError: &err] == NO) {
+            [hashItem setChecked: NO];
+            [self updateHashItem: hashItem];
+            // 変更フラグON
+            _modified = true;
+        }
+        if (callback) {
+            if (!callback(max, current)) {
+                NSLog(@"cancelled.");
+                break;
             }
         }
     }

@@ -13,6 +13,8 @@
 // 前方宣言
 @class HashItemList;
 
+typedef BOOL (^ProgressCallback)(NSUInteger max, NSUInteger current);
+
 /**********
  * ハッシュアイテムの変更通知を受け取るプロトコル
  **********/
@@ -168,7 +170,7 @@
 /**
  * 存在しないファイルはチェックを外す.
  */
-- (void) unmarkMissingFiles:(NSIndexSet *)selrows;
+- (void) unmarkMissingFiles:(NSIndexSet *)selrows ProgressCallback: (ProgressCallback) callback;
 
 @end
 

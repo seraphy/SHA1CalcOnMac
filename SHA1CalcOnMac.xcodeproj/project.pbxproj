@@ -28,6 +28,7 @@
 		2ECD6474174776B300D1C987 /* HashItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 2ECD6473174776B300D1C987 /* HashItem.m */; };
 		2ECD64771747826A00D1C987 /* HashCalcurateThread.m in Sources */ = {isa = PBXBuildFile; fileRef = 2ECD64761747826A00D1C987 /* HashCalcurateThread.m */; };
 		2ECD647A1747865100D1C987 /* HashItemList.m in Sources */ = {isa = PBXBuildFile; fileRef = 2ECD64791747865100D1C987 /* HashItemList.m */; };
+		2EF46B59178808F10054C026 /* ProgressPanelController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2EF46B58178808F10054C026 /* ProgressPanelController.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -78,6 +79,8 @@
 		2ECD64761747826A00D1C987 /* HashCalcurateThread.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HashCalcurateThread.m; sourceTree = "<group>"; };
 		2ECD64781747865100D1C987 /* HashItemList.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HashItemList.h; sourceTree = "<group>"; };
 		2ECD64791747865100D1C987 /* HashItemList.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HashItemList.m; sourceTree = "<group>"; };
+		2EF46B57178808F10054C026 /* ProgressPanelController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ProgressPanelController.h; path = ../ProgressPanelController.h; sourceTree = "<group>"; };
+		2EF46B58178808F10054C026 /* ProgressPanelController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ProgressPanelController.m; path = ../ProgressPanelController.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -163,6 +166,8 @@
 				2E4DC0801764424200BDCDCF /* PreferenceWindow.xib */,
 				2E4DC07C1764404A00BDCDCF /* PreferenceWindowController.h */,
 				2E4DC07D1764404A00BDCDCF /* PreferenceWindowController.m */,
+				2EF46B57178808F10054C026 /* ProgressPanelController.h */,
+				2EF46B58178808F10054C026 /* ProgressPanelController.m */,
 				2EA7C03C1776A26800EB1AD2 /* FindInfoMatcher.h */,
 				2EA7C03D1776A26800EB1AD2 /* FindInfoMatcher.m */,
 			);
@@ -320,6 +325,7 @@
 				2E4DC07E1764404A00BDCDCF /* PreferenceWindowController.m in Sources */,
 				2EA7C03A17767F0400EB1AD2 /* FindInfo.m in Sources */,
 				2EA7C03E1776A26900EB1AD2 /* FindInfoMatcher.m in Sources */,
+				2EF46B59178808F10054C026 /* ProgressPanelController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

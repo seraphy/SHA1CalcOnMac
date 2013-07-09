@@ -113,4 +113,5 @@
 - (IBAction) recalcHash:(id)sender;
 - (IBAction) unmarkMissingFiles:(id)sender;
 
+- (void) unmarkMissingFilesCore: (id)args;
 @end

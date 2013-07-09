@@ -10,6 +10,7 @@
 #import "HashItem.h"
 #import "FindWindowController.h"
 #import "PreferenceWindowController.h"
+#import "ProgressPanelController.h"
 
 @implementation SHA1CalcOnMacAppDelegate {
 @private
@@ -33,6 +34,9 @@
 
     /// 設定ウィンドウ
     PreferenceWindowController *preferenceWindowController;
+
+    /// プログレスパネル
+    IBOutlet ProgressPanelController *progressPanelController;
 }
 
 @synthesize window = _window;
@@ -889,7 +893,27 @@
         return;
     }
     
-    [hashItemList unmarkMissingFiles: selrows];
+    [progressPanelController showSheet: _window];
+    [self performSelectorInBackground: @selector(unmarkMissingFilesCore:)
+                           withObject: [selrows retain]];
+}
+     
+- (void) unmarkMissingFilesCore: (id)args
+{
+    NSAutoreleasePool *autoreleasePool = [[NSAutoreleasePool alloc] init];
+    NSIndexSet *selrows = args;
+    [hashItemList unmarkMissingFiles: selrows 
+                    ProgressCallback: ^BOOL(NSUInteger max, NSUInteger current) {
+                        dispatch_async(dispatch_get_main_queue(), ^{
+                            [progressPanelController setProgress: current max: max];
+                        });
+                        return ![progressPanelController cancelled];
+                    }];
+    dispatch_async(dispatch_get_main_queue(), ^{
+        [progressPanelController onProgressCancel: nil];
+    });
+    [selrows release];
+    [autoreleasePool release];
 }
 
 @end
