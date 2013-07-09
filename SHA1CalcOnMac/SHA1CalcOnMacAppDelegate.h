@@ -32,6 +32,16 @@
 - (void) loadDocument: (NSURL *) url;
 
 /**
+ * ドキュメントをロードするスレッド
+ */
+- (void) loadDocumentThread: (NSURL *) url;
+
+/**
+ * ドキュメントをロードするコア
+ */
+- (void) loadDocumentCore: (NSURL *) url ProgressCallback: (ProgressCallback) callback;
+
+/**
  * ファイルダイアログを開き、そのドキュメントをロードする.
  * @param merge マージする場合
  */

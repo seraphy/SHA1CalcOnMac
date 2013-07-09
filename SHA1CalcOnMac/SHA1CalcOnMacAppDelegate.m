@@ -138,6 +138,41 @@
 
 - (void) loadDocument: (NSURL *) url
 {
+    [progressPanelController showSheet: _window];
+    [self performSelectorInBackground: @selector(loadDocumentThread:) withObject: url];
+}
+
+- (void) loadDocumentThread: (NSURL *) url
+{
+    NSAutoreleasePool *autoreleasePool = [[NSAutoreleasePool alloc] init];
+    
+    [self loadDocumentCore: url ProgressCallback:^BOOL(NSUInteger max, NSUInteger current) {
+        dispatch_async(dispatch_get_main_queue(), ^{
+            [progressPanelController setProgress: current max: max];
+        });
+        return ![progressPanelController cancelled];
+    }];
+    
+    dispatch_async(dispatch_get_main_queue(), ^{
+        [progressPanelController onProgressCancel: nil];
+        [tableView reloadData];
+    });
+
+    [autoreleasePool release];
+}
+
+- (void) loadDocumentCore: (NSURL *) url ProgressCallback: (ProgressCallback) callback
+{
+    NSFileManager *fileMgr = [NSFileManager defaultManager];
+    NSString *path = [url path];
+
+    // ファイルサイズの取得
+    NSError *err = nil;
+    NSDictionary *attr = [fileMgr attributesOfItemAtPath: path error: &err];
+    NSNumber *fileSize = [attr objectForKey: NSFileSize];
+    NSUInteger fileMax = [fileSize integerValue];
+    
+    // ファイル入力ストリーム
     NSInputStream *istm = [NSInputStream inputStreamWithURL: url];
     [istm open];
 
@@ -146,9 +181,12 @@
     
     NSMutableData *prevbuf = [[[NSMutableData alloc] init] autorelease];
 
+    NSUInteger readLength = 0;
     NSString* msg = nil;
     while ([istm hasBytesAvailable]) {
         NSInteger len = [istm read: buf maxLength: bufsiz];
+        readLength += len;
+
         if (len < 0) {
             msg = @"error";
             break;
@@ -156,6 +194,14 @@
         if (len == 0) {
             // 読み取り完了
             break;
+        }
+        
+        // progress
+        if (callback) {
+            if (!callback(fileMax, readLength)) {
+                msg = @"cancel";
+                break;
+            }
         }
         
         NSInteger idx = 0;
@@ -192,8 +238,6 @@
     }
     
     [istm close];
-    
-    [tableView reloadData];
 }
 
 - (void) loadDocumentWithDialog: (BOOL) merge
