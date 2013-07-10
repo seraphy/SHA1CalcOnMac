@@ -524,7 +524,11 @@
             msg = [[hashItem url] path];
             
         } else if ([identifier isEqualToString: @"FileSize"]) {
-            msg = [NSString stringWithFormat: @"%lld", [hashItem fileSize]];
+            // NSNumberFormatterはスレッドセーフではない.
+            NSNumberFormatter *fmt = [[[NSNumberFormatter alloc] init] autorelease];
+            [fmt setFormatterBehavior: NSNumberFormatterBehavior10_4]; // OSX10.4
+            [fmt setNumberStyle: NSNumberFormatterDecimalStyle];
+            msg = [fmt stringFromNumber: [NSNumber numberWithLongLong: [hashItem fileSize]]]; 
 
         } else if ([identifier isEqualToString: @"SHA1"]) {
             if ([hashItem state] == hashItem_loading) {
