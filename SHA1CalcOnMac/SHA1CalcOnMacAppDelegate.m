@@ -741,11 +741,21 @@
 
     // ファイルをゴミ箱に入れる
     NSWorkspace *workspace = [NSWorkspace sharedWorkspace];
-    [workspace performFileOperation: NSWorkspaceRecycleOperation
-                             source: @""
-                        destination: @""
-                              files: files
-                                tag: nil];
+    NSInteger tag = 0;
+    BOOL result = [workspace performFileOperation: NSWorkspaceRecycleOperation
+                                           source: @""
+                                      destination: @""
+                                            files: files
+                                              tag: &tag];
+    if (tag < 0 || !result) {
+        NSAlert *alert = [NSAlert alertWithMessageText: @"Error"
+                                         defaultButton: @"OK"
+                                       alternateButton: nil
+                                           otherButton: nil
+                             informativeTextWithFormat: @"Failed to move to the RecycleBin."];
+        [alert runModal];
+        return;
+    }
     
     // 選択の解除
     [tableView deselectAll: nil];
