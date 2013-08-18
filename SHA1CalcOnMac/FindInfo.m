@@ -6,6 +6,7 @@
 //  Copyright (c) 2013 seraphyware.jp. All rights reserved.
 //
 
+#import "Utils.h"
 #import "FindInfo.h"
 
 @implementation FindInfo

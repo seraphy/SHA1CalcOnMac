@@ -8,6 +8,7 @@
 
 #include <CommonCrypto/CommonDigest.h>
 
+#import "Utils.h"
 #import "HashCalcurateThread.h"
 
 @implementation HashCalcurateThread {
