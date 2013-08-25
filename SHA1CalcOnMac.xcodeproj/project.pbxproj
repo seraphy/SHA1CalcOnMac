@@ -7,8 +7,10 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		2E19827217CA215A009F5A95 /* ProgressPanelController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2E19827117CA215A009F5A95 /* ProgressPanelController.m */; };
 		2E4DC07E1764404A00BDCDCF /* PreferenceWindowController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2E4DC07D1764404A00BDCDCF /* PreferenceWindowController.m */; };
 		2E4DC0811764424200BDCDCF /* PreferenceWindow.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2E4DC0801764424200BDCDCF /* PreferenceWindow.xib */; };
+		2E775ACA17CA28D500759AEB /* MainMenu.icns in Resources */ = {isa = PBXBuildFile; fileRef = 2E775AC917CA28D500759AEB /* MainMenu.icns */; };
 		2E7A279C1784CA1800E9CB5D /* FolderIcon.pxm in Resources */ = {isa = PBXBuildFile; fileRef = 2E7A279B1784CA1800E9CB5D /* FolderIcon.pxm */; };
 		2E7A68E91732BB61002801C2 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2E7A68E81732BB61002801C2 /* Cocoa.framework */; };
 		2E7A68F31732BB61002801C2 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 2E7A68F11732BB61002801C2 /* InfoPlist.strings */; };
@@ -20,7 +22,6 @@
 		2E7A69081732BB62002801C2 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2E7A68E81732BB61002801C2 /* Cocoa.framework */; };
 		2E7A69101732BB62002801C2 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 2E7A690E1732BB62002801C2 /* InfoPlist.strings */; };
 		2E7A69131732BB62002801C2 /* SHA1CalcOnMacTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 2E7A69121732BB62002801C2 /* SHA1CalcOnMacTests.m */; };
-		2E85059717845694001E33D2 /* MainMenu.icns in Resources */ = {isa = PBXBuildFile; fileRef = 2E85059617845694001E33D2 /* MainMenu.icns */; };
 		2EA24811175B2754001CC364 /* FindWindowController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2EA24810175B2754001CC364 /* FindWindowController.m */; };
 		2EA24813175B2804001CC364 /* FindWindow.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2EA24812175B2804001CC364 /* FindWindow.xib */; };
 		2EA7C03A17767F0400EB1AD2 /* FindInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = 2EA7C03917767F0300EB1AD2 /* FindInfo.m */; };
@@ -28,7 +29,6 @@
 		2ECD6474174776B300D1C987 /* HashItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 2ECD6473174776B300D1C987 /* HashItem.m */; };
 		2ECD64771747826A00D1C987 /* HashCalcurateThread.m in Sources */ = {isa = PBXBuildFile; fileRef = 2ECD64761747826A00D1C987 /* HashCalcurateThread.m */; };
 		2ECD647A1747865100D1C987 /* HashItemList.m in Sources */ = {isa = PBXBuildFile; fileRef = 2ECD64791747865100D1C987 /* HashItemList.m */; };
-		2EF46B59178808F10054C026 /* ProgressPanelController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2EF46B58178808F10054C026 /* ProgressPanelController.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -43,9 +43,12 @@
 
 /* Begin PBXFileReference section */
 		2E07EF0517C0A86A00D4ED39 /* Utils.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Utils.h; sourceTree = "<group>"; };
+		2E19827017CA215A009F5A95 /* ProgressPanelController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ProgressPanelController.h; sourceTree = "<group>"; };
+		2E19827117CA215A009F5A95 /* ProgressPanelController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ProgressPanelController.m; sourceTree = "<group>"; };
 		2E4DC07C1764404A00BDCDCF /* PreferenceWindowController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PreferenceWindowController.h; sourceTree = "<group>"; };
 		2E4DC07D1764404A00BDCDCF /* PreferenceWindowController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PreferenceWindowController.m; sourceTree = "<group>"; };
 		2E4DC0801764424200BDCDCF /* PreferenceWindow.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PreferenceWindow.xib; sourceTree = "<group>"; };
+		2E775AC917CA28D500759AEB /* MainMenu.icns */ = {isa = PBXFileReference; lastKnownFileType = image.icns; path = MainMenu.icns; sourceTree = "<group>"; };
 		2E7A279B1784CA1800E9CB5D /* FolderIcon.pxm */ = {isa = PBXFileReference; lastKnownFileType = file; path = FolderIcon.pxm; sourceTree = "<group>"; };
 		2E7A68E41732BB61002801C2 /* SHA1CalcOnMac.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SHA1CalcOnMac.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		2E7A68E81732BB61002801C2 /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = System/Library/Frameworks/Cocoa.framework; sourceTree = SDKROOT; };
@@ -66,7 +69,6 @@
 		2E7A690F1732BB62002801C2 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		2E7A69111732BB62002801C2 /* SHA1CalcOnMacTests.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SHA1CalcOnMacTests.h; sourceTree = "<group>"; };
 		2E7A69121732BB62002801C2 /* SHA1CalcOnMacTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SHA1CalcOnMacTests.m; sourceTree = "<group>"; };
-		2E85059617845694001E33D2 /* MainMenu.icns */ = {isa = PBXFileReference; lastKnownFileType = image.icns; path = MainMenu.icns; sourceTree = "<group>"; };
 		2EA2480F175B2754001CC364 /* FindWindowController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FindWindowController.h; sourceTree = "<group>"; };
 		2EA24810175B2754001CC364 /* FindWindowController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FindWindowController.m; sourceTree = "<group>"; };
 		2EA24812175B2804001CC364 /* FindWindow.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = FindWindow.xib; sourceTree = "<group>"; };
@@ -80,8 +82,6 @@
 		2ECD64761747826A00D1C987 /* HashCalcurateThread.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HashCalcurateThread.m; sourceTree = "<group>"; };
 		2ECD64781747865100D1C987 /* HashItemList.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HashItemList.h; sourceTree = "<group>"; };
 		2ECD64791747865100D1C987 /* HashItemList.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HashItemList.m; sourceTree = "<group>"; };
-		2EF46B57178808F10054C026 /* ProgressPanelController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ProgressPanelController.h; path = ../ProgressPanelController.h; sourceTree = "<group>"; };
-		2EF46B58178808F10054C026 /* ProgressPanelController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ProgressPanelController.m; path = ../ProgressPanelController.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -108,6 +108,7 @@
 		2E7A68D91732BB61002801C2 = {
 			isa = PBXGroup;
 			children = (
+				2E775AC917CA28D500759AEB /* MainMenu.icns */,
 				2E7A279B1784CA1800E9CB5D /* FolderIcon.pxm */,
 				2E7A68EE1732BB61002801C2 /* SHA1CalcOnMac */,
 				2E7A690B1732BB62002801C2 /* SHA1CalcOnMacTests */,
@@ -148,7 +149,8 @@
 		2E7A68EE1732BB61002801C2 /* SHA1CalcOnMac */ = {
 			isa = PBXGroup;
 			children = (
-				2E85059617845694001E33D2 /* MainMenu.icns */,
+				2E19827017CA215A009F5A95 /* ProgressPanelController.h */,
+				2E19827117CA215A009F5A95 /* ProgressPanelController.m */,
 				2E7A68FD1732BB61002801C2 /* MainMenu.xib */,
 				2E7A68FA1732BB61002801C2 /* SHA1CalcOnMacAppDelegate.h */,
 				2E7A68FB1732BB61002801C2 /* SHA1CalcOnMacAppDelegate.m */,
@@ -167,8 +169,6 @@
 				2E4DC0801764424200BDCDCF /* PreferenceWindow.xib */,
 				2E4DC07C1764404A00BDCDCF /* PreferenceWindowController.h */,
 				2E4DC07D1764404A00BDCDCF /* PreferenceWindowController.m */,
-				2EF46B57178808F10054C026 /* ProgressPanelController.h */,
-				2EF46B58178808F10054C026 /* ProgressPanelController.m */,
 				2EA7C03C1776A26800EB1AD2 /* FindInfoMatcher.h */,
 				2EA7C03D1776A26800EB1AD2 /* FindInfoMatcher.m */,
 				2E07EF0517C0A86A00D4ED39 /* Utils.h */,
@@ -282,8 +282,8 @@
 				2E7A68FF1732BB61002801C2 /* MainMenu.xib in Resources */,
 				2EA24813175B2804001CC364 /* FindWindow.xib in Resources */,
 				2E4DC0811764424200BDCDCF /* PreferenceWindow.xib in Resources */,
-				2E85059717845694001E33D2 /* MainMenu.icns in Resources */,
 				2E7A279C1784CA1800E9CB5D /* FolderIcon.pxm in Resources */,
+				2E775ACA17CA28D500759AEB /* MainMenu.icns in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -327,7 +327,7 @@
 				2E4DC07E1764404A00BDCDCF /* PreferenceWindowController.m in Sources */,
 				2EA7C03A17767F0400EB1AD2 /* FindInfo.m in Sources */,
 				2EA7C03E1776A26900EB1AD2 /* FindInfoMatcher.m in Sources */,
-				2EF46B59178808F10054C026 /* ProgressPanelController.m in Sources */,
+				2E19827217CA215A009F5A95 /* ProgressPanelController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
