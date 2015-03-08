@@ -9,7 +9,6 @@
 /* Begin PBXBuildFile section */
 		2E19827217CA215A009F5A95 /* ProgressPanelController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2E19827117CA215A009F5A95 /* ProgressPanelController.m */; };
 		2E4DC07E1764404A00BDCDCF /* PreferenceWindowController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2E4DC07D1764404A00BDCDCF /* PreferenceWindowController.m */; };
-		2E4DC0811764424200BDCDCF /* PreferenceWindow.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2E4DC0801764424200BDCDCF /* PreferenceWindow.xib */; };
 		2E775ACA17CA28D500759AEB /* MainMenu.icns in Resources */ = {isa = PBXBuildFile; fileRef = 2E775AC917CA28D500759AEB /* MainMenu.icns */; };
 		2E7A279C1784CA1800E9CB5D /* FolderIcon.pxm in Resources */ = {isa = PBXBuildFile; fileRef = 2E7A279B1784CA1800E9CB5D /* FolderIcon.pxm */; };
 		2E7A68E91732BB61002801C2 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2E7A68E81732BB61002801C2 /* Cocoa.framework */; };
@@ -23,9 +22,10 @@
 		2E7A69101732BB62002801C2 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 2E7A690E1732BB62002801C2 /* InfoPlist.strings */; };
 		2E7A69131732BB62002801C2 /* SHA1CalcOnMacTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 2E7A69121732BB62002801C2 /* SHA1CalcOnMacTests.m */; };
 		2EA24811175B2754001CC364 /* FindWindowController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2EA24810175B2754001CC364 /* FindWindowController.m */; };
-		2EA24813175B2804001CC364 /* FindWindow.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2EA24812175B2804001CC364 /* FindWindow.xib */; };
 		2EA7C03A17767F0400EB1AD2 /* FindInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = 2EA7C03917767F0300EB1AD2 /* FindInfo.m */; };
 		2EA7C03E1776A26900EB1AD2 /* FindInfoMatcher.m in Sources */ = {isa = PBXBuildFile; fileRef = 2EA7C03D1776A26800EB1AD2 /* FindInfoMatcher.m */; };
+		2EC0B9FD1AACAC7500B66A75 /* FindWindow.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2EC0B9FF1AACAC7500B66A75 /* FindWindow.xib */; };
+		2EC0BA011AACAD3B00B66A75 /* PreferenceWindow.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2EC0BA031AACAD3B00B66A75 /* PreferenceWindow.xib */; };
 		2ECD6474174776B300D1C987 /* HashItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 2ECD6473174776B300D1C987 /* HashItem.m */; };
 		2ECD64771747826A00D1C987 /* HashCalcurateThread.m in Sources */ = {isa = PBXBuildFile; fileRef = 2ECD64761747826A00D1C987 /* HashCalcurateThread.m */; };
 		2ECD647A1747865100D1C987 /* HashItemList.m in Sources */ = {isa = PBXBuildFile; fileRef = 2ECD64791747865100D1C987 /* HashItemList.m */; };
@@ -47,7 +47,6 @@
 		2E19827117CA215A009F5A95 /* ProgressPanelController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ProgressPanelController.m; sourceTree = "<group>"; };
 		2E4DC07C1764404A00BDCDCF /* PreferenceWindowController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PreferenceWindowController.h; sourceTree = "<group>"; };
 		2E4DC07D1764404A00BDCDCF /* PreferenceWindowController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PreferenceWindowController.m; sourceTree = "<group>"; };
-		2E4DC0801764424200BDCDCF /* PreferenceWindow.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PreferenceWindow.xib; sourceTree = "<group>"; };
 		2E775AC917CA28D500759AEB /* MainMenu.icns */ = {isa = PBXFileReference; lastKnownFileType = image.icns; path = MainMenu.icns; sourceTree = "<group>"; };
 		2E7A279B1784CA1800E9CB5D /* FolderIcon.pxm */ = {isa = PBXFileReference; lastKnownFileType = file; path = FolderIcon.pxm; sourceTree = "<group>"; };
 		2E7A68E41732BB61002801C2 /* SHA1CalcOnMac.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SHA1CalcOnMac.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -71,11 +70,18 @@
 		2E7A69121732BB62002801C2 /* SHA1CalcOnMacTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SHA1CalcOnMacTests.m; sourceTree = "<group>"; };
 		2EA2480F175B2754001CC364 /* FindWindowController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FindWindowController.h; sourceTree = "<group>"; };
 		2EA24810175B2754001CC364 /* FindWindowController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FindWindowController.m; sourceTree = "<group>"; };
-		2EA24812175B2804001CC364 /* FindWindow.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = FindWindow.xib; sourceTree = "<group>"; };
 		2EA7C03817767F0300EB1AD2 /* FindInfo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FindInfo.h; sourceTree = "<group>"; };
 		2EA7C03917767F0300EB1AD2 /* FindInfo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FindInfo.m; sourceTree = "<group>"; };
 		2EA7C03C1776A26800EB1AD2 /* FindInfoMatcher.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FindInfoMatcher.h; sourceTree = "<group>"; };
 		2EA7C03D1776A26800EB1AD2 /* FindInfoMatcher.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FindInfoMatcher.m; sourceTree = "<group>"; };
+		2EC0B9F91AAC7CDA00B66A75 /* ja */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = ja; path = ja.lproj/MainMenu.xib; sourceTree = "<group>"; };
+		2EC0B9FA1AAC7CDA00B66A75 /* ja */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ja; path = ja.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		2EC0B9FB1AAC7CDA00B66A75 /* ja */ = {isa = PBXFileReference; lastKnownFileType = text.rtf; name = ja; path = ja.lproj/Credits.rtf; sourceTree = "<group>"; };
+		2EC0B9FC1AAC7CDA00B66A75 /* ja */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ja; path = ja.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		2EC0B9FE1AACAC7500B66A75 /* ja */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = ja; path = ja.lproj/FindWindow.xib; sourceTree = "<group>"; };
+		2EC0BA001AACAC7800B66A75 /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = en.lproj/FindWindow.xib; sourceTree = "<group>"; };
+		2EC0BA021AACAD3B00B66A75 /* ja */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = ja; path = ja.lproj/PreferenceWindow.xib; sourceTree = "<group>"; };
+		2EC0BA041AACAD3C00B66A75 /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = en.lproj/PreferenceWindow.xib; sourceTree = "<group>"; };
 		2ECD6472174776B300D1C987 /* HashItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HashItem.h; sourceTree = "<group>"; };
 		2ECD6473174776B300D1C987 /* HashItem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HashItem.m; sourceTree = "<group>"; };
 		2ECD64751747826A00D1C987 /* HashCalcurateThread.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HashCalcurateThread.h; sourceTree = "<group>"; };
@@ -161,12 +167,12 @@
 				2ECD64761747826A00D1C987 /* HashCalcurateThread.m */,
 				2ECD64781747865100D1C987 /* HashItemList.h */,
 				2ECD64791747865100D1C987 /* HashItemList.m */,
-				2EA24812175B2804001CC364 /* FindWindow.xib */,
+				2EC0B9FF1AACAC7500B66A75 /* FindWindow.xib */,
 				2EA2480F175B2754001CC364 /* FindWindowController.h */,
 				2EA24810175B2754001CC364 /* FindWindowController.m */,
 				2EA7C03817767F0300EB1AD2 /* FindInfo.h */,
 				2EA7C03917767F0300EB1AD2 /* FindInfo.m */,
-				2E4DC0801764424200BDCDCF /* PreferenceWindow.xib */,
+				2EC0BA031AACAD3B00B66A75 /* PreferenceWindow.xib */,
 				2E4DC07C1764404A00BDCDCF /* PreferenceWindowController.h */,
 				2E4DC07D1764404A00BDCDCF /* PreferenceWindowController.m */,
 				2EA7C03C1776A26800EB1AD2 /* FindInfoMatcher.h */,
@@ -244,7 +250,7 @@
 			name = SHA1CalcOnMacTests;
 			productName = SHA1CalcOnMacTests;
 			productReference = 2E7A69051732BB62002801C2 /* SHA1CalcOnMacTests.octest */;
-			productType = "com.apple.product-type.bundle";
+			productType = "com.apple.product-type.bundle.ocunit-test";
 		};
 /* End PBXNativeTarget section */
 
@@ -260,6 +266,7 @@
 			hasScannedForEncodings = 0;
 			knownRegions = (
 				en,
+				ja,
 			);
 			mainGroup = 2E7A68D91732BB61002801C2;
 			productRefGroup = 2E7A68E51732BB61002801C2 /* Products */;
@@ -280,8 +287,8 @@
 				2E7A68F31732BB61002801C2 /* InfoPlist.strings in Resources */,
 				2E7A68F91732BB61002801C2 /* Credits.rtf in Resources */,
 				2E7A68FF1732BB61002801C2 /* MainMenu.xib in Resources */,
-				2EA24813175B2804001CC364 /* FindWindow.xib in Resources */,
-				2E4DC0811764424200BDCDCF /* PreferenceWindow.xib in Resources */,
+				2EC0B9FD1AACAC7500B66A75 /* FindWindow.xib in Resources */,
+				2EC0BA011AACAD3B00B66A75 /* PreferenceWindow.xib in Resources */,
 				2E7A279C1784CA1800E9CB5D /* FolderIcon.pxm in Resources */,
 				2E775ACA17CA28D500759AEB /* MainMenu.icns in Resources */,
 			);
@@ -354,6 +361,7 @@
 			isa = PBXVariantGroup;
 			children = (
 				2E7A68F21732BB61002801C2 /* en */,
+				2EC0B9FA1AAC7CDA00B66A75 /* ja */,
 			);
 			name = InfoPlist.strings;
 			sourceTree = "<group>";
@@ -362,6 +370,7 @@
 			isa = PBXVariantGroup;
 			children = (
 				2E7A68F81732BB61002801C2 /* en */,
+				2EC0B9FB1AAC7CDA00B66A75 /* ja */,
 			);
 			name = Credits.rtf;
 			sourceTree = "<group>";
@@ -370,6 +379,7 @@
 			isa = PBXVariantGroup;
 			children = (
 				2E7A68FE1732BB61002801C2 /* en */,
+				2EC0B9F91AAC7CDA00B66A75 /* ja */,
 			);
 			name = MainMenu.xib;
 			sourceTree = "<group>";
@@ -378,8 +388,27 @@
 			isa = PBXVariantGroup;
 			children = (
 				2E7A690F1732BB62002801C2 /* en */,
+				2EC0B9FC1AAC7CDA00B66A75 /* ja */,
 			);
 			name = InfoPlist.strings;
+			sourceTree = "<group>";
+		};
+		2EC0B9FF1AACAC7500B66A75 /* FindWindow.xib */ = {
+			isa = PBXVariantGroup;
+			children = (
+				2EC0B9FE1AACAC7500B66A75 /* ja */,
+				2EC0BA001AACAC7800B66A75 /* en */,
+			);
+			name = FindWindow.xib;
+			sourceTree = "<group>";
+		};
+		2EC0BA031AACAD3B00B66A75 /* PreferenceWindow.xib */ = {
+			isa = PBXVariantGroup;
+			children = (
+				2EC0BA021AACAD3B00B66A75 /* ja */,
+				2EC0BA041AACAD3C00B66A75 /* en */,
+			);
+			name = PreferenceWindow.xib;
 			sourceTree = "<group>";
 		};
 /* End PBXVariantGroup section */

@@ -99,6 +99,7 @@
 {
     [_findInfo release];
     _findInfo = nil;
+    [super dealloc];
 }
 
 -(NSString *) itemString: (HashItem *) hashItem
